@@ -1,0 +1,42 @@
+.grid-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    /* Modifica el valor a 25% */
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "navbarArea navbarArea"
+        "sidebarArea contentArea"
+        "footerArea footerArea";
+    /* Repite el área del footer para que ocupe todo el ancho */
+    min-height: 100vh;
+}
+
+/* Estilos para el navbar superior */
+.navbar {
+    grid-area: navbarArea;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+/* Estilos para la sidebar lateral */
+.sidebar {
+    grid-area: sidebarArea;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+/* Estilos para el contenido principal */
+.content {
+    grid-area: contentArea;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+/* Estilos para el footer */
+.footer {
+    grid-area: footerArea;
+    padding: 5px;
+    border: 1px solid black;
+}
+
