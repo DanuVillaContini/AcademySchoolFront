@@ -1,0 +1,62 @@
+.custom-container {
+    border: 1px solid #00404f;
+    padding: 8px;
+    display: inline-flex;
+    align-items: center;
+    background-color: #245b6a;
+    box-shadow:
+        10px 0 30px -10px #7e9191,
+        /* Sombra en el borde derecho */
+        -10px 0 30px -10px #7e9191;
+    /* Sombra en el borde izquierdo */
+    border-radius: 10px 10px 0 0;
+    /* Borde redondeado en la parte superior (top) y laterales */
+}
+
+.custom-table{
+    border: 1px solid #00404f;
+    box-shadow:
+        10px 0 30px -10px #7e9191,
+        -10px 0 30px -10px #7e9191,
+        0 10px 30px -10px #7e9191;
+    border-radius: 0 0 10px 10px;
+}
+
+.custom-container-span {
+    border: 1px solid #00404f;
+    padding: 8px;
+    display: inline-flex;
+    align-items: center;
+    background-color: #407787;
+}
+
+.custom-table thead {
+    border: 2px solid #756f4b;
+
+}
+
+.custom-table tbody {
+    border: 2px solid #a9a27c;
+}
+
+/* styles.css */
+
+/* Estilos para el color de las filas (tr) y celdas (td) */
+.custom-table tbody tr {
+    background-color: #e0d8b0;
+}
+
+.custom-table tbody td {
+    background-color: #e0d8b0;
+}
+
+/* Estilos para el color del encabezado (th) */
+.custom-table thead tr {
+    background-color: #a9a27c;
+}
+
+.custom-table thead th {
+    background-color: #a9a27c;
+}
+
+/* Personaliza otros estilos según tus preferencias */
