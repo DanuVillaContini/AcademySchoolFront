@@ -9,10 +9,10 @@ function ScreenLogin() {
         <h2>Bienvenido</h2>
         <form>
           <label htmlFor="username">Usuario</label>
-          <input type="text" id="username" name="username" />
+          <input type="text" id="username" name="username" maxLength="15"/>
 
           <label htmlFor="password">Contraseña</label>
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" maxLength="15" />
 
           <div className="remember-me">
             <input type="checkbox" id="remember" name="remember" />
