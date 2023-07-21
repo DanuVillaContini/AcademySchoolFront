@@ -36,11 +36,11 @@ function CrudDetail() {
 
                 <Row>
                     <Table className="custom-table" striped bordered hover>
-                        <thead>
+                        <thead className="text-center" >
                             <tr>
                                 <th>Materia</th>
                                 <th>Nota Final</th>
-                                <th>Actions</th>
+                                <th>Modificar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,9 +48,7 @@ function CrudDetail() {
                                 <tr key={prueba._id}>
                                     <td>{prueba.materia}</td>
                                     <td>{prueba.nota}</td>
-                                    <td className="d-flex justify-content-center"><Button variant='outline-danger' className="m-1">
-                                        <i className="bi bi-trash-fill" ></i>
-                                    </Button>
+                                    <td className="d-flex justify-content-center">
                                         <Button variant='outline-success' className="m-1">
                                             <i className="bi bi-pencil-square"></i>
                                         </Button></td>
