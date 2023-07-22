@@ -49,9 +49,11 @@ function CrudDetail() {
                                     <td>{prueba.materia}</td>
                                     <td>{prueba.nota}</td>
                                     <td className="d-flex justify-content-center">
-                                        <Button variant='outline-success' className="m-1">
+                                        <Button variant='outline-success' className="m-1 custom-tooltip">
                                             <i className="bi bi-pencil-square"></i>
-                                        </Button></td>
+                                            <span className="tooltiptext">Modificar</span>
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
