@@ -1,3 +1,36 @@
-.custom-navbar{
-    margin: 0%;
+.wrapper-navbar {
+    background-color: #245b6a !important;
+}
+
+.custom-navbar {
+    padding: 1px !important;
+    margin: 0 !important;
+    background-color: #245b6a !important;
+}
+.custom-logo{
+    transition: 400ms;
+}
+.custom-logo:hover{
+    transform: translate(-0.10em, -0.10em);
+    color: #173138;
+    text-shadow: 15px -15px 30px #13282d,
+        -15px 15px 30px #1b3a43;
+}
+
+.custom-navdropdown {
+    background-color: #286272;
+    outline: 3px #173138 solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.custom-navdropdown:hover {
+    transform: translate(-0.10em, -0.10em);
+    background-color: #407787 !important;
+    color: #173138;
+    box-shadow: 15px -15px 30px #13282d,
+        -15px 15px 30px #1b3a43;
 }

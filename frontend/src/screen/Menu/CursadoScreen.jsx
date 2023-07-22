@@ -3,14 +3,15 @@ import GridLoyout from "../../components/GridLoyout"
 
 function CursadoScreen() {
 
-    const navbarContent = <h1>Navbar</h1>;
+    
     const sidebarContent = <h2>Sidebar Lateral</h2>;
     const content = <p>Main Content (CRUD)</p>;
     const footerContent = <span> FOOTER</span>;
+    
 
     return (
         <>
-            <GridLoyout props_navbar={navbarContent}
+            <GridLoyout
                 props_sidebar={sidebarContent}
                 props_content={content}
                 props_footer={footerContent} />
