@@ -1,10 +1,12 @@
 import "../styles/gridLoyout.css"
+import NavBarCustom from "./NavBarCustom"
 
-function GridLoyout({ props_navbar, props_sidebar, props_content, props_footer }) {
+function GridLoyout({ props_sidebar, props_content, props_footer }) {
+    const userName = "Timoteo Pascal"
     return (
         <div className="grid-container">
             <div className="navbar">
-                {props_navbar}
+                <NavBarCustom name_user={userName}/>
             </div>
 
             <div className="sidebar">
