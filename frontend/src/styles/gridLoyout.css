@@ -1,6 +1,8 @@
 .grid-container {
     height: 100%;
     display: grid;
+    margin: 0px;
+    padding: 0px;
     grid-template-columns: 25% 1fr;
     /* Modifica el valor a 25% */
     grid-template-rows: auto 1fr auto;
@@ -15,8 +17,9 @@
 /* Estilos para el navbar superior */
 .navbar {
     grid-area: navbarArea;
-    padding: 5px;
-    border: 1px solid black;
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100%;
 }
 
 /* Estilos para la sidebar lateral */
