@@ -3,7 +3,7 @@
     display: grid;
     margin: 0px;
     padding: 0px;
-    grid-template-columns: 25% 1fr;
+    grid-template-columns: 20% 1fr;
     /* Modifica el valor a 25% */
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
@@ -25,14 +25,15 @@
 /* Estilos para la sidebar lateral */
 .sidebar {
     grid-area: sidebarArea;
-    padding: 5px;
-    border: 1px solid black;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 
 /* Estilos para el contenido principal */
 .content {
     grid-area: contentArea;
-    padding: 5px;
+    margin: 1px !important;
+    padding: 1px !important;
     border: 1px solid black;
 }
 
@@ -42,4 +43,37 @@
     padding: 5px;
     border: 1px solid black;
 }
+
+
+/*RESPONSIVE*/
+/* Pantallas menores a 1120px */
+
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: 20% auto; /* Cambia el ancho de la sidebar */
+    }
+}
+
+/* Pantallas menores a 768px */
+@media (max-width: 820px) {
+    .grid-container {
+        grid-template-columns: 0%; /* Cambia a una sola columna */
+        grid-template-rows: auto auto auto;
+        grid-template-areas:
+            "navbarArea"
+            "contentArea"
+            "footerArea footerArea";
+    }
+
+    .sidebar {
+        display: none; /* Oculta la sidebar */
+    }
+}
+
+
+
+
+
+
+
 
