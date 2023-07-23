@@ -5,7 +5,7 @@ function ScreenLogin() {
         <div className="login-container">
       <div className="background-image" />
       <div className="login-content">
-        <div className="logo-placeholder" />
+        <div className="logo-placeholder"/>
         <h2>Bienvenido</h2>
         <form>
           <label htmlFor="username">Usuario</label>
@@ -16,7 +16,7 @@ function ScreenLogin() {
 
           <div className="remember-me">
             <input type="checkbox" id="remember" name="remember" />
-            <label htmlFor="remember">Recordar usuario</label>
+            <label className="remember-label" htmlFor="remember">Recordar usuario</label>
           </div>
 
           <button type="submit">Iniciar sesión</button>

@@ -64,6 +64,11 @@
     align-items: center;
     margin-bottom: 10px;
   }
+
+  .remember-label {
+    white-space: nowrap;
+    margin-left: 5px;
+  }
   
   button {
     padding: 10px 20px;
