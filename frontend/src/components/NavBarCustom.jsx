@@ -5,7 +5,7 @@ import "../styles/navbarStyle.css";
 function NavBarCustom({ name_user }) {
     return (
         //sticky="top"
-        <Navbar  className="justify-content-center wrapper-navbar" expand="lg">
+        <Navbar sticky="top"  className="justify-content-center wrapper-navbar" expand="lg">
             <Container className="custom-navbar">
                 <div className="d-flex align-items-center custom-logo">
                     <img
