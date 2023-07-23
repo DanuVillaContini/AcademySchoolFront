@@ -1,12 +1,12 @@
 .container-wrapper {
-    width: 12rem;
+    width: 11rem;
     height: 100%;
     background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%);
 }
 
 .sidebar-conteiner {
     position: relative;
-    width: 13rem;
+    width: 12rem;
     height: 100%;
     padding: 10px;
     transition: 0.5s;
@@ -30,10 +30,11 @@
     flex-direction: column;
     text-align: center;
     margin-bottom: 10px;
-    height: 10%; /* Ajusta el tamaño proporcionalmente */
+    height: 16%;
+    /* Ajusta el tamaño proporcionalmente */
     width: 100%;
     border-radius: 10px;
-    color: white;
+    color: rgb(137, 131, 131);
     cursor: pointer;
     transition: 400ms;
 }
@@ -43,41 +44,61 @@
 }
 
 .sidebar-conteiner:hover>.wrapper-link:not(:hover) {
-    filter: blur(2px);
-    transform: scale(0.9, 0.9);
+    filter: blur(4px);
+    transform: scale(0.9, 0.12);
 }
 
 
-@media (max-width:1024px){
-    .container-wrapper{
+@media (max-width:1024px) {
+    .container-wrapper {
         width: 8rem;
     }
-    .sidebar-conteiner {
-        width: 9rem; /* Ajusta el ancho para pantallas medianas */
-    }
-    .wrapper-link {
-        height: 8%; /* Ajusta el tamaño proporcionalmente para pantallas medianas */
-    }
-}
-@media (max-width:950px){
-    .container-wrapper{
-        width: 7rem;
-    }
-    .sidebar-conteiner {
-        width: 8rem; /* Ajusta el ancho para pantallas medianas */
-    }
-    .wrapper-link {
-        height: 7%; /* Ajusta el tamaño proporcionalmente para pantallas medianas */
 
+    .sidebar-conteiner {
+        width: 9rem;
+        /* Ajusta el ancho para pantallas medianas */
+    }
+    .dropdown-menu.show {
+        background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%);
+    }
+    .wrapper-link {
+        height: 10%;
+    }
+    .wrapper-link:hover{
+        transform: scale(0.9, 0.9);
     }
 }
 
-/* Estilos del sidebar en pantallas pequeñas (menores a 375px) */
-@media (max-width: 375px) {
-    .sidebar-conteiner {
-        display: none; /* Oculta el sidebar en pantallas pequeñas */
+@media (max-width:820px) {
+    .container-wrapper {
+        display: block;
+        height: 100px;
+        width: 100%;
     }
+
+    .sidebar-conteiner {
+        display: block;
+        height: 100px;
+        width: 100%;
+    }
+
+    .sidebar-conteiner:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .dropdown-menu.show {
+        background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%);
+    }
+
     .wrapper-link {
-        display: none; /* Oculta el wrapper-link en pantallas pequeñas */
+        height: 45%;
+        width: 100%;
+        background: none;
+        transition: 400ms;
+    }
+    .wrapper-link:hover{
+        transform: scale(0.9, 0.9);
     }
 }
+

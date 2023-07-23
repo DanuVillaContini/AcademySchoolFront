@@ -17,12 +17,12 @@ function NavBarCustom({ name_user }) {
                     />
                     <Navbar.Brand className="ms-2 ">Academy School</Navbar.Brand>
                 </div>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" className="d-lg-flex justify-content-lg-end">
-                    <Nav className="ms-md-auto">
+                <Navbar.Toggle aria-controls="basic-navbar-nav " />
+                <Navbar.Collapse id="basic-navbar-nav" className="d-lg-flex justify-content-lg-end ">
+                    <Nav className="ms-md-auto ">
                         <NavDropdown
                             menuVariant="dark"
-                            className="custom-navdropdown fw-bold font-monospace"
+                            className="custom-navdropdown fw-bold font-monospace "
                             title={
                                 <>
                                     <i className="bi bi-person-lines-fill m-1 text-dark"></i>

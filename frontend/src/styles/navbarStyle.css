@@ -5,12 +5,17 @@
 .custom-navbar {
     padding: 1px !important;
     margin: 0 !important;
+    height: 100%;
     background-color: #00404f !important;
 }
-.custom-logo{
+
+.custom-logo {
     transition: 400ms;
+    height: 100%;
+
 }
-.custom-logo:hover{
+
+.custom-logo:hover {
     transform: translate(-0.10em, -0.10em);
     color: #173138;
     text-shadow: 15px -15px 30px #13282d,
@@ -33,4 +38,20 @@
     color: #173138;
     box-shadow: 15px -15px 30px #13282d,
         -15px 15px 30px #1b3a43;
+}
+
+@media (max-width: 379px) {
+
+    .wrapper-navbar {
+        height: 150px;
+    }
+
+    .custom-logo {
+        height: 50%;
+        margin-top: 10px;
+
+    }
+
+
+
 }
