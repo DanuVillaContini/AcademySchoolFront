@@ -3,6 +3,8 @@ import { Button, Col, Container, Row, Table} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ModalAlum from '../components/ModalAlum';
+import '../styles/StyleAlum.css';
+
 
 function CrudALumnos() {
 
