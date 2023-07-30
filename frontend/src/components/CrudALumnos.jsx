@@ -25,7 +25,7 @@ function CrudALumnos() {
         <>
          <>
             <Container>
-                <Row className="align-items-center flex-column custom-container ">
+                <Row className="align-items-center flex-column custom-container">
                     <Col className="d-flex justify-content-center">
                         <h2>Detalle De Alumnos</h2>    
                     </Col>
@@ -54,12 +54,12 @@ function CrudALumnos() {
                         <tbody>
                             {prueba.map((prueba) => (
                                 <tr key={prueba._id}>
-                                    <td>{prueba._id}</td>
-                                    <td>{prueba.Nombre}</td>
-                                    <td>{prueba.Apellido}</td>
-                                    <td>{prueba.Curso}</td>
-                                    <td>{prueba.cuota_al_dia ?  <Button variant='success' className="m-1"> </Button>:<Button variant='danger' className="m-1"></Button>}</td>
-                                    <td className="d-flex justify-content-center"><Button variant='outline-danger' className="m-1">
+                                    <td data-titulo="Legasjo">{prueba._id}</td>
+                                    <td data-titulo="Nombre">{prueba.Nombre}</td>
+                                    <td data-titulo="Apellido">{prueba.Apellido}</td>
+                                    <td data-titulo="Curso">{prueba.Curso}</td>
+                                    <td data-titulo="Cuota al dia">{prueba.cuota_al_dia ?  <Button variant='success' className="m-1"> </Button>:<Button variant='danger' className="m-1"></Button>}</td>
+                                    <td data-titulo="Opciones"><Button variant='outline-danger'>
                                     <i class="bi bi-trash3-fill"></i>
                                     </Button>
                                         <Button variant='outline-success' className="m-1">
@@ -71,7 +71,6 @@ function CrudALumnos() {
                                         <Button variant='outline-dark' className="m-1">
                                         <i class="bi bi-wallet"></i>
                                         </Button>
-                                        
                                         </td>
                                         
                                 </tr>

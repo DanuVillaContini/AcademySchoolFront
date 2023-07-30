@@ -55,3 +55,32 @@
     background-color: #a9a27c;
 }
 
+
+@media (max-width: 30em) {/* 30 X 16px = 480px*/
+    table{
+        width: 100%;
+        font-size: .9em;
+    }
+    table tr{
+       display: flex;
+       flex-direction: column; 
+       border: 1px solid #a9a27c;
+       padding: 1em;
+       margin-bottom:1em ;
+    }
+    table td[data-titulo]{
+        display: flex;
+    }
+    table td[data-titulo]::before{
+        content: attr(data-titulo);
+        width:110px ;
+        color:#00404f;
+        font-weight: bold;
+        
+    }
+    
+    table thead{
+       display: none; 
+    }
+
+}
