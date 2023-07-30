@@ -14,11 +14,11 @@ function CrudALumnos() {
     const handleShow = () => setShow(true);
     //Esto reemplazar por la logica dle back, para traer las notas del alumno
     const prueba = [
-        { _id: 1, Nombre_completo: 'JUANITO PEREZ', Curso: "1°", cuota_al_dia :true,Estado:true },
-        { _id: 2, Nombre_completo: 'JESICA ALONSO ', Curso: "2°", cuota_al_dia :true,Estado:true },
-        { _id: 3, Nombre_completo: 'HERNESTO ORTIZ', Curso: "4°", cuota_al_dia :false,Estado:true },
-        { _id: 4, Nombre_completo: 'JUANITO MORALES', Curso: "6°", cuota_al_dia :true,Estado:true },
-        { _id: 5, Nombre_completo: 'JUANA MARTINEZ PEREZ', Curso: "5°", cuota_al_dia:false,Estado:true }
+        { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ' ,Curso: "1°", cuota_al_dia :true,Estado:true },
+        { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia :true,Estado:true },
+        { _id: 3, Nombre:'HERNESTO',Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia :false,Estado:true },
+        { _id: 4, Nombre: 'JUANITO',Apellido: 'MORALES', Curso: "6°", cuota_al_dia :true,Estado:true },
+        { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido:'PEREZ', Curso: "5°", cuota_al_dia:false,Estado:true }
         
     ];
     return (
@@ -43,8 +43,9 @@ function CrudALumnos() {
                        {/*-------TABLA INICIO----------------------------*/ } 
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre y Apellido</th>
+                                <th>Legasjo</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
                                 <th>Curso</th>
                                 <th>Cuota al dia</th>
                                 <th>Opciones</th>
@@ -54,19 +55,21 @@ function CrudALumnos() {
                             {prueba.map((prueba) => (
                                 <tr key={prueba._id}>
                                     <td>{prueba._id}</td>
-                                    <td>{prueba.Nombre_completo}</td>
+                                    <td>{prueba.Nombre}</td>
+                                    <td>{prueba.Apellido}</td>
                                     <td>{prueba.Curso}</td>
-                                    <td>{prueba.cuota_al_dia ?  <Button variant='success' className="m-1"></Button>:<Button variant='success' className="m-1"></Button>}</td>
+                                    <td>{prueba.cuota_al_dia ?  <Button variant='success' className="m-1"> </Button>:<Button variant='danger' className="m-1"></Button>}</td>
                                     <td className="d-flex justify-content-center"><Button variant='outline-danger' className="m-1">
                                     <i class="bi bi-trash3-fill"></i>
                                     </Button>
                                         <Button variant='outline-success' className="m-1">
                                         <i className="bi bi-pencil-square"></i>
-                                        <span className=""></span>
                                         </Button>
                                         <Button variant='outline-warning' className="m-1">
                                         <i class="bi bi-journal-bookmark-fill"></i>
-                                        <span className=""></span>
+                                        </Button>
+                                        <Button variant='outline-dark' className="m-1">
+                                        <i class="bi bi-wallet"></i>
                                         </Button>
                                         
                                         </td>
