@@ -1,9 +1,13 @@
+import CrudPersonal from "../../components/CrudPersonal"
 
 
 function PersonalScreen() {
     return (
         <>
-            <h1>SCREEN PERSONAL ADMINISTRATIVO</h1>
+        <h1>algo</h1>
+        <div>
+            <CrudPersonal/>
+        </div>
         </>
     )
 }
