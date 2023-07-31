@@ -4,14 +4,23 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ModalAlum from '../components/ModalAlum';
 import '../styles/StyleAlum.css';
+import ModalBtnAlum from "./modalABtnAlum";
 
 
 function CrudALumnos() {
 
-    const [show, setShow] = useState(false);
+    const [showModalAlum, setShowModalAlum] = useState(false);
+    const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
+  
+    const handleCloseModalAlum = () => setShowModalAlum(false);
+    const handleShowModalAlum = () => setShowModalAlum(true);
+  
+    const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
+    const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // const [show, setShow] = useState(false);
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
     //Esto reemplazar por la logica dle back, para traer las notas del alumno
     const prueba = [
         { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ' ,Curso: "1°", cuota_al_dia :true,Estado:true },
@@ -23,6 +32,8 @@ function CrudALumnos() {
     ];
     return (
         <>
+          <ModalBtnAlum show={showModalBtnAlum} handleClose={handleCloseModalBtnAlum} />
+      <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} />
          <>
             <Container>
                 <Row className="align-items-center flex-column custom-container">
@@ -32,8 +43,7 @@ function CrudALumnos() {
                     {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/ }
                     <>
                     <Col className="d-flex justify-content-end mb-2">
-                    <><Button className="ms" variant="info" onClick={handleShow}>NewStudent</Button></>
-                      <ModalAlum show={show} handleClose={handleClose}/>
+                    <><Button className="ms" variant="info" onClick={handleShowModalAlum}>NewStudent</Button></>
                     </Col>
                     </>
                    
@@ -68,7 +78,7 @@ function CrudALumnos() {
                                         <Button variant='outline-warning' className="m-1">
                                         <i class="bi bi-journal-bookmark-fill"></i>
                                         </Button>
-                                        <Button variant='outline-dark' className="m-1">
+                                        <Button variant='outline-dark' className="m-1" onClick={handleShowModalBtnAlum}>
                                         <i class="bi bi-wallet"></i>
                                         </Button>
                                         </td>
