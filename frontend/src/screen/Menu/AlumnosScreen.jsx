@@ -1,3 +1,5 @@
+import CrudAlumnos from "../../components/CrudALumnos"
+import FooterCustom from "../../components/FooterCustom"
 
 
 
@@ -5,11 +7,15 @@ function AlumnosScreen() {
 
 
     return (
+        <>
         <div>
-            <h1>SCREEN ALUMNOS</h1>
-
-
+            <CrudAlumnos/>
         </div>
+        <footer>
+            <FooterCustom/>
+        </footer>
+        </>
+
     )
 }
 
