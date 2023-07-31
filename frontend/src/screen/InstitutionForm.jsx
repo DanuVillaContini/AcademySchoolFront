@@ -38,6 +38,7 @@ const InstitutionForm = () => {
             type="text"
             id="name"
             name="name"
+            maxLength={30}
             value={formData.name}
             onChange={handleChange}
             required
@@ -48,6 +49,7 @@ const InstitutionForm = () => {
             type="text"
             id="contactPhone"
             name="contactPhone"
+            maxLength={30}
             value={formData.contactPhone}
             onChange={handleChange}
             required
@@ -58,6 +60,7 @@ const InstitutionForm = () => {
             type="email"
             id="contactEmail"
             name="contactEmail"
+            maxLength={30}
             value={formData.contactEmail}
             onChange={handleChange}
             required
@@ -68,6 +71,7 @@ const InstitutionForm = () => {
             type="text"
             id="address"
             name="address"
+            maxLength={50}
             value={formData.address}
             onChange={handleChange}
             required
