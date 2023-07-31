@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './InstitutionForm.css'; // Agrega los estilos para el formulario aquí (puedes usar la clase "background-image" para el fondo)
+import '../styles/InstitutionForm.css'; // Agrega los estilos para el formulario aquí (puedes usar la clase "background-image" para el fondo)
 
 const InstitutionForm = () => {
   // Estado para manejar los datos del formulario
@@ -28,6 +28,7 @@ const InstitutionForm = () => {
   };
 
   return (
+    <>
     <div className="background-image">
       <div className="form-container">
         <h2>Registro de Institución</h2>
@@ -76,6 +77,7 @@ const InstitutionForm = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
