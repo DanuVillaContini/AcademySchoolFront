@@ -1,8 +1,10 @@
 import "../styles/gridLoyout.css"
 import NavBarCustom from "./NavBarCustom"
 import SideBarLateral from "./SideBarLateral"
+import FooterCustom from "./FooterCustom"
 
-function GridLoyout({  props_content, props_footer }) {
+
+function GridLoyout({  props_content }) {
 
     const userName = "Nombre User"
 
@@ -21,7 +23,7 @@ function GridLoyout({  props_content, props_footer }) {
             </div>
 
             <div className="footer">
-                {props_footer}
+                <FooterCustom/>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/InstitutionForm.css'; // Agrega los estilos para el formulario aquí (puedes usar la clase "background-image" para el fondo)
 
 const InstitutionForm = () => {

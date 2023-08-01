@@ -1,13 +1,11 @@
 import CrudPersonal from "../../components/CrudPersonal"
+import GridLoyout from "../../components/GridLoyout"
 
 
 function PersonalScreen() {
     return (
         <>
-        <h1>algo</h1>
-        <div>
-            <CrudPersonal/>
-        </div>
+            <GridLoyout props_content={<CrudPersonal />} />
         </>
     )
 }
