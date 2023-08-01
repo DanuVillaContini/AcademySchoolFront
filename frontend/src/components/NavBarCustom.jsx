@@ -1,13 +1,16 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Logo from "../assets/logo_recortado.png";
-import "../styles/navbarStyle.css";
+import styles from "../styles/navbarStyle.module.css";
+
+
+
 
 function NavBarCustom({ name_user }) {
     return (
         //sticky="top"
-        <Navbar sticky="top"  className="justify-content-center wrapper-navbar" expand="lg">
-            <Container className="custom-navbar">
-                <div className="d-flex align-items-center custom-logo">
+        <Navbar sticky="top"  className={`justify-content-center ${styles['wrapper-navbar']}`} expand="md">
+            <Container className={styles["custom-navbar"]}>
+                <div className={`d-flex align-items-center ${styles['custom-logo']}`} >
                     <img
                         alt=""
                         src={Logo}
@@ -22,7 +25,7 @@ function NavBarCustom({ name_user }) {
                     <Nav className="ms-md-auto ">
                         <NavDropdown
                             menuVariant="dark"
-                            className="custom-navdropdown fw-bold font-monospace "
+                            className={`fw-bold font-monospace ${styles['custom-navdropdown']}`}
                             title={
                                 <>
                                     <i className="bi bi-person-lines-fill m-1 text-dark"></i>

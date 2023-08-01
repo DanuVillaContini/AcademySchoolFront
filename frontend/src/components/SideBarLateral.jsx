@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { Nav, NavDropdown } from "react-bootstrap";
-import "../styles/sidebarStyle.css";
+import styles from  '../styles/sidebarStyle.module.css';
 
 function SideBarLateral() {
     return (
-        <div className="container-wrapper">
+        <div className={styles['container-wrapper']}>
 
-            <div className="sidebar-conteiner custom-navdrop">
+            
+            <div className={styles['sidebar-conteiner']}>
                 {/* Utilizamos NavDropdown para el desplegable en pantallas pequeñas */}
                 <NavDropdown title="Menú" id="basic-nav-dropdown" className="d-lg-none text-dark fw-bold">
-                    <div className="wrapper-link custom-link p-1">
+                    <div className={`p-1 ${styles['wrapper-link custom-link']}`}>
                         <Link to="/menu/" className="text-decoration-none">
                             <Nav.Link as="span" className="text-light fw-normal">
                                 Personal Institución
@@ -17,7 +18,7 @@ function SideBarLateral() {
                         </Link>
                     </div>
                     <hr className="bg-light"/>
-                    <div className="wrapper-link custom-link p-1">
+                    <div className={`p-1 ${styles['wrapper-link custom-link']}`}>
                         <Link to="/menu/alumnos" className="text-decoration-none">
                             <Nav.Link as="span" className="text-light fw-normal">
                                 Alumnos Institución
@@ -29,14 +30,14 @@ function SideBarLateral() {
 
                 {/* En pantallas grandes, mostramos los links */}
                 <div className="d-none d-lg-block">
-                    <div className="wrapper-link custom-link p-1">
+                    <div className={`p-1 ${styles['wrapper-link custom-link']}`}>
                         <Link to="/menu/" className="text-decoration-none">
                             <Nav.Link as="span" className="text-white">
                                 Personal Institución
                             </Nav.Link>
                         </Link>
                     </div>
-                    <div className="wrapper-link custom-link p-1">
+                    <div className={`p-1 ${styles['wrapper-link custom-link']}`}>
                         <Link to="/menu/alumnos" className="text-decoration-none">
                             <Nav.Link as="span" className="text-white">
                                 Alumnos Institución

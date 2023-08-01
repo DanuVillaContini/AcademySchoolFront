@@ -1,4 +1,5 @@
 import CrudDetail from "../../components/CrudDetail"
+import GridLoyout from "../../components/GridLoyout"
 
 
 function CursadoScreen() {
@@ -7,7 +8,7 @@ function CursadoScreen() {
 
     return (
         <>
-            <h1>SCREEN CURSADO</h1>
+            <GridLoyout props_content={<CrudDetail/>} />
         </>
     )
 }

@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
-import "../styles/detailStyle.css"
+import styles from "../styles/detailStyle.module.css"
 
 
 function CrudDetail() {
@@ -18,15 +18,16 @@ function CrudDetail() {
     ];
 
 
+
     return (
         <>
             <Container >
-                <Row className="align-items-center flex-column custom-container ">
+                <Row className={`align-items-center flex-column ${styles['custom-container']}`}>
                     <Col className="d-flex justify-content-center">
                         <h2>Detalle Notas Finales</h2>
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <div className="custom-container-span">
+                        <div className={styles["custom-container-span"]}>
                             <i className="bi bi-person-bounding-box m-2">
                                 <span className="m-2">Alumno: Fulano Juarez</span>
                             </i></div>
@@ -35,7 +36,7 @@ function CrudDetail() {
 
 
                 <Row>
-                    <Table className="custom-table" striped bordered hover>
+                    <Table className={styles["custom-table"]} striped bordered hover>
                         <thead className="text-center" >
                             <tr>
                                 <th>Materia</th>
@@ -49,9 +50,9 @@ function CrudDetail() {
                                     <td>{prueba.materia}</td>
                                     <td>{prueba.nota}</td>
                                     <td className="d-flex justify-content-center">
-                                        <Button variant='outline-success' className="m-1 custom-tooltip">
+                                        <Button variant='outline-success' className={`m-1 ${styles['custom-tooltip']}`}>
                                             <i className="bi bi-pencil-square"></i>
-                                            <span className="tooltiptext">Modificar</span>
+                                            <span className={styles["tooltiptext"]}>Modificar</span>
                                         </Button>
                                     </td>
                                 </tr>
