@@ -1,3 +1,4 @@
+import CrudDetail from "../../components/CrudDetail"
 
 
 function CursadoScreen() {
@@ -6,7 +7,7 @@ function CursadoScreen() {
 
     return (
         <>
-
+            <h1>SCREEN CURSADO</h1>
         </>
     )
 }
