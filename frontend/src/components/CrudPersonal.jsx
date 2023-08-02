@@ -2,8 +2,13 @@ import { useState } from "react";
 import { Button, Col, Container, Row, Table} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import ModalPersonal from "./ModalPersonal";
 
 function CrudPersonal() {
+
+    const [showModalPersonal,setModalPersonal] =useState(false);
+    const handleCloseModalPersonal =() => setModalPersonal(false);
+    const handleShowModalPersonal=()=> setModalPersonal(true);
 
 
     const prueba = [
@@ -18,6 +23,7 @@ function CrudPersonal() {
     ];
     return (
         <>
+        <ModalPersonal show={showModalPersonal} handleClose={handleCloseModalPersonal}/>
         <>
         <Container>
                 <Row className="align-items-center flex-column custom-container">
@@ -27,7 +33,7 @@ function CrudPersonal() {
                     {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/ }
                     <>
                     <Col className="d-flex justify-content-end mb-2">
-                    <><Button className="ms" variant="info">NewStudent</Button></>
+                    <><Button className="ms" variant="info" onClick={handleShowModalPersonal}>NewStudent</Button></>
                     </Col>
                     </>
                    
