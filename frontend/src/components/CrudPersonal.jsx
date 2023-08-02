@@ -3,6 +3,7 @@ import { Button, Col, Container, Row, Table} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ModalPersonal from "./ModalPersonal";
+import Styles from '../styles/StylesPersonal.module.css'
 
 function CrudPersonal() {
 
@@ -26,7 +27,7 @@ function CrudPersonal() {
         <ModalPersonal show={showModalPersonal} handleClose={handleCloseModalPersonal}/>
         <>
         <Container>
-                <Row className="align-items-center flex-column custom-container">
+                <Row className={`align-items-center flex-column ${Styles[custom-container]}`}>
                     <Col className="d-flex justify-content-center">
                         <h2>Detalle De Alumnos</h2>    
                     </Col>
@@ -39,7 +40,7 @@ function CrudPersonal() {
                    
                 </Row>
                 <Row><>
-                <Table className="custom-table" striped bordered hover>
+                <Table className={Styles["custom-table-Perso"]} striped bordered hover>
                        {/*-------TABLA INICIO----------------------------*/ } 
                         <thead>
                             <tr>
