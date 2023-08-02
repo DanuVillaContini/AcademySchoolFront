@@ -1,4 +1,4 @@
-.custom-container {
+.custom-container-Alum {
     border: 1px solid #00404f;
     padding: 8px;
     align-items: center;
@@ -12,7 +12,7 @@
     /* Borde redondeado en la parte superior (top) y laterales */
 }
 
-.custom-table {
+.custom-table-Alum {
     border: 1px solid #00404f;
     box-shadow:
         10px 0 30px -10px #7e9191,
@@ -21,57 +21,50 @@
     border-radius: 0 0 10px 10px;
 }
 
-.custom-container-span {
-    border: 1px solid #00404f;
-    padding: 8px;
-    display: inline-flex;
-    align-items: center;
-    background-color: #407787;
-}
 
-.custom-table thead {
+.custom-table-Alum thead {
     border: 2px solid #756f4b;
 
 }
 
-.custom-table tbody {
+.custom-table-Alum tbody {
     border: 2px solid #a9a27c;
 }
 
-.custom-table tbody tr {
+.custom-table-Alum tbody tr {
     background-color: #e0d8b0;
 }
 
-.custom-table tbody td {
+.custom-table-Alum tbody td {
     background-color: #f0ebd7;
 }
 
 
-.custom-table thead tr {
+.custom-table-Alum thead tr {
     background-color: #a9a27c;
 }
 
-.custom-table thead th {
+.custom-table-Alum thead th {
     background-color: #a9a27c;
 }
 
 
-@media (max-width: 30em) {/* 30 X 16px = 480px*/
-    table{
+@media (max-width: 52em) {/* 52 X 16px = 832px*/
+    .custom-table-Alum{
         width: 100%;
         font-size: .9em;
     }
-    table tr{
+    .custom-table-Alum tr{
        display: flex;
        flex-direction: column; 
        border: 1px solid #a9a27c;
        padding: 1em;
        margin-bottom:1em ;
     }
-    table td[data-titulo]{
+    .custom-table-Alum td[data-titulo]{
         display: flex;
     }
-    table td[data-titulo]::before{
+    .custom-table-Alum td[data-titulo]::before{
         content: attr(data-titulo);
         width:110px ;
         color:#00404f;
@@ -79,7 +72,7 @@
         
     }
     
-    table thead{
+    .custom-table-Alum thead{
        display: none; 
     }
 

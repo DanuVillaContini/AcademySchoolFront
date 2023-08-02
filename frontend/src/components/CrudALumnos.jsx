@@ -3,8 +3,8 @@ import { Button, Col, Container, Row, Table} from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ModalAlum from '../components/ModalAlum';
-import '../styles/StyleAlum.css';
 import ModalBtnAlum from "./modalABtnAlum";
+import Styles from "../styles/StyleAlum.module.css"
 
 
 function CrudALumnos() {
@@ -18,9 +18,6 @@ function CrudALumnos() {
     const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
     const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
 
-    // const [show, setShow] = useState(false);
-    // const handleClose = () => setShow(false);
-    // const handleShow = () => setShow(true);
     //Esto reemplazar por la logica dle back, para traer las notas del alumno
     const prueba = [
         { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ' ,Curso: "1°", cuota_al_dia :true,Estado:true },
@@ -36,7 +33,7 @@ function CrudALumnos() {
       <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} />
          <>
             <Container>
-                <Row className="align-items-center flex-column custom-container">
+                <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
                     <Col className="d-flex justify-content-center">
                         <h2>Detalle De Alumnos</h2>    
                     </Col>
@@ -49,7 +46,7 @@ function CrudALumnos() {
                    
                 </Row>
                 <Row><>
-                <Table className="custom-table" striped bordered hover>
+                <Table className={Styles["custom-table-Alum"]} striped bordered hover>
                        {/*-------TABLA INICIO----------------------------*/ } 
                         <thead>
                             <tr>
