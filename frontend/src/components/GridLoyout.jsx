@@ -1,4 +1,4 @@
-import "../styles/gridLoyout.css"
+import styles from "../styles/gridLoyout.module.css"
 import NavBarCustom from "./NavBarCustom"
 import SideBarLateral from "./SideBarLateral"
 import FooterCustom from "./FooterCustom"
@@ -9,20 +9,20 @@ function GridLoyout({  props_content }) {
     const userName = "Nombre User"
 
     return (
-        <div className="grid-container">
-            <div className="navbar">
+        <div className={styles["grid-container"]}>
+            <div className={styles["navbar"]}>
                 <NavBarCustom name_user={userName} />
             </div>
 
-            <div className="sidebar">
+            <div className={styles["sidebar"]}>
                 <SideBarLateral/>
             </div>
 
-            <div className="content">
+            <div className={styles["content"]}>
                 {props_content}
             </div>
 
-            <div className="footer">
+            <div className={styles["footer"]}>
                 <FooterCustom/>
             </div>
         </div>

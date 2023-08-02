@@ -1,0 +1,77 @@
+
+.grid-container {
+    height: 100%;
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-columns: 20% auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "navbarArea navbarArea"
+        "sidebarArea contentArea"
+        "footerArea footerArea";
+    min-height: 100vh;
+    background-color: grey;
+}
+
+/* Estilos para el navbar superior */
+.navbar {
+    grid-area: navbarArea;
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100%;
+    height: 100px;
+}
+
+/* Estilos para la sidebar lateral */
+.sidebar {
+    grid-area: sidebarArea;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+/* Estilos para el contenido principal */
+.content {
+    grid-area: contentArea;
+    margin: 10px !important;
+    padding: 25px !important;
+    border: 1px solid black;
+}
+
+/* Estilos para el footer */
+.footer {
+    grid-area: footerArea;
+    margin: 0px !important;
+    padding: 0px !important;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+
+}
+
+
+/*RESPONSIVE*/
+/* Pantallas menores a 1120px */
+
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: 20% auto;
+    }
+}
+
+/* Pantallas menores a 768px */
+@media (max-width: 991.98px) {
+    .sidebar {
+        display: none;
+    }
+    .grid-container {
+        grid-template-columns: 0fr 1fr; 
+        width: 100%; 
+    }
+    .content {
+        grid-area: contentArea;
+        margin: 1px !important;
+        padding: 6px !important;
+        width: 100%;
+    }
+}

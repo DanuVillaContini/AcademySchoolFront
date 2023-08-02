@@ -1,0 +1,41 @@
+.container-wrapper {
+    width: 90%;
+    height: 100%;
+    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
+}
+
+
+.links-custom{
+    font-size: 80px;
+    margin: 10px !important;
+    padding: 10px !important;
+    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
+    transition: 0.5s;
+}
+.links-custom:hover{
+    transform: translateY(25px);
+    box-shadow: 8px 10px 0 0px #407787;
+}
+
+
+.sidebar-conteiner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1px;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 8px 0 0 0 #2f3132;
+    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
+    box-shadow: 4px 6px 14px #00000036;
+
+}
+
+.sidebar-conteiner:hover {
+    transform: translateX(25px);
+    box-shadow: 8px 0 0 0 #2f3132;
+}
+.container-wrapper:hover{
+    transform: translateX(-5px);
+}
