@@ -4,6 +4,7 @@ import ModalAlum from '../components/ModalAlum';
 import ModalBtnAlum from "./modalABtnAlum";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
+import ButtonCustom from "./ButtonCustom";
 
 
 function CrudALumnos() {
@@ -39,7 +40,7 @@ function CrudALumnos() {
                         {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
                         <>
                             <Col className="d-flex justify-content-end mb-2">
-                                <><Button className="ms" variant="info" onClick={handleShowModalAlum}>NewStudent</Button></>
+                                <ButtonCustom onClick={handleShowModalAlum} nameBtt="New Student" />
                             </Col>
                         </>
 
@@ -67,9 +68,9 @@ function CrudALumnos() {
                                         <td data-titulo="Cuota al dia">{prueba.cuota_al_dia ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
-                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square"  tooltip="Actualizar" />
-                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill"  tooltip="Ver Notas" />
-                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet"  tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum}/>
+                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />
+                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
+                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
                                         </td>
 
                                     </tr>

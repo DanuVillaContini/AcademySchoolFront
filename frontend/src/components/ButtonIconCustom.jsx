@@ -16,4 +16,4 @@ export default ButtonIconCustom
 
 
 // ------- Para colocarlos:-----
-{/* <ButtonIconCustom variant='outline-danger' icon=""  tooltip="" /> */ }
+// <ButtonIconCustom variant='outline-danger' icon=""  tooltip="" /> 

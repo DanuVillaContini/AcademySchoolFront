@@ -3,6 +3,7 @@ import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import ModalPersonal from "./ModalPersonal";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
+import ButtonCustom from "./ButtonCustom";
 
 function CrudPersonal() {
 
@@ -33,7 +34,8 @@ function CrudPersonal() {
                         {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
                         <>
                             <Col className="d-flex justify-content-end mb-2">
-                                <><Button className="ms" variant="info" onClick={handleShowModalPersonal}>NewStudent</Button></>
+                                <ButtonCustom onClick={handleShowModalPersonal} nameBtt="New Personal"/>
+                                {/* <><Button className="ms" variant="info" onClick={handleShowModalPersonal}>NewStudent</Button></> */}
                             </Col>
                         </>
 

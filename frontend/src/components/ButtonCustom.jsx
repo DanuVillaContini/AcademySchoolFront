@@ -1,21 +1,18 @@
-import {Button } from "react"
+
+import { Button } from "react-bootstrap"
+import styles from "../styles/ButtonStyles.module.css"
 
 
 
-function ButtonCustom() {
+function ButtonCustom({ onClick , nameBtt}) {
     return (
-        <>function ButtomCustom() {
-            return(
-
-                <div>
-                <h1> LOGIN</h1>
-                </div>
-            )
-            
-        }
-
-        </>
+        <div >
+            <Button className={`m-1 ${styles['custom-btt']}`} onClick={onClick}>{nameBtt}</Button>
+        </div>
     )
 }
 
 export default ButtonCustom
+
+// ------- Para colocarlos:-----
+// <ButtonCustom onClick={handle..} nameBtt="" /> */ }

@@ -1,6 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
+import styles from "../styles/modalStyles.module.css"
+
 
 
 const ModalPersonal =({show,handleClose}) =>{
@@ -34,10 +36,8 @@ return (
       <option value="6">Sexto</option>
     </Form.Select>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" type='summit'>Agregar</Button>
+        <Button className={`${styles["custom-btt"]} ${styles["custom-btt-close"]}`} onClick={handleClose}>Cerrar</Button>
+            <Button className={`${styles["custom-btt"]} ${styles["custom-btt-add"]}`} type='summit'>Agregar</Button>
         </Modal.Footer>
     </Form>
         </Modal.Body>
