@@ -67,24 +67,9 @@ function CrudALumnos() {
                                         <td data-titulo="Cuota al dia">{prueba.cuota_al_dia ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
-                                            {/* <Button variant='outline-danger'>
-                                                <i className="bi bi-trash3-fill"></i>
-                                            </Button> */}
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square"  tooltip="Actualizar" />
-                                            {/* <Button variant='outline-success' className="m-1">
-                                                <i className="bi bi-pencil-square"></i>
-                                            </Button> */}
                                             <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill"  tooltip="Ver Notas" />
-                                            
-                                            {/* <Button variant='outline-warning' className="m-1">
-                                                <i className="bi bi-journal-bookmark-fill"></i>
-                                            </Button> */}
-
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet"  tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum}/>
-{/* 
-                                            <Button variant='outline-dark' className="m-1" onClick={handleShowModalBtnAlum}>
-                                                <i className="bi bi-wallet"></i>
-                                            </Button> */}
                                         </td>
 
                                     </tr>

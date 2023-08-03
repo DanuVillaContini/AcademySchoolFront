@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import ModalPersonal from "./ModalPersonal";
 import Styles from '../styles/StylesPersonal.module.css'
+import ButtonIconCustom from "./ButtonIconCustom";
 
 function CrudPersonal() {
 
@@ -27,7 +28,7 @@ function CrudPersonal() {
                 <Container>
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Perso']}`}>
                         <Col className="d-flex justify-content-center">
-                            <h2>Detalle De Alumnos</h2>
+                            <h2>Personal Institucion</h2>
                         </Col>
                         {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
                         <>
@@ -49,6 +50,7 @@ function CrudPersonal() {
                                     <th>Contacto</th>
                                     <th>Institucion</th>
                                     <th>ContactosInti</th>
+                                    <th>Operaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +63,11 @@ function CrudPersonal() {
                                         <td>{prueba.Contacto}</td>
                                         <td data-titulo="Cuota al dia">{prueba.NombreInstitucion}</td>
                                         <td data-titulo="Opciones">{prueba.ContactoInstitucion}</td>
+                                        <td data-titulo="Opciones">
+                                            <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
+                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />
+                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-star-half" tooltip="Ascender" />
+                                        </td>
 
                                     </tr>
                                 ))}
