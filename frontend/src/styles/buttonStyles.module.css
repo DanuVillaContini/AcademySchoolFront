@@ -1,0 +1,53 @@
+/* button icon  */
+.custom-tooltip{
+    position: relative;
+    display: inline-block;
+}
+.custom-tooltip .tooltiptext{
+visibility: hidden;
+position: absolute;
+width: 85px;
+background-color: #245b6a;
+color: #ddffff;
+text-align: center;
+border-radius: 6px;
+padding: 5px 0;
+z-index: 1;
+bottom: 125%;
+left: 50%;
+transform: translateX(-50%);
+opacity: 0;
+transition: opacity 0.3s;
+}
+.custom-tooltip .tooltiptext::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #245b6a transparent transparent transparent;
+}
+.custom-tooltip:hover .tooltiptext{
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* button sin icon  */
+.custom-btt:hover {
+    border-radius: 28px;
+    background: #407787;
+    box-shadow: inset 29px 29px 57px #34626f;
+    inset: -29px -29px 57px #4c8c9f;
+
+}
+.custom-btt {
+    background-color: #407787;
+    border-radius: 66px;
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    box-shadow: 17px 17px 37px #a4a4a4,
+        -17px -17px 37px #ffffff;
+
+}

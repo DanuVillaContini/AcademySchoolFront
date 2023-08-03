@@ -10,19 +10,19 @@ function GridLoyout({  props_content }) {
 
     return (
         <div className={styles["grid-container"]}>
-            <div className={styles["navbar"]}>
+            <div className={styles["navbar-grid"]}>
                 <NavBarCustom name_user={userName} />
             </div>
 
-            <div className={styles["sidebar"]}>
+            <div className={styles["sidebar-grid"]}>
                 <SideBarLateral/>
             </div>
 
-            <div className={styles["content"]}>
+            <div className={styles["content-grid"]}>
                 {props_content}
             </div>
 
-            <div className={styles["footer"]}>
+            <div className={styles["footer-grid"]}>
                 <FooterCustom/>
             </div>
         </div>

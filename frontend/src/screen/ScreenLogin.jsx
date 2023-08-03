@@ -21,7 +21,7 @@ function ScreenLogin() {
               Recordar usuario
             </label>
           </div>
-
+          
           <button type="submit">Iniciar sesión</button>
         </form>
         <p className={styles["register-link"]}>¿Aún no tienes cuenta? Regístrate aquí.</p>
