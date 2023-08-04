@@ -1,3 +1,4 @@
 .footerCustom{
-    background-color: #407787
+    background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important;
+    height: 100%;
 }

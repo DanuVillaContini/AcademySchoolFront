@@ -24,7 +24,13 @@ function CrudALumnos() {
         { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia: true, Estado: true },
         { _id: 3, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
         { _id: 4, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-        { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
+        { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
+        { _id: 6, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
+        { _id: 7, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
+        { _id: 8, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
+        { _id: 9, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
+        { _id: 10, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
+        { _id: 11, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
 
     ];
     return (
@@ -69,7 +75,7 @@ function CrudALumnos() {
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />
-                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
+                                            <ButtonIconCustom to="/menu/detalle-cursado" variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
                                         </td>
 
