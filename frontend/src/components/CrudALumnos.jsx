@@ -14,8 +14,8 @@ function CrudALumnos() {
     const [showModalAlum, setShowModalAlum] = useState(false);
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
-    // const [allAlumnos, setAllAlumnos] = useState([])
-    // const [getId, setGetId] = useState("")
+    const [allAlumnos, setAllAlumnos] = useState([])
+    const [getId, setGetId] = useState("")
 
     const handleCloseModalAlum = () => setShowModalAlum(false);
     const handleShowModalAlum = () => setShowModalAlum(true);
@@ -28,8 +28,54 @@ function CrudALumnos() {
     //     { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia: true, Estado: true },
     //     { _id: 3, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
     //     { _id: 4, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-    //     { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
-    // ]
+    //     { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
+    //     { _id: 6, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
+    //     { _id: 7, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
+    //     { _id: 8, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
+    //     { _id: 9, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
+    //     { _id: 10, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
+    //     { _id: 11, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
+    // ];
+
+    //OBTENER LOS DATOS DE LA BASE DE DATOS:
+    const getAlumnos = async () => {
+        let requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        }
+
+        const response = await fetch(API_URI + "/alumno/find", requestOptions)
+        if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
+        const result = await response.json()
+        setAllAlumnos(result.data)
+    }
+
+    // const createNewStudent = async () => {
+    //     let myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
+
+    //     let raw = JSON.stringify({
+    //         "nameAlumno": "Martin",
+    //         "lastnameAlumno": "Fierro",
+    //         "legajoAlumno": 1115
+    //     });
+
+    //     let requestOptions = {
+    //         method: 'POST',
+    //         headers: myHeaders,
+    //         body: raw,
+    //         redirect: 'follow'
+    //     };
+
+    //     const response = await fetch(API_URI + "/alumno/create", requestOptions)
+    //     const result = await response.json()
+    //     console.log(result)
+    // }
+
+
+    useEffect(() => {
+        getAlumnos()
+    }, [])
 
     return (
         <>
