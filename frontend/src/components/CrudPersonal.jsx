@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row, Table } from "react-bootstrap";
 import ModalPersonal from "./ModalPersonal";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
@@ -50,20 +50,18 @@ function CrudPersonal() {
                                     <th>Apellido</th>
                                     <th>Fecha de Ingreso</th>
                                     <th>Contacto</th>
-                                    <th>Institucion</th>
-                                    <th>ContactosInti</th>
+                                    <th>Correo</th>
                                     <th>Operaciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {prueba.map((prueba) => (
                                     <tr key={prueba._id}>
-                                        <td data-titulo="Legasjo">{prueba._id}</td>
+                                        <td data-titulo="Legajo">{prueba._id}</td>
                                         <td data-titulo="Nombre">{prueba.Nombre}</td>
                                         <td data-titulo="Apellido">{prueba.Apellido}</td>
                                         <td data-titulo="Curso">{prueba.FechadeIngreso}</td>
                                         <td>{prueba.Contacto}</td>
-                                        <td data-titulo="Cuota al dia">{prueba.NombreInstitucion}</td>
                                         <td data-titulo="Opciones">{prueba.ContactoInstitucion}</td>
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />

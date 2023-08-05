@@ -28,7 +28,7 @@ function NavBarCustom({ name_user }) {
             <Container className={styles["custom-navbar"]}>
                 <div className={`d-flex align-items-center ${styles["custom-logo"]}`}>
                     <img
-                        alt=""
+                        alt="logo menu navbar"
                         src={Logo}
                         width="95"
                         height="85"
