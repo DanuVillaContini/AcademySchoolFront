@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import ModalAlum from '../components/ModalAlum';
 import ModalBtnAlum from "./modalABtnAlum";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
+import { API_URI } from '../common/constants';
+
 
 
 function CrudALumnos() {
@@ -12,27 +14,23 @@ function CrudALumnos() {
     const [showModalAlum, setShowModalAlum] = useState(false);
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
+    // const [allAlumnos, setAllAlumnos] = useState([])
+    // const [getId, setGetId] = useState("")
+
     const handleCloseModalAlum = () => setShowModalAlum(false);
     const handleShowModalAlum = () => setShowModalAlum(true);
-
     const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
     const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
 
     //Esto reemplazar por la logica dle back, para traer las notas del alumno
-    const prueba = [
-        { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ', Curso: "1°", cuota_al_dia: true, Estado: true },
-        { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia: true, Estado: true },
-        { _id: 3, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-        { _id: 4, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-        { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
-        { _id: 6, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-        { _id: 7, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-        { _id: 8, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
-        { _id: 9, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-        { _id: 10, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-        { _id: 11, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
+    // const prueba = [
+    //     { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ', Curso: "1°", cuota_al_dia: true, Estado: true },
+    //     { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia: true, Estado: true },
+    //     { _id: 3, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
+    //     { _id: 4, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
+    //     { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
+    // ]
 
-    ];
     return (
         <>
             <ModalBtnAlum show={showModalBtnAlum} handleClose={handleCloseModalBtnAlum} />
@@ -56,22 +54,22 @@ function CrudALumnos() {
                             {/*-------TABLA INICIO----------------------------*/}
                             <thead>
                                 <tr>
-                                    <th>Legasjo</th>
+                                    {/* <th>ID</th> */}
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th>Curso</th>
+                                    <th>Legajo</th>
                                     <th>Cuota al dia</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {prueba.map((prueba) => (
-                                    <tr key={prueba._id}>
-                                        <td data-titulo="Legasjo">{prueba._id}</td>
-                                        <td data-titulo="Nombre">{prueba.Nombre}</td>
-                                        <td data-titulo="Apellido">{prueba.Apellido}</td>
-                                        <td data-titulo="Curso">{prueba.Curso}</td>
-                                        <td data-titulo="Cuota al dia">{prueba.cuota_al_dia ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
+                                {allAlumnos.map((alumno) => (
+                                    <tr key={alumno._id}>
+                                        {/* <td data-titulo="Legajo">{alumno._id}</td> */}
+                                        <td data-titulo="Nombre">{alumno.nameAlumno}</td>
+                                        <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
+                                        <td data-titulo="Legajo">{alumno.legajoAlumno}</td>
+                                        <td data-titulo="Cuota al dia">{alumno.cuotaAlumno ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />

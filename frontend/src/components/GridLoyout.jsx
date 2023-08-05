@@ -4,7 +4,7 @@ import SideBarLateral from "./SideBarLateral"
 import FooterCustom from "./FooterCustom"
 
 
-function GridLoyout({  props_content }) {
+function GridLoyout({ props_content }) {
 
     const userName = "Nombre User"
 
