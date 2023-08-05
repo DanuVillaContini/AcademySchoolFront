@@ -1,5 +1,6 @@
 import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import styles from "../styles/detailStyle.module.css"
+import ButtonIconCustom from "./ButtonIconCustom";
 
 
 function CrudDetail() {
@@ -50,10 +51,7 @@ function CrudDetail() {
                                     <td>{prueba.materia}</td>
                                     <td>{prueba.nota}</td>
                                     <td className="d-flex justify-content-center">
-                                        <Button variant='outline-success' className={`m-1 ${styles['custom-tooltip']}`}>
-                                            <i className="bi bi-pencil-square"></i>
-                                            <span className={styles["tooltiptext"]}>Modificar</span>
-                                        </Button>
+                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Modificar" />
                                     </td>
                                 </tr>
                             ))}

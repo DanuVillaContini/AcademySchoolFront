@@ -10,20 +10,21 @@ function GridLoyout({  props_content }) {
 
     return (
         <div className={styles["grid-container"]}>
-            <div className={styles["navbar"]}>
+            <div className={styles["navbar-grid"]}>
                 <NavBarCustom name_user={userName} />
             </div>
+            <div className={styles["container-center"]}>
+                <div className={styles["sidebar-grid"]}>
+                    <SideBarLateral />
+                </div>
 
-            <div className={styles["sidebar"]}>
-                <SideBarLateral/>
+                <div className={styles["content-grid"]}>
+                    {props_content}
+                </div>
             </div>
 
-            <div className={styles["content"]}>
-                {props_content}
-            </div>
-
-            <div className={styles["footer"]}>
-                <FooterCustom/>
+            <div className={styles["footer-grid"]}>
+                <FooterCustom />
             </div>
         </div>
     )

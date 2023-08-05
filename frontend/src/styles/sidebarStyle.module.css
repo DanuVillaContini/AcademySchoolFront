@@ -1,27 +1,6 @@
-.container-wrapper {
-    width: 90%;
-    height: 100%;
-    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
-}
-
-
-.links-custom{
-    font-size: 80px;
-    margin: 10px !important;
-    padding: 10px !important;
-    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
-    transition: 0.5s;
-}
-.links-custom:hover{
-    transform: translateY(25px);
-    box-shadow: 8px 10px 0 0px #407787;
-}
-
-
 .sidebar-conteiner {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    width: 14em;
+    height: 75vh;
     padding: 1px;
     transition: 0.5s;
     cursor: pointer;
@@ -31,11 +10,60 @@
     box-shadow: 4px 6px 14px #00000036;
 
 }
-
 .sidebar-conteiner:hover {
-    transform: translateX(25px);
+    width: 16em;
     box-shadow: 8px 0 0 0 #2f3132;
 }
-.container-wrapper:hover{
-    transform: translateX(-5px);
+.container-links{
+    height: 40%;
+}
+.wrapper-link{
+    height: 80%;
+    width: 60%;
+}
+
+.links-custom{
+    height: 6em;
+    width: 8em;
+    margin: 10px !important;
+    padding: 10px !important;
+    background: linear-gradient(344deg, #000000 0%, rgba(36, 91, 106, 1) 50%) !important;
+    border: 5px ridge #245b6a !important;
+    outline: none;
+    color: white;
+    transition: 1s;
+    border-radius: 0.3em;
+    font-weight: bold;
+    transition: 0.5s;
+}
+.links-custom:hover{
+    transform: translateX(20px);
+    box-shadow: inset 8px 3px 25px #5c94a5;
+}
+
+
+@media (max-width: 1300px){
+    .sidebar-conteiner{
+        width: 11em;
+    }
+    .sidebar-conteiner:hover{
+        width: 13em;
+    }
+    .links-custom{
+        height: 5em;
+        width: 7em;
+    }
+}
+
+@media (max-width: 1024px){
+    .sidebar-conteiner{
+        width: 10em;
+    }
+    .sidebar-conteiner:hover{
+        width: 12em;
+    }
+    .links-custom{
+        height: 5em;
+        width: 7em;
+    }
 }

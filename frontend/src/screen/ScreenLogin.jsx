@@ -1,4 +1,5 @@
 import logo from '../assets/logo_recortado.png';
+import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
 
 function ScreenLogin() {
@@ -21,8 +22,8 @@ function ScreenLogin() {
               Recordar usuario
             </label>
           </div>
-
-          <button type="submit">Iniciar sesión</button>
+          {/* falta props onClick={handle..} */}
+          <ButtonCustom nameBtt="Iniciar Sesion" />  
         </form>
         <p className={styles["register-link"]}>¿Aún no tienes cuenta? Regístrate aquí.</p>
       </div>

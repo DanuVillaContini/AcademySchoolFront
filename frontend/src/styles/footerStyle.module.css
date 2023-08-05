@@ -1,3 +1,15 @@
 .footerCustom{
-    background-color: #407787
+    /* background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important; */
+    background-color: none;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0 !important;
+
+}
+.container-Custom{
+    background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important;
+    width: 100%;
+    margin: 0;
 }

@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
-import { FormLabel } from 'react-bootstrap';
-import { useState } from 'react';
+import styles from "../styles/modalStyles.module.css"
+
 
 
 const ModalPersonal =({show,handleClose}) =>{
@@ -27,31 +27,26 @@ return (
         </Form.Text>
       </Form.Group>
       <Form.Group className='mb-3' controlId='frormBasicLastName'>
-        <FormLabel>Apellido</FormLabel>
+        <Form.Label>Apellido</Form.Label>
         <Form.Control type='text' placeholder='Apellido' maxLength={25} required/>
         <Form.Text className='text-muted'>
         </Form.Text>  
       </Form.Group>
       <Form.Group className='mb-3' controlId='frormBasicDate'>
-        <FormLabel>Fecha de Ingreso</FormLabel>
+        <Form.Label>Fecha de Ingreso</Form.Label>
         <Form.Control className='d-flex justify-content-center' type='date' placeholder='Apellido'required/>
         <Form.Text className='text-muted'>
         </Form.Text>  
       </Form.Group>
       <Form.Group className='mb-3' controlId='formBasicContact'>
-        <FormLabel>Contacto</FormLabel>
+        <Form.Label>Contacto</Form.Label>
         <Form.Control type='tel'  placeholder='Contacto' maxLength={25} required/>
         <Form.Text className='text-muted'>
         </Form.Text>  
       </Form.Group>
-     
-
-    
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" type='summit'>Agregar</Button>
+        <Button className={`${styles["custom-btt"]} ${styles["custom-btt-close"]}`} onClick={handleClose}>Cerrar</Button>
+            <Button className={`${styles["custom-btt"]} ${styles["custom-btt-add"]}`} type='summit'>Agregar</Button>
         </Modal.Footer>
     </Form>
         </Modal.Body>
