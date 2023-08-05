@@ -15,7 +15,7 @@ function CrudALumnos() {
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
     const [allAlumnos, setAllAlumnos] = useState([])
-    const [getId, setGetId] = useState("")
+    // const [getId, setGetId] = useState("")
 
     const handleCloseModalAlum = () => setShowModalAlum(false);
     const handleShowModalAlum = () => setShowModalAlum(true);
@@ -87,7 +87,7 @@ function CrudALumnos() {
                         <Col className="d-flex justify-content-center">
                             <h2>Detalle De Alumnos</h2>
                         </Col>
-                        {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
+                        {/*----------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
                         <>
                             <Col className="d-flex justify-content-end mb-2">
                                 <ButtonCustom onClick={handleShowModalAlum} nameBtt="New Student" />

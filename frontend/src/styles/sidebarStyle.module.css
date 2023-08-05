@@ -6,7 +6,8 @@
     cursor: pointer;
     border-radius: 0 25px 25px 0;
     box-shadow: 8px 0 0 0 #2f3132;
-    background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important;
+    background-color: #4b1010;
+    /* background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important; */
     box-shadow: 4px 6px 14px #00000036;
 
 }
@@ -27,9 +28,9 @@
     width: 8em;
     margin: 10px !important;
     padding: 10px !important;
-    background: linear-gradient(344deg, #000000 0%, rgba(36, 91, 106, 1) 50%) !important;
-    border: 5px ridge #245b6a !important;
-    outline: none;
+    background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
+    border: 5px ridge #65727c !important;
+    outline: #65727c;
     color: white;
     transition: 1s;
     border-radius: 0.3em;
@@ -38,7 +39,7 @@
 }
 .links-custom:hover{
     transform: translateX(20px);
-    box-shadow: inset 8px 3px 25px #5c94a5;
+    box-shadow: inset 8px 3px 25px #65727c;
 }
 
 
