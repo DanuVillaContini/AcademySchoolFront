@@ -27,14 +27,14 @@ function CrudPersonal() {
         <ModalPersonal show={showModalPersonal} handleClose={handleCloseModalPersonal}/>
         <>
         <Container>
-                <Row className={`align-items-center flex-column ${Styles[custom-container]}`}>
+                <Row className={`align-items-center flex-column ${Styles["custom-container-Perso"]}`}>
                     <Col className="d-flex justify-content-center">
-                        <h2>Detalle De Alumnos</h2>    
+                        <h2>Detalle De Personal</h2>    
                     </Col>
                     {/*-----------------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/ }
                     <>
                     <Col className="d-flex justify-content-end mb-2">
-                    <><Button className="ms" variant="info" onClick={handleShowModalPersonal}>NewStudent</Button></>
+                    <><Button className="ms" variant="info" onClick={handleShowModalPersonal}>NewPersonal</Button></>
                     </Col>
                     </>
                    
@@ -49,20 +49,18 @@ function CrudPersonal() {
                                 <th>Apellido</th>
                                 <th>Fecha de Ingreso</th>
                                 <th>Contacto</th>
-                                <th>Institucion</th>
-                                <th>ContactosInti</th>
                             </tr>
                         </thead>
                         <tbody>
                             {prueba.map((prueba) => (
                                 <tr key={prueba._id}>
-                                    <td data-titulo="Legasjo">{prueba._id}</td>
+                                    <td data-titulo="ID">{prueba._id}</td>
                                     <td data-titulo="Nombre">{prueba.Nombre}</td>
                                     <td data-titulo="Apellido">{prueba.Apellido}</td>
-                                    <td data-titulo="Curso">{prueba.FechadeIngreso}</td>
-                                    <td>{prueba.Contacto}</td>
-                                    <td data-titulo="Cuota al dia">{prueba.NombreInstitucion}</td>
-                                    <td data-titulo="Opciones">{prueba.ContactoInstitucion}</td>
+                                    <td data-titulo="Fecha de Ingreso">{prueba.FechadeIngreso}</td>
+                                    <td data-titulo="Contacto">{prueba.Contacto}</td>
+                                    
+                                    
                                         
                                 </tr>
                             ))}
