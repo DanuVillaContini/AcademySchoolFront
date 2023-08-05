@@ -2,16 +2,15 @@
 :root {
     --custom-btt-width: 10em;
     --custom-btt-height: 3.8em;
-    --custom-btt-gradient-start: #407787;
-    --custom-btt-border-color: #245b6a;
-    --custom-btt-gradient-fondo: #00404f;
+    --custom-btt-gradient-start: #65727c;
+    --custom-btt-border-color: #45484a;
+    --custom-btt-gradient-fondo: #000000;
     --custom-btt-border-width: 5px;
     --custom-btt-font-size: 15px;
     --custom-btt-font-weight: bold;
 }
 .custom-btt-add {
     --custom-btt-gradient-end: #298b4f;
-    --custom-btt-border-color: #245b6a;
 }
 .custom-btt-close {
     --custom-btt-gradient-end: #8e3931;

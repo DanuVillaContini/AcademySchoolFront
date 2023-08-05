@@ -8,8 +8,8 @@
     visibility: hidden;
     position: absolute;
     width: 85px;
-    background-color: #245b6a;
-    color: #ddffff;
+    background-color: #c3c5ac;
+    color: black;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -46,8 +46,8 @@
     padding: auto;
     margin: 1px;
     height: 3.8em;
-    background: linear-gradient(145deg, #407787, #00404f);
-    border: 5px ridge #245b6a !important;
+    background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
+    border: 5px ridge #65727c !important;
     outline: none;
     color: white;
     transition: 1s;

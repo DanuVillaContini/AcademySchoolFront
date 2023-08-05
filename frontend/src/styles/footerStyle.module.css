@@ -9,7 +9,8 @@
 
 }
 .container-Custom{
-    background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important;
+    background-color: none;
+    /* background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important; */
     width: 100%;
     margin: 0;
 }

@@ -41,7 +41,7 @@ function NavBarCustom({ name_user }) {
                         <Accordion defaultActiveKey={isAccordionOpen ? "0" : null} >
                             <Accordion.Item eventKey="0" className={styles["custom-accordion"]}>
 
-                                <Accordion.Header onClick={toggleAccordion} >
+                                <Accordion.Header onClick={toggleAccordion} className={styles["custom-header-accordion"]}>
                                     <i className="bi bi-person-lines-fill m-2 text-dark"></i>
                                     {name_user}
                                 </Accordion.Header>
