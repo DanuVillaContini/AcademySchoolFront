@@ -41,6 +41,12 @@
     color: white;
 }
 
+.categories__create-form{
+    height: 0px;
+    overflow: hidden;
+    transition: all ease .3s;
+}
+
 
 @media (max-width: 52em) {
 
@@ -75,3 +81,4 @@
     }
 
 }
+
