@@ -105,6 +105,7 @@ function CrudALumnos() {
                                     <th>Apellido</th>
                                     <th>Legajo</th>
                                     <th>Cuota al dia</th>
+                                    <th>Anio</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -116,6 +117,7 @@ function CrudALumnos() {
                                         <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
                                         <td data-titulo="Legajo">{alumno.legajoAlumno}</td>
                                         <td data-titulo="Cuota al dia">{alumno.cuotaAlumno ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
+                                        <td data-titulo="Año">{alumno.anio}</td>
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />
