@@ -105,7 +105,7 @@ function CrudALumnos() {
                                     <th>Apellido</th>
                                     <th>Legajo</th>
                                     <th>Cuota al dia</th>
-                                    <th>Anio</th>
+                                    <th>Año actual</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
