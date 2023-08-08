@@ -1,9 +1,16 @@
+import CrudAlumnos from "../../components/CrudALumnos"
+import GridLoyout from "../../components/GridLoyout"
+
+
 
 function AlumnosScreen() {
+
+
     return (
-        <div>
-            <h1>SCREEN ALUMNOS</h1>
-        </div>
+        <>
+            <GridLoyout props_content ={<CrudAlumnos/>} />
+        </>
+
     )
 }
 

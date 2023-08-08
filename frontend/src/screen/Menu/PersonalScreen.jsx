@@ -1,9 +1,11 @@
+import CrudPersonal from "../../components/CrudPersonal"
+import GridLoyout from "../../components/GridLoyout"
 
 
 function PersonalScreen() {
     return (
         <>
-            <h1>SCREEN PERSONAL ADMINISTRATIVO</h1>
+            <GridLoyout props_content={<CrudPersonal />} />
         </>
     )
 }

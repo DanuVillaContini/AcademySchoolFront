@@ -1,0 +1,79 @@
+.custom-container-Alum {
+    border: 1px solid #3c0000;
+    padding: 8px;
+    align-items: center;
+    background-color: #4b1010;
+    color: white;
+    border-radius: 10px 10px 0 0;
+
+}
+
+.custom-table-Alum {
+    border: 1px solid #3c0000;
+    border-radius: 0 0 10px 10px;
+}
+
+
+.custom-table-Alum thead {
+    border: 2px solid #b5b5b5;
+
+
+}
+
+.custom-table-Alum tbody {
+    border: 2px solid #b5b5b5;
+
+}
+
+.custom-table-Alum tbody tr {
+    background-color: #45484a;
+}
+
+.custom-table-Alum tbody td {
+    background-color: #f0ebd7;
+}
+
+
+.custom-table-Alum thead tr {
+    background-color: #45484a;
+}
+
+.custom-table-Alum thead th {
+    background-color: #45484a;
+    color: white;
+}
+
+
+@media (max-width: 52em) {
+
+    /* 52 X 16px = 832px*/
+    .custom-table-Alum {
+        width: 100%;
+        font-size: .7em;
+    }
+
+    .custom-table-Alum tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #a9a27c;
+        padding: 1em;
+        margin-bottom: 1em;
+    }
+
+    .custom-table-Alum td[data-titulo] {
+        display: flex;
+    }
+
+    .custom-table-Alum td[data-titulo]::before {
+        content: attr(data-titulo);
+        width: 110px;
+        color: #3c0000;
+        font-weight: bold;
+
+    }
+
+    .custom-table-Alum thead {
+        display: none;
+    }
+
+}
