@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 import logo from '../assets/logo_recortado.png';
 import ButtonCustom from '../components/ButtonCustom';
@@ -29,6 +30,9 @@ function ScreenLogin() {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   }
+//   const handleLogout = () => {
+//     changeJwt("")
+// }
 
 
   return (
@@ -81,4 +85,7 @@ function ScreenLogin() {
   );
 }
 
+ScreenLogin.propTypes = {
+  changeJwt: PropTypes.func.isRequired
+}
 export default ScreenLogin;
