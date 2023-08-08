@@ -1,34 +1,34 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { useState } from 'react';
 import logo from '../assets/logo_recortado.png';
 import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
-import { API_URI } from '../common/constants';
+// import { API_URI } from '../common/constants';
 
 function ScreenLogin() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    // let myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
 
-    let raw = JSON.stringify({
-      correo: correo,
-      pass: password
-    });
+    // let raw = JSON.stringify({
+    //   correo: correo,
+    //   pass: password
+    // });
 
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
+    // let requestOptions = {
+    //   method: 'POST',
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: 'follow'
+    // };
 
-    fetch(API_URI + "/auth/login", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    // fetch(API_URI + "/auth/login", requestOptions)
+    //   .then(response => response.text())
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log('error', error));
   }
 //   const handleLogout = () => {
 //     changeJwt("")
@@ -85,7 +85,7 @@ function ScreenLogin() {
   );
 }
 
-ScreenLogin.propTypes = {
-  changeJwt: PropTypes.func.isRequired
-}
+// ScreenLogin.propTypes = {
+//   changeJwt: PropTypes.func.isRequired
+// }
 export default ScreenLogin;

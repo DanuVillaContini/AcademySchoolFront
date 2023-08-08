@@ -6,36 +6,35 @@ import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
+import Form from 'react-bootstrap/Form';
 
 
 
 function CrudALumnos() {
 
-    const [showModalAlum, setShowModalAlum] = useState(false);
+    const [showCreateForm, setShowCreateForm] = useState("")
+
+    // const [showModalAlum, setShowModalAlum] = useState(false);
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
     const [allAlumnos, setAllAlumnos] = useState([])
+    const [NombreAlumno,setNombreAlumno]= useState("")
+    const [ApellidoAlumno,setApellidoAlumno]= useState("")
+    const [CodigoAlumno,setCodigoAlumno]= useState("")
+    const [AnioAlumno,setAnioAlumno]= useState("")
+
+
+
+
+
     // const [getId, setGetId] = useState("")
 
-    const handleCloseModalAlum = () => setShowModalAlum(false);
-    const handleShowModalAlum = () => setShowModalAlum(true);
+    // const handleCloseModalAlum = () => setShowModalAlum(false);
+    // const handleShowModalAlum = () => setShowModalAlum(true);
     const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
     const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
 
-    //Esto reemplazar por la logica dle back, para traer las notas del alumno
-    // const prueba = [
-    //     { _id: 1, Nombre: 'JUANITO', Apellido: 'PEREZ', Curso: "1°", cuota_al_dia: true, Estado: true },
-    //     { _id: 2, Nombre: 'JESICA', Apellido: 'ALONSO ', Curso: "2°", cuota_al_dia: true, Estado: true },
-    //     { _id: 3, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-    //     { _id: 4, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-    //     { _id: 5, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
-    //     { _id: 6, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-    //     { _id: 7, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-    //     { _id: 8, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true },
-    //     { _id: 9, Nombre: 'HERNESTO', Apellido: 'ORTIZ', Curso: "4°", cuota_al_dia: false, Estado: true },
-    //     { _id: 10, Nombre: 'JUANITO', Apellido: 'MORALES', Curso: "6°", cuota_al_dia: true, Estado: true },
-    //     { _id: 11, Nombre: 'JUANA MARTINEZ', Apellido: 'PEREZ', Curso: "5°", cuota_al_dia: false, Estado: true }
-    // ];
+    
 
     //OBTENER LOS DATOS DE LA BASE DE DATOS:
     const getAlumnos = async () => {
@@ -72,6 +71,12 @@ function CrudALumnos() {
     //     console.log(result)
     // }
 
+    // --- HANDLERS ---
+    const handleSubmit = async () => {
+        // await createCategory()
+        await getAllCategories()
+    }
+
 
     useEffect(() => {
         getAlumnos()
@@ -80,9 +85,47 @@ function CrudALumnos() {
     return (
         <>
             <ModalBtnAlum show={showModalBtnAlum} handleClose={handleCloseModalBtnAlum} />
-            <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} />
+            {/* <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} /> */}
             <>
                 <Container>
+                    {/**Formulario*/}
+
+
+                    <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
+'
+                    <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Nombre</Form.Label>
+                        <Form.Control type="text"
+                            placeholder="Nombre"
+                            value={NombreAlumno}
+                            onChange={(e) => setNombreAlumno(e.target.value)} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Apellido</Form.Label>
+                        <Form.Control type="text"
+                            placeholder="Apellido"
+                            value={ApellidoAlumno}
+                            onChange={(e) => setApellidoAlumno(e.target.value)} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Legajo</Form.Label>
+                        <Form.Control type="text"
+                            placeholder="Apellido"
+                            value={CodigoAlumno}
+                            onChange={(e) => setCodigoAlumno(e.target.value)} />
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>año</Form.Label>
+                        <Form.Control type="text"
+                            placeholder="Año"
+                            value={AnioAlumno}
+                            onChange={(e) => setAnioAlumno(e.target.value)} />
+                    </Form.Group>
+                    <Button variant='outline-primary' className="mb-2" onClick={handleSubmit}>Cargar Category</Button>
+                </Form>
+
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
                         <Col className="d-flex justify-content-center">
                             <h2>Detalle De Alumnos</h2>
@@ -90,7 +133,7 @@ function CrudALumnos() {
                         {/*----------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
                         <>
                             <Col className="d-flex justify-content-end mb-2">
-                                <ButtonCustom onClick={handleShowModalAlum} nameBtt="New Student" />
+                                {/* <ButtonCustom onClick={handleShowModalAlum} nameBtt="New Student" /> */}
                             </Col>
                         </>
 
