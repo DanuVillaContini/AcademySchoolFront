@@ -357,7 +357,7 @@ function CrudPersonal() {
                 </Modal.Body>
                 <Modal.Footer>
 
-                    <ButtonCustomRedGreen onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
+                    <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
                     {/* <Button variant="success" onClick={() => setShowSuccessModal(false)}>
                         Cerrar
                     </Button> */}

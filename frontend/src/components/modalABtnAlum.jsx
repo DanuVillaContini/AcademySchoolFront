@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
 import styles from "../styles/modalStyles.module.css"
+import ButtonCustomRedGreen from './ButtonCustomRedGreen';
 
 
 const ModalBtnAlum = ({ show, handleClose }) => {
@@ -25,10 +26,13 @@ const ModalBtnAlum = ({ show, handleClose }) => {
             <Form.Text className="text-muted">
             </Form.Text>
           </Form.Group>
-
           <Modal.Footer>
-            <Button className={`${styles["custom-btt"]} ${styles["custom-btt-close"]}`} onClick={handleClose}>Cerrar</Button>
-            <Button className={`${styles["custom-btt"]} ${styles["custom-btt-add"]}`} type='summit'>Agregar</Button>
+
+            <ButtonCustomRedGreen color="red" onClick={handleClose} nameBtt="Cerrar" />
+            {/* <Button className={`${styles["custom-btt"]} ${styles["custom-btt-close"]}`} onClick={handleClose}>Cerrar</Button> */}
+
+            <ButtonCustomRedGreen color="green"  nameBtt="Agregar" />
+            {/* <Button className={`${styles["custom-btt"]} ${styles["custom-btt-add"]}`} type='summit'>Agregar</Button> */}
           </Modal.Footer>
         </Form>
       </Modal.Body>
