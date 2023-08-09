@@ -70,6 +70,7 @@ function CrudPersonal() {
         const result = await response.json()
         console.log(result)
         setShowSuccessModal(true);
+        getPersonal()
     }
 
     const deletePersonal = async (_id) => {
@@ -81,6 +82,9 @@ function CrudPersonal() {
         const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
         const result = await response.json()
         console.log(result)
+        setDeleteId("");
+        setShowDeleteModal(false);
+        await getPersonal();
     }
 
     const updatePersonal = async () => {
@@ -110,13 +114,13 @@ function CrudPersonal() {
 
         setShowSuccessModal(true);
         setShowUpdateForm(false);
+        getPersonal()
     }
 
 
     //--- HANDLERS ---
     const handleSubmit = async () => {
         await createPersonal()
-        await getPersonal()
     }
     const handleDeletePersonal = async (_id) => {
         setDeleteId(_id)
@@ -124,13 +128,9 @@ function CrudPersonal() {
     }
     const handleConfirmDelete = async () => {
         await deletePersonal(deleteId);
-        setDeleteId("");
-        setShowDeleteModal(false);
-        await getPersonal();
     }
     const handleUpdatePersonal = async (_id) => {
         await updatePersonal(_id)
-        await getPersonal()
     }
 
     useEffect(() => {

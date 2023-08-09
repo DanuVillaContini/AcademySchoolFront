@@ -70,6 +70,7 @@ function CrudALumnos() {
         const response = await fetch(API_URI + "/alumno/create", requestOptions)
         const result = await response.json()
         console.log(result)
+        getAlumnos()
     }
     const DeleteStudent = async (_id) => {
         let requestOptions = {
@@ -80,7 +81,9 @@ function CrudALumnos() {
         const response = fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
         const result = await response.json()
         console.log(result)
-
+        setDeleteId(""); // Reiniciar el ID a eliminar
+        setShowDeleteModal(false); // Cerrar el modal de confirmación
+        await getAlumnos();
     }
 
     const UpdateAlumnos = async () => {
@@ -100,34 +103,26 @@ function CrudALumnos() {
             redirect: 'follow'
         };
 
-        const response = fetch(API_URI+"/alumno/update/"+updateId, requestOptions)
+        const response = fetch(API_URI + "/alumno/update/" + updateId, requestOptions)
         const result = await response.json()
         console.log(result)
-            
+        await getAlumnos()
     }
 
 
     // --- HANDLERS ---
     const handleSubmit = async () => {
         await createAlumnos()
-        await getAlumnos()
     }
     const handleDeleteStudent = async (_id) => {
         setDeleteId(_id)
         setShowDeleteModal(true)
-
     }
     const handleConfirmDelete = async () => {
-        await DeleteStudent(deleteId); // Ejecutar la función de eliminación
-        setDeleteId(""); // Reiniciar el ID a eliminar
-        setShowDeleteModal(false); // Cerrar el modal de confirmación
-        await getAlumnos(); // Actualizar la lista después de la eliminación
+        await DeleteStudent(deleteId);
     }
-
     const handleUpdateAlumnos = async (_id) => {
         await UpdateAlumnos(_id)
-        await getAlumnos()
-
     }
     useEffect(() => {
         getAlumnos()
@@ -143,7 +138,7 @@ function CrudALumnos() {
 
 
                     <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
-                    
+
                     <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
@@ -178,41 +173,41 @@ function CrudALumnos() {
                     </Form>
 
                     {/* ------FORM UPDATE CATEGORY---- */}
-                {
-                    updateId.length > 0 && (
-                        <Form className='mb-5'>
-                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Nombre"
-                                value={updateNombre}
-                                onChange={(e) => setupdateNombre(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Apellido</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Apellido"
-                                value={updateApellido}
-                                onChange={(e) => setupdateApellido(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>año</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Año"
-                                value={updateAnio}
-                                onChange={(e) => setupdateAnio(e.target.value)} />
-                        </Form.Group>
-                            
-                        /*cambiar buttons */
-                            <Button variant='outline-success' className="mb-2" onClick={handleUpdateAlumnos}>Cargar Actualizacion</Button>
-                            <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
-                                setupdateId("")
-                                setupdateNombre("")
-                                setupdateAnio("")
-                            }}>Cancelar</Button>
-                        </Form>
-                    )
-                }
+                    {
+                        updateId.length > 0 && (
+                            <Form className='mb-5'>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Nombre</Form.Label>
+                                    <Form.Control type="text"
+                                        placeholder="Nombre"
+                                        value={updateNombre}
+                                        onChange={(e) => setupdateNombre(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Apellido</Form.Label>
+                                    <Form.Control type="text"
+                                        placeholder="Apellido"
+                                        value={updateApellido}
+                                        onChange={(e) => setupdateApellido(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>año</Form.Label>
+                                    <Form.Control type="text"
+                                        placeholder="Año"
+                                        value={updateAnio}
+                                        onChange={(e) => setupdateAnio(e.target.value)} />
+                                </Form.Group>
+
+                        {/* cambiar buttons  */}
+                                <Button variant='outline-success' className="mb-2" onClick={handleUpdateAlumnos}>Cargar Actualizacion</Button>
+                                <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
+                                    setupdateId("")
+                                    setupdateNombre("")
+                                    setupdateAnio("")
+                                }}>Cancelar</Button>
+                            </Form>
+                        )
+                    }
 
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
                         <Col className="d-flex justify-content-center">
