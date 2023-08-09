@@ -199,12 +199,19 @@ function CrudALumnos() {
                                 </Form.Group>
 
                         {/* cambiar buttons  */}
-                                <Button variant='outline-success' className="mb-2" onClick={handleUpdateAlumnos}>Cargar Actualizacion</Button>
-                                <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
+                                
+                                <ButtonCustomRedGreen
+                                    color="green"
+                                    onClick={handleUpdateAlumnos}
+                                    nameBtt="Cargar Actualizacion"
+                                    disabled={!updateNombre || !updateAnio}
+                                />
+                                <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setupdateId("")
                                     setupdateNombre("")
                                     setupdateAnio("")
-                                }}>Cancelar</Button>
+                                }} />
+                    
                             </Form>
                         )
                     }
