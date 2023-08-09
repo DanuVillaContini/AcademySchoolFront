@@ -74,7 +74,7 @@ function CrudALumnos() {
     // --- HANDLERS ---
     const handleSubmit = async () => {
         // await createCategory()
-        await getAllCategories()
+        await getAlumnos()
     }
 
 
@@ -92,7 +92,7 @@ function CrudALumnos() {
 
 
                     <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
-'
+
                     <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Nombre</Form.Label>
