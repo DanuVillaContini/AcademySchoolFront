@@ -278,12 +278,8 @@ function CrudALumnos() {
                     ¿Estás seguro de que deseas eliminar este elemento?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                        Cancelar
-                    </Button>
-                    <Button variant="danger" onClick={handleConfirmDelete}>
-                        Eliminar
-                    </Button>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowDeleteModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
                 </Modal.Footer>
             </Modal>
 
