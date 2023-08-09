@@ -317,12 +317,9 @@ function CrudPersonal() {
                     ¿Estás seguro de que deseas eliminar este elemento?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-                        Cancelar
-                    </Button>
-                    <Button variant="danger" onClick={handleConfirmDelete}>
-                        Eliminar
-                    </Button>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowDeleteModal(false)} nameBtt="Cancelar" />
+
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
                 </Modal.Footer>
             </Modal>
             {/* -----------Modal de éxito ---------*/}
@@ -334,9 +331,7 @@ function CrudPersonal() {
                     La operación se ha realizado exitosamente.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={() => setShowSuccessModal(false)}>
-                        Cerrar
-                    </Button>
+                    <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
                 </Modal.Footer>
             </Modal>
 
