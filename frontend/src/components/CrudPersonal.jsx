@@ -187,7 +187,7 @@ function CrudPersonal() {
                                 onChange={(e) => setLegajo(e.target.value)} />
                         </Form.Group>
 
-                        <ButtonCustom onClick={handleSubmit} nameBtt="Cargar Empleado" />
+                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !fechaIngreso || !telefonoPersonal || !correoPersonal || !legajo}/>
                     </Form>
 
                     {/* ------FORM UPDATE PERSONAL---- */}
@@ -230,20 +230,20 @@ function CrudPersonal() {
                                         onChange={(e) => setUpdateCorreo(e.target.value)} />
                                 </Form.Group>
                                 {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
-                                <ButtonCustom
+                              <ButtonCustomRedGreen
+                                    color="green"
                                     onClick={handleUpdatePersonal}
                                     nameBtt="Cargar Actualizacion"
                                     disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo}
-                                />
 
-                                <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
+                               <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setUpdateId("")
                                     setUpdateName("")
                                     setUpdateLastname("")
                                     // setUpdateFechaIngreso("")
                                     setUpdateTelefono("")
                                     setUpdateCorreo("")
-                                }}>Cancelar</Button>
+                                }} />
                             </Form>
                         )
                     }
