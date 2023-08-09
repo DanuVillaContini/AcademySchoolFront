@@ -5,6 +5,7 @@ import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 
+
 function CrudPersonal() {
 
     const [allPersonal, setAllPersonal] = useState([])
@@ -19,7 +20,7 @@ function CrudPersonal() {
     const [updateId, setUpdateId] = useState("")
     const [updateName, setUpdateName] = useState("")
     const [updateLastname, setUpdateLastname] = useState("")
-    const [updateFechaIngreso, setUpdateFechaIngreso] = useState("")
+    // const [updateFechaIngreso, setUpdateFechaIngreso] = useState("")
     const [updateTelefono, setUpdateTelefono] = useState("")
     const [updateCorreo, setUpdateCorreo] = useState("")
 
@@ -29,6 +30,8 @@ function CrudPersonal() {
     //Modales
     const [showCreateForm, setShowCreateForm] = useState("")
     const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [showUpdateForm, setShowUpdateForm] = useState(true);
 
 
 
@@ -66,6 +69,7 @@ function CrudPersonal() {
         const response = await fetch(API_URI + "/personal/create", requestOptions)
         const result = await response.json()
         console.log(result)
+        setShowSuccessModal(true);
     }
 
     const deletePersonal = async (_id) => {
@@ -86,7 +90,7 @@ function CrudPersonal() {
         let raw = JSON.stringify({
             nameUser: updateName,
             lastnameUser: updateLastname,
-            dateAdmission: updateFechaIngreso,
+            // dateAdmission: updateFechaIngreso,
             telefono: updateTelefono,
             correo: updateCorreo
         });
@@ -97,10 +101,15 @@ function CrudPersonal() {
             body: raw,
             redirect: 'follow'
         };
+        console.log("Actualizando empleado con ID:", updateId);
+        console.log("Carga útil de actualización:", raw);
 
-        const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions)
-        const result = await response.json()
-        console.log(result)
+        const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
+        const result = await response.json();
+        console.log("Resultado de actualización:", result);
+
+        setShowSuccessModal(true);
+        setShowUpdateForm(false);
     }
 
 
@@ -181,58 +190,63 @@ function CrudPersonal() {
                         <ButtonCustom onClick={handleSubmit} nameBtt="Cargar Empleado" />
                     </Form>
 
-                {/* ------FORM UPDATE PERSONAL---- */}
-                {
-                    updateId.length > 0 && (
-                        <Form className='mb-5'>
-                        <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Ingrese una categorial"
-                                value={updateName}
-                                onChange={(e) => setUpdateName(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label>Apellido</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Ingrese la descripcion"
-                                value={updateLastname}
-                                onChange={(e) => setUpdateLastname(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="" controlId="formBasicEmail">
+                    {/* ------FORM UPDATE PERSONAL---- */}
+                    {
+                        updateId.length > 0 && showUpdateForm && (
+                            <Form className='mb-5'>
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>Nombre</Form.Label>
+                                    <Form.Control type="text"
+                                        placeholder="Ingrese una categorial"
+                                        value={updateName}
+                                        onChange={(e) => setUpdateName(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>Apellido</Form.Label>
+                                    <Form.Control type="text"
+                                        placeholder="Ingrese la descripcion"
+                                        value={updateLastname}
+                                        onChange={(e) => setUpdateLastname(e.target.value)} />
+                                </Form.Group>
+                                {/* <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Fecha de Admision</Form.Label>
                             <Form.Control type="date"
                                 placeholder="Indique Fecha de admision"
                                 value={updateFechaIngreso}
                                 onChange={(e) => setUpdateFechaIngreso(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label>Telefono</Form.Label>
-                            <Form.Control type="tel"
-                                placeholder="Ingrese n° de Telefono"
-                                value={updateTelefono}
-                                onChange={(e) => setUpdateTelefono(e.target.value)} />
-                        </Form.Group>
-                        <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label>Correo Electronico</Form.Label>
-                            <Form.Control type="email"
-                                placeholder="Ingrese correo electronico"
-                                value={updateCorreo}
-                                onChange={(e) => setUpdateCorreo(e.target.value)} />
-                        </Form.Group>
-                            {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
-                            <Button variant='outline-success' className="mb-2" onClick={handleUpdatePersonal}>Cargar Actualizacion</Button>
-                            <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
-                                setUpdateId("")
-                                setUpdateName("")
-                                setUpdateLastname("")
-                                setUpdateFechaIngreso("")
-                                setUpdateTelefono("")
-                                setUpdateCorreo("")
-                            }}>Cancelar</Button>
-                        </Form>
-                    )
-                }
+                        </Form.Group> */}
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>Telefono</Form.Label>
+                                    <Form.Control type="tel"
+                                        placeholder="Ingrese n° de Telefono"
+                                        value={updateTelefono}
+                                        onChange={(e) => setUpdateTelefono(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>Correo Electronico</Form.Label>
+                                    <Form.Control type="email"
+                                        placeholder="Ingrese correo electronico"
+                                        value={updateCorreo}
+                                        onChange={(e) => setUpdateCorreo(e.target.value)} />
+                                </Form.Group>
+                                {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
+                                <ButtonCustom
+                                    onClick={handleUpdatePersonal}
+                                    nameBtt="Cargar Actualizacion"
+                                    disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo}
+                                />
+
+                                <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
+                                    setUpdateId("")
+                                    setUpdateName("")
+                                    setUpdateLastname("")
+                                    // setUpdateFechaIngreso("")
+                                    setUpdateTelefono("")
+                                    setUpdateCorreo("")
+                                }}>Cancelar</Button>
+                            </Form>
+                        )
+                    }
 
                     {/* ---------- TABLA SHOW PERSONAL ---------- */}
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Perso']}`}>
@@ -273,7 +287,7 @@ function CrudPersonal() {
                                                 setUpdateId(empleado._id)
                                                 setUpdateName(empleado.nameUser)
                                                 setUpdateLastname(empleado.lastnameUser)
-                                                setUpdateFechaIngreso(empleado.dateAdmission)
+                                                // setUpdateFechaIngreso(empleado.dateAdmission)
                                                 setUpdateTelefono(empleado.telefono)
                                                 setUpdateCorreo(empleado.correo)
                                             }} />
@@ -293,7 +307,7 @@ function CrudPersonal() {
                 </Container>
             </>
 
-                 {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
+            {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
             {/*----------- Modal de confirmación de eliminación ---------*/}
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
@@ -308,6 +322,20 @@ function CrudPersonal() {
                     </Button>
                     <Button variant="danger" onClick={handleConfirmDelete}>
                         Eliminar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {/* -----------Modal de éxito ---------*/}
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Operación exitosa</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    La operación se ha realizado exitosamente.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={() => setShowSuccessModal(false)}>
+                        Cerrar
                     </Button>
                 </Modal.Footer>
             </Modal>
