@@ -7,6 +7,7 @@ import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -18,23 +19,24 @@ function CrudALumnos() {
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
     const [allAlumnos, setAllAlumnos] = useState([])
-    const [NombreAlumno,setNombreAlumno]= useState("")
-    const [ApellidoAlumno,setApellidoAlumno]= useState("")
-    const [CodigoAlumno,setCodigoAlumno]= useState("")
-    const [AnioAlumno,setAnioAlumno]= useState("")
+    const [NombreAlumno, setNombreAlumno] = useState("")
+    const [ApellidoAlumno, setApellidoAlumno] = useState("")
+    const [CodigoAlumno, setCodigoAlumno] = useState("")
+    const [AnioAlumno, setAnioAlumno] = useState("")
+    const [deleteId, setDeleteId] = useState("");
+
+    const [updateId, setupdateId] = useState("")
+    const [updateNombre, setupdateNombre] = useState("")
+    const [updateApellido, setupdateApellido] = useState("")
+    const [updateAnio, setupdateAnio] = useState("")
 
 
 
-
-
-    // const [getId, setGetId] = useState("")
-
-    // const handleCloseModalAlum = () => setShowModalAlum(false);
-    // const handleShowModalAlum = () => setShowModalAlum(true);
     const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
     const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    
+
 
     //OBTENER LOS DATOS DE LA BASE DE DATOS:
     const getAlumnos = async () => {
@@ -49,35 +51,84 @@ function CrudALumnos() {
         setAllAlumnos(result.data)
     }
 
-    // const createNewStudent = async () => {
-    //     let myHeaders = new Headers();
-    //     myHeaders.append("Content-Type", "application/json");
+    const createAlumnos = async () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-    //     let raw = JSON.stringify({
-    //         "nameAlumno": "Martin",
-    //         "lastnameAlumno": "Fierro",
-    //         "legajoAlumno": 1115
-    //     });
+        var raw = JSON.stringify({
+            nameAlumno: NombreAlumno,
+            lastnameAlumno: ApellidoAlumno,
+            legajoAlumno: CodigoAlumno,
+            anio: AnioAlumno
+        });
 
-    //     let requestOptions = {
-    //         method: 'POST',
-    //         headers: myHeaders,
-    //         body: raw,
-    //         redirect: 'follow'
-    //     };
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+        };
+        const response = await fetch(API_URI + "/alumno/create", requestOptions)
+        const result = await response.json()
+        console.log(result)
+    }
+    const DeleteStudent = async (_id) => {
+        let requestOptions = {
+            method: 'DELETE',
+            redirect: 'follow'
+        };
 
-    //     const response = await fetch(API_URI + "/alumno/create", requestOptions)
-    //     const result = await response.json()
-    //     console.log(result)
-    // }
+        const response = fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
+        const result = await response.json()
+        console.log(result)
 
-    // --- HANDLERS ---
-    const handleSubmit = async () => {
-        // await createCategory()
-        await getAllCategories()
+    }
+
+    const UpdateAlumnos = async () => {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        let raw = JSON.stringify({
+            "nameAlumno": updateNombre,
+            "lastnameAlumno": updateApellido,
+            "anio": updateAnio
+        });
+
+        let requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        const response = fetch(API_URI+"/alumno/update/"+updateId, requestOptions)
+        const result = await response.json()
+        console.log(result)
+            
     }
 
 
+    // --- HANDLERS ---
+    const handleSubmit = async () => {
+        await createAlumnos()
+        await getAlumnos()
+    }
+    const handleDeleteStudent = async (_id) => {
+        setDeleteId(_id)
+        setShowDeleteModal(true)
+
+    }
+    const handleConfirmDelete = async () => {
+        await DeleteStudent(deleteId); // Ejecutar la función de eliminación
+        setDeleteId(""); // Reiniciar el ID a eliminar
+        setShowDeleteModal(false); // Cerrar el modal de confirmación
+        await getAlumnos(); // Actualizar la lista después de la eliminación
+    }
+
+    const handleUpdateAlumnos = async (_id) => {
+        await UpdateAlumnos(_id)
+        await getAlumnos()
+
+    }
     useEffect(() => {
         getAlumnos()
     }, [])
@@ -92,39 +143,76 @@ function CrudALumnos() {
 
 
                     <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
-'
+                    '
                     <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Nombre"
-                            value={NombreAlumno}
-                            onChange={(e) => setNombreAlumno(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Apellido</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Apellido"
-                            value={ApellidoAlumno}
-                            onChange={(e) => setApellidoAlumno(e.target.value)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Legajo</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Apellido"
-                            value={CodigoAlumno}
-                            onChange={(e) => setCodigoAlumno(e.target.value)} />
-                    </Form.Group>
-                    
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>año</Form.Label>
-                        <Form.Control type="text"
-                            placeholder="Año"
-                            value={AnioAlumno}
-                            onChange={(e) => setAnioAlumno(e.target.value)} />
-                    </Form.Group>
-                    <Button variant='outline-primary' className="mb-2" onClick={handleSubmit}>Cargar Category</Button>
-                </Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Nombre</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Nombre"
+                                value={NombreAlumno}
+                                onChange={(e) => setNombreAlumno(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Apellido</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Apellido"
+                                value={ApellidoAlumno}
+                                onChange={(e) => setApellidoAlumno(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Legajo</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Legajo"
+                                value={CodigoAlumno}
+                                onChange={(e) => setCodigoAlumno(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>año</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Año"
+                                value={AnioAlumno}
+                                onChange={(e) => setAnioAlumno(e.target.value)} />
+                        </Form.Group>
+                        <ButtonCustom onClick={handleSubmit} nameBtt=" Cargar Estudiante" />
+                    </Form>
+
+                    {/* ------FORM UPDATE CATEGORY---- */}
+                {
+                    updateId.length > 0 && (
+                        <Form className='mb-5'>
+                         <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Nombre</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Nombre"
+                                value={updateNombre}
+                                onChange={(e) => setupdateNombre(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Apellido</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Apellido"
+                                value={updateApellido}
+                                onChange={(e) => setupdateApellido(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>año</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Año"
+                                value={updateAnio}
+                                onChange={(e) => setupdateAnio(e.target.value)} />
+                        </Form.Group>
+                            
+                        /*cambiar buttons */
+                            <Button variant='outline-success' className="mb-2" onClick={handleUpdateAlumnos}>Cargar Actualizacion</Button>
+                            <Button variant='outline-danger' className="mb-2 mx-1" onClick={() => {
+                                setupdateId("")
+                                setupdateNombre("")
+                                setupdateAnio("")
+                            }}>Cancelar</Button>
+                        </Form>
+                    )
+                }
 
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
                         <Col className="d-flex justify-content-center">
@@ -162,8 +250,13 @@ function CrudALumnos() {
                                         <td data-titulo="Cuota al dia">{alumno.cuotaAlumno ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
                                         <td data-titulo="Año">{alumno.anio}</td>
                                         <td data-titulo="Opciones">
-                                            <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" />
-                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" />
+                                            <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                                setupdateId(alumno._id),
+                                                    setupdateNombre(alumno.nameAlumno),
+                                                    setupdateApellido(alumno.lastnameAlumno),
+                                                    setupdateAnio(alumno.anio)
+                                            }} />
                                             <ButtonIconCustom to="/menu/detalle-cursado" variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
                                         </td>
@@ -181,6 +274,23 @@ function CrudALumnos() {
                 </Container>
 
             </>
+            {/* Modal de confirmación de eliminación */}
+            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirmar eliminación</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    ¿Estás seguro de que deseas eliminar este elemento?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={handleConfirmDelete}>
+                        Eliminar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
 
         </>
