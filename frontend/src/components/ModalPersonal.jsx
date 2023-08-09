@@ -7,6 +7,7 @@ import styles from "../styles/modalStyles.module.css"
 
 const ModalPersonal =({show,handleClose}) =>{
     
+
 return ( 
       <Modal
         show={show}
@@ -20,21 +21,29 @@ return (
         <Modal.Body>
         <Form>
       <Form.Group className="mb-3" controlId="formBasicNickName">
-        <Form.Label>Nombre Completo</Form.Label>
-        <Form.Control type="text" placeholder="Nombre Completo" maxLength={45} />
+        <Form.Label>Nombre</Form.Label>
+        <Form.Control type="text" placeholder="Nombre" maxLength={25} required />
         <Form.Text className="text-muted">
         </Form.Text>
       </Form.Group>
-
-      <Form.Select aria-label="Default select example" className='mb-3'>
-      <option>Año que cursa</option>
-      <option value="1">Primero</option>
-      <option value="2">Segundo</option>
-      <option value="3">Tercero</option>
-      <option value="4">Cuarto</option>
-      <option value="5">Quinto</option>
-      <option value="6">Sexto</option>
-    </Form.Select>
+      <Form.Group className='mb-3' controlId='frormBasicLastName'>
+        <Form.Label>Apellido</Form.Label>
+        <Form.Control type='text' placeholder='Apellido' maxLength={25} required/>
+        <Form.Text className='text-muted'>
+        </Form.Text>  
+      </Form.Group>
+      <Form.Group className='mb-3' controlId='frormBasicDate'>
+        <Form.Label>Fecha de Ingreso</Form.Label>
+        <Form.Control className='d-flex justify-content-center' type='date' placeholder='Apellido'required/>
+        <Form.Text className='text-muted'>
+        </Form.Text>  
+      </Form.Group>
+      <Form.Group className='mb-3' controlId='formBasicContact'>
+        <Form.Label>Contacto</Form.Label>
+        <Form.Control type='tel'  placeholder='Contacto' maxLength={25} required/>
+        <Form.Text className='text-muted'>
+        </Form.Text>  
+      </Form.Group>
         <Modal.Footer>
         <Button className={`${styles["custom-btt"]} ${styles["custom-btt-close"]}`} onClick={handleClose}>Cerrar</Button>
             <Button className={`${styles["custom-btt"]} ${styles["custom-btt-add"]}`} type='summit'>Agregar</Button>
