@@ -7,8 +7,7 @@ import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import ButtonCustomRedGreen from "../components/ButtonCustomRedGreen"
-
+import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 
 
 
@@ -38,6 +37,12 @@ function CrudALumnos() {
     //Modales
     const [showCreateForm, setShowCreateForm] = useState("")
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [showUpdateForm, setShowUpdateForm] = useState(true);
+
+
+
 
 
 
@@ -71,6 +76,7 @@ function CrudALumnos() {
         const response = await fetch(API_URI + "/alumno/create", requestOptions)
         const result = await response.json()
         console.log(result)
+        setShowSuccessModal(true);
         getAlumnos()
     }
 
@@ -101,17 +107,14 @@ function CrudALumnos() {
             body: raw,
             redirect: 'follow'
         };
-        try {
-            const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-            if (response.status >= 400) {
-                return console.error("Error en la solicitud de actualización");
-            }
-            const result = await response.json();
-            console.log(result);
-            await getAlumnos();
-        } catch (error) {
-            console.error("Error al actualizar los datos:", error);
-        }
+
+        const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
+        const result = await response.json();
+        console.log(result);
+        setShowSuccessModal(true);
+        setShowUpdateForm(false);
+        getAlumnos();
+
     }
 
 
@@ -171,12 +174,12 @@ function CrudALumnos() {
                                 value={AnioAlumno}
                                 onChange={(e) => setAnioAlumno(e.target.value)} />
                         </Form.Group>
-                        <ButtonCustom onClick={handleSubmit} nameBtt=" Cargar Estudiante" />
+                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !CodigoAlumno || !AnioAlumno} />
                     </Form>
 
                     {/* ------FORM UPDATE sTUDENTS---- */}
                     {
-                        updateId.length > 0 && (
+                        updateId.length > 0 && showUpdateForm && (
                             <Form className='mb-5'>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Nombre</Form.Label>
@@ -278,7 +281,18 @@ function CrudALumnos() {
                 </Modal.Footer>
             </Modal>
 
-
+            {/* -----------Modal de éxito ---------*/}
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Operación exitosa</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    La operación se ha realizado exitosamente.
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
+                </Modal.Footer>
+            </Modal>
         </>
 
 

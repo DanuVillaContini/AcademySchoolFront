@@ -4,7 +4,7 @@ import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
-import ButtonCustomRedGreen from "../components/ButtonCustomRedGreen"
+import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 
 
 function CrudPersonal() {
