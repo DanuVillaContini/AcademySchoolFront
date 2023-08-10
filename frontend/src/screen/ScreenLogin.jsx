@@ -1,38 +1,49 @@
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { useState } from 'react';
+import jwtDecode from "jwt-decode";
 import logo from '../assets/logo_recortado.png';
 import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
-// import { API_URI } from '../common/constants';
+import { API_URI } from '../common/constants';
 
-function ScreenLogin() {
+
+function ScreenLogin({ changeJwt }) {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
-    // let myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    // let raw = JSON.stringify({
-    //   correo: correo,
-    //   pass: password
-    // });
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    // let requestOptions = {
-    //   method: 'POST',
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: 'follow'
-    // };
+    let raw = JSON.stringify({
+      correo: correo,
+      pass: password
+    });
 
-    // fetch(API_URI + "/auth/login", requestOptions)
-    //   .then(response => response.text())
-    //   .then(result => console.log(result))
-    //   .catch(error => console.log('error', error));
+    let requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    try {
+      const response = await fetch(API_URI + "/auth/login", requestOptions);
+      const result = await response.text();
+
+      // Decodifica el token JWT
+      const decodedToken = jwtDecode(result);
+
+      // Llamar a la función changeJwt para pasar el token al componente padre
+      changeJwt(decodedToken);
+
+      console.log("Token decodificado:", decodedToken);
+    } catch (error) {
+      console.log('error', error);
+    }
   }
-//   const handleLogout = () => {
-//     changeJwt("")
-// }
 
 
   return (
@@ -76,7 +87,6 @@ function ScreenLogin() {
               Recordar usuario
             </label>
           </div>
-          {/* falta props onClick={handle..} */}
           <ButtonCustom onClick={handleLogin} nameBtt="Iniciar Sesion" />
         </form>
         <p className={styles["register-link"]}>¿Aún no tienes cuenta? Regístrate aquí.</p>
@@ -85,7 +95,7 @@ function ScreenLogin() {
   );
 }
 
-// ScreenLogin.propTypes = {
-//   changeJwt: PropTypes.func.isRequired
-// }
+ScreenLogin.propTypes = {
+  changeJwt: PropTypes.func.isRequired
+}
 export default ScreenLogin;

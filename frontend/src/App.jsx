@@ -1,47 +1,32 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MenuRouter from "./routes/MenuRouter";
 import ScreenLogin from "./screen/ScreenLogin";
-import InstitutionForm from "./screen/InstitutionForm"
-// import jwtDecode from "jwt-decode";
-// import { useEffect, useState } from "react";
+import InstitutionForm from "./screen/InstitutionForm";
+import { useState } from "react";
 
 function App() {
-  // const [jwt, setJwt] = useState(localStorage.getItem("token") || "");
-  // const [isAdmin, setIsAdmin] = useState(false);
+  const [jwt, setJwt] = useState("");
 
-  // const verifyEmployee = () => {
-  //   try {
-  //     const decodedToken = jwtDecode(jwt);
-  //     setIsAdmin(decodedToken.isAdmin);
-  //     console.log("Se inició sesión", decodedToken.username);
-  //   } catch (error) {
-  //     console.error("Error al decodificar el JWT:", error);
-  //   }
-  // };
-
-  // const changeJwt = (value) => {
-  //   setJwt(value);
-  //   localStorage.setItem("token", value)
-  // };
-
-  // useEffect(() => {
-  //   verifyEmployee();
-
-  // }, [jwt]);
+  // Función para cambiar el token JWT en el estado
+  const changeJwt = (newJwt) => {
+    setJwt(newJwt);
+  };
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-        {/* authenticated={!!jwt} isAdmin={isAdmin} changeJwt={changeJwt} */}
-          <Route path="/" element={<ScreenLogin  />} />
+          {/* Pasar la función changeJwt al componente ScreenLogin */}
+          <Route
+            path="/"
+            element={<ScreenLogin changeJwt={changeJwt} />}
+          />
           <Route path="/menu/*" element={<MenuRouter />} />
           <Route path="/Institucion" element={<InstitutionForm />} />
-
         </Routes>
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
