@@ -4,6 +4,7 @@ import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
+import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 
 
 function CrudPersonal() {
@@ -234,7 +235,7 @@ function CrudPersonal() {
                                     color="green"
                                     onClick={handleUpdatePersonal}
                                     nameBtt="Cargar Actualizacion"
-                                    disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo}
+                                    disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo}/>
 
                                <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setUpdateId("")

@@ -8,6 +8,7 @@ import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 
 
 
@@ -103,7 +104,7 @@ function CrudALumnos() {
             redirect: 'follow'
         };
 
-        const response = fetch(API_URI + "/alumno/update/" + updateId, requestOptions)
+        const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions)
         const result = await response.json()
         console.log(result)
         await getAlumnos()
