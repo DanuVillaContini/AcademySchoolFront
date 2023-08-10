@@ -79,7 +79,7 @@ function CrudALumnos() {
             method: 'DELETE',
             redirect: 'follow'
         };
-        const response = fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
+        const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
         const result = await response.json()
         console.log(result)
         setDeleteId("");
