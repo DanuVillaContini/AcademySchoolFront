@@ -14,8 +14,7 @@ function ButtonCustomRedGreen({ color, disabled, to, onClick, nameBtt }) {
                 </Link>
             </div>
         );
-    }
-    else {
+    } else {
         return (
             <div>
                 <Button className={buttonClasses} onClick={onClick} disabled={disabled}>
