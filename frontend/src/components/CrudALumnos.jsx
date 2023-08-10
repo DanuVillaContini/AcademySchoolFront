@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import ModalAlum from '../components/ModalAlum';
 import ModalBtnAlum from "./modalABtnAlum";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
@@ -8,21 +7,22 @@ import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import ButtonCustomRedGreen from "../components/ButtonCustomRedGreen"
+
 
 
 
 function CrudALumnos() {
 
-    const [showCreateForm, setShowCreateForm] = useState("")
-
-    // const [showModalAlum, setShowModalAlum] = useState(false);
     const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
 
     const [allAlumnos, setAllAlumnos] = useState([])
+
     const [NombreAlumno, setNombreAlumno] = useState("")
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
     const [CodigoAlumno, setCodigoAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
+
     const [deleteId, setDeleteId] = useState("");
 
     const [updateId, setupdateId] = useState("")
@@ -31,9 +31,12 @@ function CrudALumnos() {
     const [updateAnio, setupdateAnio] = useState("")
 
 
-
+    //modalCuota
     const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
     const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
+
+    //Modales
+    const [showCreateForm, setShowCreateForm] = useState("")
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 
@@ -54,14 +57,12 @@ function CrudALumnos() {
     const createAlumnos = async () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-
         var raw = JSON.stringify({
             nameAlumno: NombreAlumno,
             lastnameAlumno: ApellidoAlumno,
             legajoAlumno: CodigoAlumno,
             anio: AnioAlumno
         });
-
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -72,41 +73,45 @@ function CrudALumnos() {
         console.log(result)
         getAlumnos()
     }
+
     const DeleteStudent = async (_id) => {
         let requestOptions = {
             method: 'DELETE',
             redirect: 'follow'
         };
-
         const response = fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
         const result = await response.json()
         console.log(result)
-        setDeleteId(""); // Reiniciar el ID a eliminar
-        setShowDeleteModal(false); // Cerrar el modal de confirmación
+        setDeleteId("");
+        setShowDeleteModal(false);
         await getAlumnos();
     }
 
     const UpdateAlumnos = async () => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-
         let raw = JSON.stringify({
-            "nameAlumno": updateNombre,
-            "lastnameAlumno": updateApellido,
-            "anio": updateAnio
+            nameAlumno: updateNombre,
+            lastnameAlumno: updateApellido,
+            anio: updateAnio
         });
-
         let requestOptions = {
             method: 'PUT',
             headers: myHeaders,
             body: raw,
             redirect: 'follow'
         };
-
-        const response = fetch(API_URI + "/alumno/update/" + updateId, requestOptions)
-        const result = await response.json()
-        console.log(result)
-        await getAlumnos()
+        try {
+            const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
+            if (response.status >= 400) {
+                return console.error("Error en la solicitud de actualización");
+            }
+            const result = await response.json();
+            console.log(result);
+            await getAlumnos();
+        } catch (error) {
+            console.error("Error al actualizar los datos:", error);
+        }
     }
 
 
@@ -134,11 +139,8 @@ function CrudALumnos() {
             {/* <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} /> */}
             <>
                 <Container>
-                    {/**Formulario*/}
-
-
+                    {/* ---------- FORM CREATE NEW STUDENT ---------- */}
                     <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
-
                     <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
@@ -164,7 +166,7 @@ function CrudALumnos() {
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>año</Form.Label>
-                            <Form.Control type="text"
+                            <Form.Control type="number"
                                 placeholder="Año"
                                 value={AnioAlumno}
                                 onChange={(e) => setAnioAlumno(e.target.value)} />
@@ -172,7 +174,7 @@ function CrudALumnos() {
                         <ButtonCustom onClick={handleSubmit} nameBtt=" Cargar Estudiante" />
                     </Form>
 
-                    {/* ------FORM UPDATE CATEGORY---- */}
+                    {/* ------FORM UPDATE sTUDENTS---- */}
                     {
                         updateId.length > 0 && (
                             <Form className='mb-5'>
@@ -191,27 +193,24 @@ function CrudALumnos() {
                                         onChange={(e) => setupdateApellido(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>año</Form.Label>
+                                    <Form.Label>Año</Form.Label>
                                     <Form.Control type="text"
                                         placeholder="Año"
                                         value={updateAnio}
                                         onChange={(e) => setupdateAnio(e.target.value)} />
                                 </Form.Group>
-
-                        {/* cambiar buttons  */}
-                                
                                 <ButtonCustomRedGreen
                                     color="green"
                                     onClick={handleUpdateAlumnos}
                                     nameBtt="Cargar Actualizacion"
-                                    disabled={!updateNombre || !updateAnio}
+                                    disabled={!updateNombre || !updateApellido || !updateAnio}
                                 />
                                 <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setupdateId("")
                                     setupdateNombre("")
                                     setupdateAnio("")
                                 }} />
-                    
+
                             </Form>
                         )
                     }
@@ -220,13 +219,6 @@ function CrudALumnos() {
                         <Col className="d-flex justify-content-center">
                             <h2>Detalle De Alumnos</h2>
                         </Col>
-                        {/*----------QUE ABRE VENTANA MODAL PARA FORMULARIO-------*/}
-                        <>
-                            <Col className="d-flex justify-content-end mb-2">
-                                {/* <ButtonCustom onClick={handleShowModalAlum} nameBtt="New Student" /> */}
-                            </Col>
-                        </>
-
                     </Row>
                     <Row><>
                         <Table className={Styles["custom-table-Alum"]} striped bordered hover>
@@ -254,10 +246,10 @@ function CrudALumnos() {
                                         <td data-titulo="Opciones">
                                             <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                                setupdateId(alumno._id),
-                                                    setupdateNombre(alumno.nameAlumno),
-                                                    setupdateApellido(alumno.lastnameAlumno),
-                                                    setupdateAnio(alumno.anio)
+                                                setupdateId(alumno._id)
+                                                setupdateNombre(alumno.nameAlumno)
+                                                setupdateApellido(alumno.lastnameAlumno)
+                                                setupdateAnio(alumno.anio)
                                             }} />
                                             <ButtonIconCustom to="/menu/detalle-cursado" variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
@@ -266,15 +258,11 @@ function CrudALumnos() {
                                     </tr>
                                 ))}
                             </tbody>
-
                         </Table>
                         {/*----------------TABLA FIN----------------------------*/}
                     </>
-
                     </Row>
-
                 </Container>
-
             </>
             {/* Modal de confirmación de eliminación */}
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
