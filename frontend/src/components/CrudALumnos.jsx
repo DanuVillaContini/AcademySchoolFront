@@ -8,6 +8,7 @@ import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
+import { Link} from "react-router-dom";
 
 
 
@@ -280,7 +281,9 @@ function CrudALumnos() {
                                                 setupdateApellido(alumno.lastnameAlumno)
                                                 setupdateAnio(alumno.anio)
                                             }} />
-                                            <ButtonIconCustom to="/menu/detalle-cursado" variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
+                                            <Link to={`/menu/detalle-cursado/${alumno.libreta._id}`}>
+                                                <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
+                                            </Link>
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
                                         </td>
 

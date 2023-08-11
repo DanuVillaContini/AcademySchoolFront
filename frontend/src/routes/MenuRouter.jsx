@@ -10,7 +10,7 @@ function MenuRouter() {
             <Routes>
                 <Route path="/" element={<PersonalScreen />} />
                 <Route path="/alumnos" element={<AlumnosScreen />} />
-                <Route path="/detalle-cursado" element={<CursadoScreen />} />
+                <Route path="/detalle-cursado/:id" element={<CursadoScreen />} />
             </Routes>
         </>
     )
