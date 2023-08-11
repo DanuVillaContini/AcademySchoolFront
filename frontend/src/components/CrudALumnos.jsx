@@ -19,7 +19,7 @@ function CrudALumnos() {
 
     const [NombreAlumno, setNombreAlumno] = useState("")
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
-    const [CodigoAlumno, setCodigoAlumno] = useState("")
+    const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
 
     const [deleteId, setDeleteId] = useState("");
@@ -27,6 +27,7 @@ function CrudALumnos() {
     const [updateId, setupdateId] = useState("")
     const [updateNombre, setupdateNombre] = useState("")
     const [updateApellido, setupdateApellido] = useState("")
+    const [updateDni, setupdateDni] = useState("")
     const [updateAnio, setupdateAnio] = useState("")
 
 
@@ -65,7 +66,7 @@ function CrudALumnos() {
         var raw = JSON.stringify({
             nameAlumno: NombreAlumno,
             lastnameAlumno: ApellidoAlumno,
-            legajoAlumno: CodigoAlumno,
+            dniAlumno: DNIAlumno,
             anio: AnioAlumno
         });
         var requestOptions = {
@@ -76,6 +77,12 @@ function CrudALumnos() {
         const response = await fetch(API_URI + "/alumno/create", requestOptions)
         const result = await response.json()
         console.log(result)
+
+        setNombreAlumno("")
+        setApellidoAlumno("")
+        setDNIAlumno("")
+        setAnioAlumno("")
+
         setShowSuccessModal(true);
         getAlumnos()
     }
@@ -99,6 +106,7 @@ function CrudALumnos() {
         let raw = JSON.stringify({
             nameAlumno: updateNombre,
             lastnameAlumno: updateApellido,
+            dniAlumno: updateDni,
             anio: updateAnio
         });
         let requestOptions = {
@@ -160,21 +168,21 @@ function CrudALumnos() {
                                 onChange={(e) => setApellidoAlumno(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Legajo</Form.Label>
+                            <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="text"
-                                placeholder="Legajo"
-                                value={CodigoAlumno}
-                                onChange={(e) => setCodigoAlumno(e.target.value)} />
+                                placeholder="N° DNI"
+                                value={DNIAlumno}
+                                onChange={(e) => setDNIAlumno(e.target.value)} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>año</Form.Label>
+                            <Form.Label>Año</Form.Label>
                             <Form.Control type="number"
                                 placeholder="Año"
                                 value={AnioAlumno}
                                 onChange={(e) => setAnioAlumno(e.target.value)} />
                         </Form.Group>
-                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !CodigoAlumno || !AnioAlumno} />
+                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
                     </Form>
 
                     {/* ------FORM UPDATE sTUDENTS---- */}
@@ -185,6 +193,8 @@ function CrudALumnos() {
                                     <Form.Label>Nombre</Form.Label>
                                     <Form.Control type="text"
                                         placeholder="Nombre"
+                                        required
+                                        maxLength={25}
                                         value={updateNombre}
                                         onChange={(e) => setupdateNombre(e.target.value)} />
                                 </Form.Group>
@@ -192,13 +202,27 @@ function CrudALumnos() {
                                     <Form.Label>Apellido</Form.Label>
                                     <Form.Control type="text"
                                         placeholder="Apellido"
+                                        required
+                                        maxLength={25}
                                         value={updateApellido}
                                         onChange={(e) => setupdateApellido(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Año</Form.Label>
+                                    <Form.Label>N° DNI</Form.Label>
                                     <Form.Control type="text"
+                                        placeholder="N° DNI"
+                                        required
+                                        maxLength={8}
+                                        minLength={7}
+                                        value={updateDni}
+                                        onChange={(e) => setupdateDni(e.target.value)} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Año</Form.Label>
+                                    <Form.Control type="number"
                                         placeholder="Año"
+                                        required
+                                        maxLength={1}
                                         value={updateAnio}
                                         onChange={(e) => setupdateAnio(e.target.value)} />
                                 </Form.Group>
@@ -206,11 +230,12 @@ function CrudALumnos() {
                                     color="green"
                                     onClick={handleUpdateAlumnos}
                                     nameBtt="Cargar Actualizacion"
-                                    disabled={!updateNombre || !updateApellido || !updateAnio}
+                                    disabled={!updateNombre || !updateApellido || !updateAnio || !updateDni}
                                 />
                                 <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setupdateId("")
                                     setupdateNombre("")
+                                    setupdateDni("")
                                     setupdateAnio("")
                                 }} />
 
@@ -231,7 +256,7 @@ function CrudALumnos() {
                                     {/* <th>ID</th> */}
                                     <th>Nombre</th>
                                     <th>Apellido</th>
-                                    <th>Legajo</th>
+                                    <th>N° DNI</th>
                                     <th>Cuota al dia</th>
                                     <th>Año actual</th>
                                     <th>Opciones</th>
@@ -243,7 +268,7 @@ function CrudALumnos() {
                                         {/* <td data-titulo="Legajo">{alumno._id}</td> */}
                                         <td data-titulo="Nombre">{alumno.nameAlumno}</td>
                                         <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
-                                        <td data-titulo="Legajo">{alumno.legajoAlumno}</td>
+                                        <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
                                         <td data-titulo="Cuota al dia">{alumno.cuotaAlumno ? <Button variant='success' className="m-1"> </Button> : <Button variant='danger' className="m-1"></Button>}</td>
                                         <td data-titulo="Año">{alumno.anio}</td>
                                         <td data-titulo="Opciones">
@@ -251,6 +276,7 @@ function CrudALumnos() {
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
                                                 setupdateId(alumno._id)
                                                 setupdateNombre(alumno.nameAlumno)
+                                                setupdateDni(alumno.dniAlumno)
                                                 setupdateApellido(alumno.lastnameAlumno)
                                                 setupdateAnio(alumno.anio)
                                             }} />

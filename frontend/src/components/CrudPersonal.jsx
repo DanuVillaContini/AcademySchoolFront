@@ -15,7 +15,7 @@ function CrudPersonal() {
     const [lastnamePersonal, setLastnamePersonal] = useState("")
     const [telefonoPersonal, setTelefonoPersonal] = useState("")
     const [correoPersonal, setCorreoPersonal] = useState("")
-    const [legajo, setLegajo] = useState("")
+    const [dniPersonal, setDniPersonal] = useState("")
 
     const [deleteId, setDeleteId] = useState("");
 
@@ -24,6 +24,8 @@ function CrudPersonal() {
     const [updateLastname, setUpdateLastname] = useState("")
     const [updateTelefono, setUpdateTelefono] = useState("")
     const [updateCorreo, setUpdateCorreo] = useState("")
+    const [updateDni, setUpdateDni] = useState("")
+
 
 
 
@@ -56,7 +58,7 @@ function CrudPersonal() {
             lastnameUser: lastnamePersonal,
             telefono: telefonoPersonal,
             correo: correoPersonal,
-            legajoUser: legajo
+            dniUser: dniPersonal
         });
         let requestOptions = {
             method: 'POST',
@@ -71,7 +73,7 @@ function CrudPersonal() {
         setLastnamePersonal("");
         setTelefonoPersonal("");
         setCorreoPersonal("");
-        setLegajo("");
+        setDniPersonal("");
         
         setShowSuccessModal(true);
         getPersonal()
@@ -97,7 +99,8 @@ function CrudPersonal() {
             nameUser: updateName,
             lastnameUser: updateLastname,
             telefono: updateTelefono,
-            correo: updateCorreo
+            correo: updateCorreo,
+            dniUser: updateDni
         });
         let requestOptions = {
             method: 'PUT',
@@ -170,13 +173,14 @@ function CrudPersonal() {
                                 onChange={(e) => setCorreoPersonal(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicEmail">
-                            <Form.Label>N° Legajo</Form.Label>
+                            <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese N° de Legajo"
-                                onChange={(e) => setLegajo(e.target.value)} />
+                                value={dniPersonal}
+                                onChange={(e) => setDniPersonal(e.target.value)} />
                         </Form.Group>
 
-                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !legajo} />
+                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !dniPersonal} />
                     </Form>
 
                     {/* ------FORM UPDATE PERSONAL---- */}
@@ -219,11 +223,21 @@ function CrudPersonal() {
                                         value={updateCorreo}
                                         onChange={(e) => setUpdateCorreo(e.target.value)} />
                                 </Form.Group>
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>N° DNI</Form.Label>
+                                    <Form.Control type="email"
+                                        placeholder="Ingrese correo electronico"
+                                        maxLength={8}
+                                        minLength={7}
+                                        required
+                                        value={updateDni}
+                                        onChange={(e) => setUpdateDni(e.target.value)} />
+                                </Form.Group>
                                 <ButtonCustomRedGreen
                                     color="green"
                                     onClick={handleUpdatePersonal}
                                     nameBtt="Cargar Actualizacion"
-                                    disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo}
+                                    disabled={!updateName || !updateLastname || !updateTelefono || !updateCorreo || !updateDni}
                                 />
                                 <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
                                     setUpdateId("")
@@ -231,6 +245,7 @@ function CrudPersonal() {
                                     setUpdateLastname("")
                                     setUpdateTelefono("")
                                     setUpdateCorreo("")
+                                    setUpdateDni("")
                                 }} />
                             </Form>
                         )
@@ -248,7 +263,7 @@ function CrudPersonal() {
                             <thead>
                                 <tr>
                                     {/* <th>ID</th> */}
-                                    <th>Legajo</th>
+                                    <th>DNI</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Telefono</th>
@@ -259,7 +274,7 @@ function CrudPersonal() {
                             <tbody>
                                 {allPersonal.map((empleado) => (
                                     <tr key={empleado._id}>
-                                        <td data-titulo="Legajo">{empleado.legajoUser}</td>
+                                        <td data-titulo="DNI">{empleado.dniUser}</td>
                                         <td data-titulo="Nombre">{empleado.nameUser}</td>
                                         <td data-titulo="Apellido">{empleado.lastnameUser}</td>
                                         <td data-titulo="Telefono">{empleado.telefono}</td>
@@ -270,6 +285,7 @@ function CrudPersonal() {
                                             }} />
                                             <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
                                                 setUpdateId(empleado._id)
+                                                setUpdateDni(empleado.dniUser)
                                                 setUpdateName(empleado.nameUser)
                                                 setUpdateLastname(empleado.lastnameUser)
                                                 setUpdateTelefono(empleado.telefono)
