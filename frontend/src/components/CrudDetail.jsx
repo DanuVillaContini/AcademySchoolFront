@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen";
 
+
 function CrudDetail() {
 
     const { id } = useParams();
@@ -15,6 +16,8 @@ function CrudDetail() {
 
     const [showModal, setShowModal] = useState(false);
     const [currentMateria, setCurrentMateria] = useState("");
+
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const getNotas = async () => {
         try {
@@ -78,6 +81,8 @@ function CrudDetail() {
     }
     const handleUpdateNota = async () => {
         await updateNotas()
+        setShowSuccessModal(true);
+        
     }
 
     useEffect(() => {
@@ -138,7 +143,14 @@ function CrudDetail() {
                                                     type="number"
                                                     placeholder="Ingrese la nueva nota"
                                                     value={changeNota}
-                                                    onChange={(e) => setChangeNota(e.target.value)}
+                                                    // onChange={(e) => setChangeNota(e.target.value)}
+                                                    onChange={(e) => {
+                                                        const newValue = parseInt(e.target.value);
+                                                        if (!isNaN(newValue) && newValue >= 1 && newValue <= 10) {
+                                                            setChangeNota(newValue);
+                                                        }
+                                                    }}
+                                                    
                                                 />
                                             </Form.Group>
                                         </Form>
@@ -166,6 +178,18 @@ function CrudDetail() {
                 {/* <h2>Detalle Notas Finales</h2> */}
 
             </Container>
+              {/* -----------Modal de éxito ---------*/}
+              <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Operación exitosa</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    La operación se ha realizado exitosamente.
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

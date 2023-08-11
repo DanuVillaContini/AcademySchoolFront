@@ -225,7 +225,14 @@ function CrudALumnos() {
                                         required
                                         maxLength={1}
                                         value={updateAnio}
-                                        onChange={(e) => setupdateAnio(e.target.value)} />
+                                        // onChange={(e) => setupdateAnio(e.target.value)} 
+                                        onChange={(e) => {
+                                            const newValue = parseInt(e.target.value);
+                                            if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
+                                                setupdateAnio(newValue);
+                                            }
+                                        }}
+                                        />
                                 </Form.Group>
                                 <ButtonCustomRedGreen
                                     color="green"
