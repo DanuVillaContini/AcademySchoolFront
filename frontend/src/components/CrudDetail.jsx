@@ -5,9 +5,28 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen";
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 
 function CrudDetail() {
+
+    const getColorClassForNota = (nota) => {
+        if (nota >= 1 && nota <= 5) {
+            return "bg-danger"; // Clase de color rojo para notas del 1 al 5
+        } else if (nota >= 6 && nota <= 10) {
+            return "bg-success"; // Clase de color verde para notas del 6 al 10
+        } else {
+            return ""; // Sin clase de color para otras notas
+        }
+    };
+
+
+
+
+
+
+
 
     const { id } = useParams();
 
@@ -106,7 +125,7 @@ function CrudDetail() {
                                     <thead>
                                         <tr>
                                             <th>Materia</th>
-                                            <th>Nota Final</th>
+                                            <th >Nota Final</th>
                                             <th>Actualizar</th>
                                         </tr>
                                     </thead>
@@ -114,7 +133,7 @@ function CrudDetail() {
                                         {Object.entries(notas).map(([materiaNombre, nota]) => (
                                             <tr key={materiaNombre}>
                                                 <td>{materiaNombre}</td>
-                                                <td>{nota}</td>
+                                                <td className={getColorClassForNota(nota)}>{nota}</td>
                                                 <td>
                                                     <ButtonIconCustom
                                                         variant="outline-success"

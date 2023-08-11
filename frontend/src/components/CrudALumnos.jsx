@@ -8,7 +8,7 @@ import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -159,21 +159,41 @@ function CrudALumnos() {
                             <Form.Control type="text"
                                 placeholder="Nombre"
                                 value={NombreAlumno}
-                                onChange={(e) => setNombreAlumno(e.target.value)} />
+                                // onChange={(e) => setNombreAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setNombreAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Apellido"
                                 value={ApellidoAlumno}
-                                onChange={(e) => setApellidoAlumno(e.target.value)} />
+                                // onChange={(e) => setApellidoAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setApellidoAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="text"
                                 placeholder="N° DNI"
                                 value={DNIAlumno}
-                                onChange={(e) => setDNIAlumno(e.target.value)} />
+                                // onChange={(e) => setDNIAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value
+                                    const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                    setDNIAlumno(onlyNumbers);
+                                }}
+                                //isInvalid={!/^\d+$/.test(DNIAlumno)}  Marca el campo como inválido si no son solo números
+                                maxLength={8}
+                                minLength={7} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -181,7 +201,15 @@ function CrudALumnos() {
                             <Form.Control type="number"
                                 placeholder="Año"
                                 value={AnioAlumno}
-                                onChange={(e) => setAnioAlumno(e.target.value)} />
+                                // onChange={(e) => setAnioAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const newValue = parseInt(e.target.value);
+                                    if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
+                                        setAnioAlumno(newValue);
+                                    }
+                                }}
+
+                            />
                         </Form.Group>
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
                     </Form>
@@ -197,7 +225,13 @@ function CrudALumnos() {
                                         required
                                         maxLength={25}
                                         value={updateNombre}
-                                        onChange={(e) => setupdateNombre(e.target.value)} />
+                                        // onChange={(e) => setupdateNombre(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setupdateNombre(onlyLettersAndSpaces);
+                                        }}
+                                        
+                                        />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Apellido</Form.Label>
@@ -206,7 +240,13 @@ function CrudALumnos() {
                                         required
                                         maxLength={25}
                                         value={updateApellido}
-                                        onChange={(e) => setupdateApellido(e.target.value)} />
+                                        // onChange={(e) => setupdateApellido(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setupdateApellido(onlyLettersAndSpaces);
+                                        }}
+                                        
+                                        />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>N° DNI</Form.Label>
@@ -216,7 +256,14 @@ function CrudALumnos() {
                                         maxLength={8}
                                         minLength={7}
                                         value={updateDni}
-                                        onChange={(e) => setupdateDni(e.target.value)} />
+                                        // 
+                                        onChange={(e) => {
+                                            const input = e.target.value
+                                            const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                            setupdateDni(onlyNumbers);
+                                        }}
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Año</Form.Label>
@@ -232,7 +279,7 @@ function CrudALumnos() {
                                                 setupdateAnio(newValue);
                                             }
                                         }}
-                                        />
+                                    />
                                 </Form.Group>
                                 <ButtonCustomRedGreen
                                     color="green"
