@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import ModalBtnAlum from "./modalABtnAlum";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -14,7 +13,7 @@ import { Link } from "react-router-dom";
 
 function CrudALumnos() {
 
-    const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
+
 
     const [allAlumnos, setAllAlumnos] = useState([])
 
@@ -147,8 +146,7 @@ function CrudALumnos() {
 
     return (
         <>
-            <ModalBtnAlum show={showModalBtnAlum} handleClose={handleCloseModalBtnAlum} />
-            {/* <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} /> */}
+
             <>
                 <Container>
                     {/* ---------- FORM CREATE NEW STUDENT ---------- */}
@@ -230,8 +228,8 @@ function CrudALumnos() {
                                             const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
                                             setupdateNombre(onlyLettersAndSpaces);
                                         }}
-                                        
-                                        />
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Apellido</Form.Label>
@@ -245,8 +243,8 @@ function CrudALumnos() {
                                             const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
                                             setupdateApellido(onlyLettersAndSpaces);
                                         }}
-                                        
-                                        />
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>N° DNI</Form.Label>
@@ -338,7 +336,9 @@ function CrudALumnos() {
                                             <Link to={`/menu/detalle-cursado/${alumno.libreta._id}`}>
                                                 <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
                                             </Link>
-                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
+                                            <Link to={`/menu/cuotas/${alumno.idAnio._id}`}>
+                                                <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas" />
+                                            </Link>
                                         </td>
 
                                     </tr>
