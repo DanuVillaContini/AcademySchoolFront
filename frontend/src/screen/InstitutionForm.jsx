@@ -1,47 +1,66 @@
 import { useState } from 'react';
-import styles from '../styles/InstitutionForm.module.css'; // Agrega los estilos para el formulario aquí (puedes usar la clase "background-image" para el fondo)
+import styles from '../styles/InstitutionForm.module.css'; 
 import ButtonCustom from '../components/ButtonCustom';
+import { API_URI } from '../common/constants';
+import { Modal } from 'react-bootstrap';
+import ButtonCustomRedGreen from '../components/ButtonCustomRedGreen';
+import { useNavigate } from 'react-router-dom'; 
 
 const InstitutionForm = () => {
-  // Estado para manejar los datos del formulario
-  const [formData, setFormData] = useState({
-    name: '',
-    contactPhone: '',
-    contactEmail: '',
-    address: '',
-  });
+  const [UpdateName, setUpdateName] = useState("")
+  const [UpdateTel, setUpdateTel] = useState("")
+  const [UpdateCorreo, setUpdateCorreo] = useState("")
+  const [UpdateDireccion, setUpdateDireccion] = useState("")
 
-  // Función para manejar los cambios en los campos del formulario
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const navigate = useNavigate() 
 
-  // Función para manejar el envío del formulario
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí puedes realizar la lógica para enviar los datos al servidor
-    console.log(formData); // Imprime los datos en la consola solo para comprobar que se están capturando correctamente
-    // ... Código para enviar los datos al servidor
-  };
+
+
+  const updateInstitucion = async () => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      nombreInstituto: UpdateName,
+      telefonoInstituto: UpdateTel,
+      correoInstituto: UpdateCorreo,
+      direccionInstituto: UpdateDireccion
+    });
+
+    let requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    const response = await fetch(API_URI + "/instituto/update", requestOptions)
+    const result = await response.text();
+    console.log(result);
+    setShowSuccessModal(true);
+    navigate('/mensaje')  
+  }
+
+  const handleUpdateInstitucion = async (_id) => {
+    await updateInstitucion(_id)
+  }
+
 
   return (
     <>
       <div className={styles["background-image"]}>
         <div className={styles["form-container"]}>
           <h2>Registro de Institución</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <label htmlFor="name">Nombre de la institución</label>
             <input
               type="text"
               id="name"
               name="name"
               maxLength={30}
-              value={formData.name}
-              onChange={handleChange}
+              value={UpdateName}
+              onChange={(e) => setUpdateName(e.target.value)}
               required
             />
 
@@ -51,8 +70,8 @@ const InstitutionForm = () => {
               id="contactPhone"
               name="contactPhone"
               maxLength={30}
-              value={formData.contactPhone}
-              onChange={handleChange}
+              value={UpdateTel}
+              onChange={(e) => setUpdateTel(e.target.value)}
               required
             />
 
@@ -62,8 +81,8 @@ const InstitutionForm = () => {
               id="contactEmail"
               name="contactEmail"
               maxLength={30}
-              value={formData.contactEmail}
-              onChange={handleChange}
+              value={UpdateCorreo}
+              onChange={(e) => setUpdateCorreo(e.target.value)}
               required
             />
 
@@ -73,14 +92,28 @@ const InstitutionForm = () => {
               id="address"
               name="address"
               maxLength={50}
-              value={formData.address}
-              onChange={handleChange}
+              value={UpdateDireccion}
+              onChange={(e) => setUpdateDireccion(e.target.value)}
               required
             />
-              <ButtonCustom nameBtt="Registrar Institución" />
+            <ButtonCustom nameBtt="Guardar Institución"
+              onClick={handleUpdateInstitucion}
+              disabled={!UpdateName || !UpdateTel || !UpdateCorreo || !UpdateDireccion} />
           </form>
         </div>
       </div>
+      {/* -----Modal de Institucion guardada con exito------ */}
+      <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Institucion Guardada</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Los datos de la Institucion han sido guardados con exito.
+        </Modal.Body>
+        <Modal.Footer>
+          <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
