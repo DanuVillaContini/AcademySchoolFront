@@ -2,10 +2,10 @@ import CrudCuotas from "../../components/CrudCuotas"
 import GridLoyout from "../../components/GridLoyout"
 
 
-function CuotasScreen() {
+function CuotasScreen({ destroyJwt }) {
     return (
         <>
-            <GridLoyout props_content={<CrudCuotas />} />
+            <GridLoyout destroyJwt={destroyJwt} props_content={<CrudCuotas />} />
 
         </>
     )
