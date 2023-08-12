@@ -1,15 +1,15 @@
-import PropTypes from "prop-types";
 import { useState } from 'react';
-import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo_recortado.png';
+import { API_URI } from '../common/constants';
 import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
-import { API_URI } from '../common/constants';
 
 
 function ScreenLogin({ changeJwt }) {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,13 +33,11 @@ function ScreenLogin({ changeJwt }) {
       const response = await fetch(API_URI + "/auth/login", requestOptions);
       const result = await response.text();
 
-      // Decodifica el token JWT
       const decodedToken = jwtDecode(result);
-
-      // Llamar a la función changeJwt para pasar el token al componente padre
+      
       changeJwt(decodedToken);
-
-      console.log("Token decodificado:", decodedToken);
+      localStorage.setItem("token", JSON.stringify(decodedToken))
+      navigate('/auth')
     } catch (error) {
       console.log('error', error);
     }
@@ -62,9 +60,7 @@ function ScreenLogin({ changeJwt }) {
             maxLength="30"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
-
           />
-
           <label htmlFor="password">Contraseña</label>
           <input
             type="password"
@@ -73,16 +69,13 @@ function ScreenLogin({ changeJwt }) {
             maxLength="30"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-
           />
-
           <div className={styles["remember-me"]}>
             <input
               type="checkbox"
               id="remember"
               name="remember"
             />
-
             <label className={styles["remember-label"]} htmlFor="remember">
               Recordar usuario
             </label>
