@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthRouter from "./routes/AuthRouter";
 import ScreenLogin from "./screen/ScreenLogin";
+import MsgLogin from "./screen/MsgLogin"
 
 function App() {
   const [jwt, setJwt] = useState(undefined);
@@ -40,6 +41,7 @@ function App() {
             element={<ScreenLogin changeJwt={changeJwt} />}
           />
           <Route path="/auth/*" element={<AuthRouter jwt={jwt} destroyJwt={destroyJwt} />} />
+          <Route path="/mensaje" element={<MsgLogin />} />
         </Routes>
       </BrowserRouter>
     </>
