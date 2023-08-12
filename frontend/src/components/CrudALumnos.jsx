@@ -36,6 +36,7 @@ function CrudALumnos() {
         if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
         const result = await response.json()
         setAllAlumnos(result.data)
+        console.log(result)
     }
     const createAlumnos = async () => {
         let myHeaders = new Headers();
@@ -294,10 +295,10 @@ function CrudALumnos() {
                                                 setupdateApellido(alumno.lastnameAlumno)
                                                 setupdateAnio(alumno.anio)
                                             }} />
-                                            <Link to={`/menu/detalle-cursado/${alumno.libreta._id}`}>
+                                            <Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
                                                 <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
                                             </Link>
-                                            <Link to={`/menu/cuotas/${alumno.idAnio._id}`}>
+                                            <Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
                                                 <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas" />
                                             </Link>
                                         </td>

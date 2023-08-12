@@ -6,12 +6,12 @@ function SideBarLateral() {
         <div className={`d-none d-lg-block ${styles['sidebar-conteiner']}`}>
             <div className={`d-flex flex-column align-items-center ${styles['container-links']}`}>
                 <div className={`m-1 ${styles['wrapper-link']}`}>
-                    <Link to="/menu/" >
+                    <Link to="/auth/" >
                         <button className={`font-monospace text-decoration-none ${styles['links-custom']}`}>Personal</button>
                     </Link>
                 </div>
                 <div className={`m-1 ${styles['wrapper-link']}`}>
-                    <Link to="/menu/alumnos" className={`text-decoration-none ${styles['']}`}>
+                    <Link to="/auth/alumnos" className={`text-decoration-none ${styles['']}`}>
                         <button className={`font-monospace text-decoration-none ${styles['links-custom']}`}>Alumnos</button>
                     </Link>
                 </div>
