@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { Navbar, Container, Nav, Accordion } from "react-bootstrap";
+import { Accordion, Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo_recortado.png";
 import styles from "../styles/navbarStyle.module.css";
-import { Link } from "react-router-dom";
 
-function NavBarCustom({ name_user }) {
-
+function NavBarCustom({ name_user, destroyJwt }) {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false); //para controlar que no se abra el acordeon al recargar la page
-
-
-
-
+    const navigate = useNavigate()
 
     //para controlar que no se abra el acordeon al recargar la page
     const toggleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
     };
 
-
+    const handleCloseSession = () => {
+        destroyJwt()
+        navigate("/")
+    }
 
     return (
         <Navbar
@@ -46,21 +45,21 @@ function NavBarCustom({ name_user }) {
                                     {name_user}
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <Link to="/menu/" className={` text-decoration-none d-lg-none ${styles["custom-nav-link"]}`}>
+                                    <Link to="/auth/" className={` text-decoration-none d-lg-none ${styles["custom-nav-link"]}`}>
                                         <span className="text-light text-center fs-5 font-monospace" >
                                             Personal
                                         </span>
                                     </Link>
-                                    <Link to="/menu/alumnos" className={` text-decoration-none d-lg-none ${styles["custom-nav-link"]}`}>
+                                    <Link to="/auth/alumnos" className={` text-decoration-none d-lg-none ${styles["custom-nav-link"]}`}>
                                         <span className="text-light text-center fs-5 font-monospace" >
                                             Alumnos
                                         </span>
                                     </Link>
-                                    <Link to="#" className={` text-decoration-none ${styles["custom-nav-link"]}`}>
+                                    <Button onClick={handleCloseSession} className={` text-decoration-none ${styles["custom-nav-link"]}`}>
                                         <span className="text-light text-center fs-5 font-monospace" >
                                             Logout
                                         </span>
-                                    </Link>
+                                    </Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
