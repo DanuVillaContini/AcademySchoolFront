@@ -6,12 +6,13 @@ import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
 import PropTypes from "prop-types";
 import jwtDecode from "jwt-decode";
-
+import { Modal} from 'react-bootstrap';
 
 function ScreenLogin({ changeJwt }) {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const [showPasswordIncorrectModal, setShowPasswordIncorrectModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,16 +36,23 @@ function ScreenLogin({ changeJwt }) {
       const response = await fetch(API_URI + "/auth/login", requestOptions);
       const result = await response.text();
 
-      const decodedToken = jwtDecode(result);
-      
-      changeJwt(decodedToken);
-      localStorage.setItem("token", JSON.stringify(decodedToken))
-      navigate('/auth')
+      if (response.status === 200) {
+        const decodedToken = jwtDecode(result);
+
+        changeJwt(decodedToken);
+        localStorage.setItem("token", JSON.stringify(decodedToken));
+        navigate('/auth');
+      } else {
+        setShowPasswordIncorrectModal(true);
+      }
     } catch (error) {
       console.log('error', error);
     }
   }
 
+  const handlePasswordIncorrectModalClose = () => {
+    setShowPasswordIncorrectModal(false);
+  }
 
   return (
     <div className={styles["login-container"]}>
@@ -86,6 +94,17 @@ function ScreenLogin({ changeJwt }) {
         </form>
         <p className={styles["register-link"]}>¿Aún no tienes cuenta? Regístrate aquí.</p>
       </div>
+
+      {/* Modal de aviso de contraseña incorrecta */}
+      <Modal show={showPasswordIncorrectModal} onHide={handlePasswordIncorrectModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Aviso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Contraseña incorrecta o Usuario inexistente. Por favor, inténtelo nuevamente.</Modal.Body>
+        <Modal.Footer>
+          <ButtonCustom onClick={handlePasswordIncorrectModalClose} nameBtt="Ok"/>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
