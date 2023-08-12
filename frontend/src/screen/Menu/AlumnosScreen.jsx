@@ -3,12 +3,12 @@ import GridLoyout from "../../components/GridLoyout"
 
 
 
-function AlumnosScreen() {
+function AlumnosScreen({ destroyJwt }) {
 
 
     return (
         <>
-            <GridLoyout props_content ={<CrudAlumnos/>} />
+            <GridLoyout destroyJwt={destroyJwt} props_content ={<CrudAlumnos/>} />
         </>
 
     )

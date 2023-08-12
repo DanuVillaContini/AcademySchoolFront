@@ -8,37 +8,27 @@ import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 
 
 function CrudPersonal() {
-
     const [allPersonal, setAllPersonal] = useState([])
-
     const [namePersonal, setNamePersonal] = useState("")
     const [lastnamePersonal, setLastnamePersonal] = useState("")
     const [telefonoPersonal, setTelefonoPersonal] = useState("")
     const [correoPersonal, setCorreoPersonal] = useState("")
     const [dniPersonal, setDniPersonal] = useState("")
-
     const [deleteId, setDeleteId] = useState("");
-
     const [updateId, setUpdateId] = useState("")
     const [updateName, setUpdateName] = useState("")
     const [updateLastname, setUpdateLastname] = useState("")
     const [updateTelefono, setUpdateTelefono] = useState("")
     const [updateCorreo, setUpdateCorreo] = useState("")
     const [updateDni, setUpdateDni] = useState("")
-
-
-
-
-
+    const [password, setPassword] = useState("")
+    const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
     //Modales
-    const [showCreateForm, setShowCreateForm] = useState("")
+    const [showCreateForm, setShowCreateForm] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
-
-
-
-
+    const [showModalAscender, setShowModalAscender] = useState(false)
     const getPersonal = async () => {
         let requestOptions = {
             method: 'GET',
@@ -49,7 +39,6 @@ function CrudPersonal() {
         const result = await response.json()
         setAllPersonal(result.data)
     }
-
     const createPersonal = async () => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -68,17 +57,15 @@ function CrudPersonal() {
         const response = await fetch(API_URI + "/personal/create", requestOptions)
         const result = await response.json()
         console.log(result)
-
         setNamePersonal("");
         setLastnamePersonal("");
         setTelefonoPersonal("");
         setCorreoPersonal("");
         setDniPersonal("");
-        
         setShowSuccessModal(true);
+        setShowCreateForm(false);
         getPersonal()
     }
-
     const deletePersonal = async (_id) => {
         let requestOptions = {
             method: 'DELETE',
@@ -88,10 +75,10 @@ function CrudPersonal() {
         const result = await response.json()
         console.log(result)
         setDeleteId("");
+        setShowSuccessModal(true);
         setShowDeleteModal(false);
         await getPersonal();
     }
-
     const updatePersonal = async () => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -111,16 +98,38 @@ function CrudPersonal() {
         const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
         const result = await response.json();
         console.log(result);
-
         setShowSuccessModal(true);
         setShowUpdateForm(false);
-        getPersonal()
+        await getPersonal()
     }
-
-
+    const ascenderPersonal = async (_id) => {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let raw = JSON.stringify({
+            pass: password
+        });
+        let requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        const response = await fetch(API_URI + "/auth/update-rol/" + _id, requestOptions)
+        const result = await response.text();
+        console.log(result);
+        if (response.status === 200) {
+            setShowModalAscender(false);
+            setShowSuccessModal(true);
+            setPassword("");
+            await getPersonal();
+        } else {
+            console.error("Error en la operación de ascenso:", result);
+        }
+    }
     //--- HANDLERS ---
     const handleSubmit = async () => {
         await createPersonal()
+        setShowCreateForm(false);
     }
     const handleDeletePersonal = async (_id) => {
         setDeleteId(_id)
@@ -132,22 +141,24 @@ function CrudPersonal() {
     const handleUpdatePersonal = async (_id) => {
         await updatePersonal(_id)
     }
-
+    const handleUpdateAscenderPersonal = async () => {
+        await ascenderPersonal(currentEmpleadoId)
+    }
     useEffect(() => {
         getPersonal()
     }, [])
-
     return (
         <>
             <>
                 <Container>
                     {/* ---------- FORM CREATE NEW PERSONAL ---------- */}
-                    <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Personal" />
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt="New Personal" />
                     <Form className={`mb-1 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese una categorial"
+                                maxLength={25}
                                 value={namePersonal}
                                 onChange={(e) => setNamePersonal(e.target.value)} />
                         </Form.Group>
@@ -155,13 +166,15 @@ function CrudPersonal() {
                             <Form.Label>Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese la descripcion"
+                                maxLength={25}
                                 value={lastnamePersonal}
                                 onChange={(e) => setLastnamePersonal(e.target.value)} />
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Telefono</Form.Label>
-                            <Form.Control type="tel"
+                            <Form.Control type="text"
                                 placeholder="Ingrese n° de Telefono"
+                                maxLength={11}
                                 value={telefonoPersonal}
                                 onChange={(e) => setTelefonoPersonal(e.target.value)} />
                         </Form.Group>
@@ -169,6 +182,7 @@ function CrudPersonal() {
                             <Form.Label>Correo Electronico</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese correo electronico"
+                                maxLength={60}
                                 value={correoPersonal}
                                 onChange={(e) => setCorreoPersonal(e.target.value)} />
                         </Form.Group>
@@ -176,13 +190,14 @@ function CrudPersonal() {
                             <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese N° de Legajo"
+                                maxLength={8}
+                                minLength={7}
                                 value={dniPersonal}
                                 onChange={(e) => setDniPersonal(e.target.value)} />
                         </Form.Group>
 
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !dniPersonal} />
                     </Form>
-
                     {/* ------FORM UPDATE PERSONAL---- */}
                     {
                         updateId.length > 0 && showUpdateForm && (
@@ -250,7 +265,36 @@ function CrudPersonal() {
                             </Form>
                         )
                     }
-
+                    {/* Modal para actualizar Rol */}
+                    <Modal show={showModalAscender} onHide={() => setShowModalAscender(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Ascender empleado a rol Admin</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form>
+                                <Form.Group className="" controlId="formBasicEmail">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password"
+                                        placeholder="Ingrese una constraseña para el nuevo admin"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)} />
+                                </Form.Group>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <ButtonCustomRedGreen
+                                color="red"
+                                onClick={() => setShowModalAscender(false)}
+                                nameBtt="Cancelar"
+                            />
+                            <ButtonCustomRedGreen
+                                color="green"
+                                onClick={handleUpdateAscenderPersonal}
+                                nameBtt="Dar Rol Admin"
+                                disabled={!password}
+                            />
+                        </Modal.Footer>
+                    </Modal>
                     {/* ---------- TABLA SHOW PERSONAL ---------- */}
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Perso']}`}>
                         <Col className="d-flex justify-content-center">
@@ -291,7 +335,14 @@ function CrudPersonal() {
                                                 setUpdateTelefono(empleado.telefono)
                                                 setUpdateCorreo(empleado.correo)
                                             }} />
-                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-star-half" tooltip="Ascender" />
+                                            <ButtonIconCustom
+                                                variant='outline-warning'
+                                                icon="bi bi-star-half"
+                                                tooltip="Ascender"
+                                                onClick={() => {
+                                                    setCurrentEmpleadoId(empleado._id)
+                                                    setShowModalAscender(true)
+                                                }} />
                                         </td>
                                     </tr>
                                 ))}
@@ -302,8 +353,6 @@ function CrudPersonal() {
                     </Row>
                 </Container>
             </>
-
-            {/* CAMBIAR BUTTONS POR LOS CUSTOMISADOS */}
             {/*----------- Modal de confirmación de eliminación ---------*/}
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
@@ -329,7 +378,6 @@ function CrudPersonal() {
                     <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
                 </Modal.Footer>
             </Modal>
-
         </>
     )
 }

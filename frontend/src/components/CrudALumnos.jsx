@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import ModalBtnAlum from "./modalABtnAlum";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -8,46 +7,25 @@ import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-
-
+import { Link } from "react-router-dom";
 
 function CrudALumnos() {
-
-    const [showModalBtnAlum, setShowModalBtnAlum] = useState(false);
-
     const [allAlumnos, setAllAlumnos] = useState([])
-
     const [NombreAlumno, setNombreAlumno] = useState("")
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
     const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
-
     const [deleteId, setDeleteId] = useState("");
-
     const [updateId, setupdateId] = useState("")
     const [updateNombre, setupdateNombre] = useState("")
     const [updateApellido, setupdateApellido] = useState("")
     const [updateDni, setupdateDni] = useState("")
     const [updateAnio, setupdateAnio] = useState("")
-
-
-    //modalCuota
-    const handleCloseModalBtnAlum = () => setShowModalBtnAlum(false);
-    const handleShowModalBtnAlum = () => setShowModalBtnAlum(true);
-
     //Modales
-    const [showCreateForm, setShowCreateForm] = useState("")
+    const [showCreateForm, setShowCreateForm] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
-
-
-
-
-
-
-    //OBTENER LOS DATOS DE LA BASE DE DATOS:
     const getAlumnos = async () => {
         let requestOptions = {
             method: 'GET',
@@ -59,17 +37,16 @@ function CrudALumnos() {
         const result = await response.json()
         setAllAlumnos(result.data)
     }
-
     const createAlumnos = async () => {
-        var myHeaders = new Headers();
+        let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify({
+        let raw = JSON.stringify({
             nameAlumno: NombreAlumno,
             lastnameAlumno: ApellidoAlumno,
             dniAlumno: DNIAlumno,
             anio: AnioAlumno
         });
-        var requestOptions = {
+        let requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: raw,
@@ -77,16 +54,14 @@ function CrudALumnos() {
         const response = await fetch(API_URI + "/alumno/create", requestOptions)
         const result = await response.json()
         console.log(result)
-
         setNombreAlumno("")
         setApellidoAlumno("")
         setDNIAlumno("")
         setAnioAlumno("")
-
         setShowSuccessModal(true);
+        setShowCreateForm(false)
         getAlumnos()
     }
-
     const DeleteStudent = async (_id) => {
         let requestOptions = {
             method: 'DELETE',
@@ -97,7 +72,6 @@ function CrudALumnos() {
         console.log(result)
 
     }
-
     const UpdateAlumnos = async () => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -122,11 +96,10 @@ function CrudALumnos() {
         getAlumnos();
 
     }
-
-
     // --- HANDLERS ---
     const handleSubmit = async () => {
         await createAlumnos()
+        setShowCreateForm(false)
     }
     const handleDeleteStudent = async (_id) => {
         setDeleteId(_id)
@@ -141,48 +114,70 @@ function CrudALumnos() {
     useEffect(() => {
         getAlumnos()
     }, [])
-
     return (
         <>
-            <ModalBtnAlum show={showModalBtnAlum} handleClose={handleCloseModalBtnAlum} />
-            {/* <ModalAlum show={showModalAlum} handleClose={handleCloseModalAlum} /> */}
             <>
                 <Container>
                     {/* ---------- FORM CREATE NEW STUDENT ---------- */}
-                    <ButtonCustom onClick={() => setShowCreateForm(state => !state)} nameBtt="New Student" />
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt="New Student" />
                     <Form className={`mb-5 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Nombre"
                                 value={NombreAlumno}
-                                onChange={(e) => setNombreAlumno(e.target.value)} />
+                                // onChange={(e) => setNombreAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setNombreAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Apellido"
                                 value={ApellidoAlumno}
-                                onChange={(e) => setApellidoAlumno(e.target.value)} />
+                                // onChange={(e) => setApellidoAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setApellidoAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="text"
                                 placeholder="N° DNI"
                                 value={DNIAlumno}
-                                onChange={(e) => setDNIAlumno(e.target.value)} />
+                                // onChange={(e) => setDNIAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value
+                                    const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                    setDNIAlumno(onlyNumbers);
+                                }}
+                                //isInvalid={!/^\d+$/.test(DNIAlumno)}  Marca el campo como inválido si no son solo números
+                                maxLength={8}
+                                minLength={7} />
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Año</Form.Label>
                             <Form.Control type="number"
                                 placeholder="Año"
                                 value={AnioAlumno}
-                                onChange={(e) => setAnioAlumno(e.target.value)} />
+                                // onChange={(e) => setAnioAlumno(e.target.value)}
+                                onChange={(e) => {
+                                    const newValue = parseInt(e.target.value);
+                                    if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
+                                        setAnioAlumno(newValue);
+                                    }
+                                }}
+                            />
                         </Form.Group>
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
                     </Form>
-
                     {/* ------FORM UPDATE sTUDENTS---- */}
                     {
                         updateId.length > 0 && showUpdateForm && (
@@ -194,7 +189,12 @@ function CrudALumnos() {
                                         required
                                         maxLength={25}
                                         value={updateNombre}
-                                        onChange={(e) => setupdateNombre(e.target.value)} />
+                                        // onChange={(e) => setupdateNombre(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setupdateNombre(onlyLettersAndSpaces);
+                                        }}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Apellido</Form.Label>
@@ -203,7 +203,12 @@ function CrudALumnos() {
                                         required
                                         maxLength={25}
                                         value={updateApellido}
-                                        onChange={(e) => setupdateApellido(e.target.value)} />
+                                        // onChange={(e) => setupdateApellido(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setupdateApellido(onlyLettersAndSpaces);
+                                        }}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>N° DNI</Form.Label>
@@ -213,7 +218,13 @@ function CrudALumnos() {
                                         maxLength={8}
                                         minLength={7}
                                         value={updateDni}
-                                        onChange={(e) => setupdateDni(e.target.value)} />
+                                        // 
+                                        onChange={(e) => {
+                                            const input = e.target.value
+                                            const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                            setupdateDni(onlyNumbers);
+                                        }}
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Año</Form.Label>
@@ -222,7 +233,14 @@ function CrudALumnos() {
                                         required
                                         maxLength={1}
                                         value={updateAnio}
-                                        onChange={(e) => setupdateAnio(e.target.value)} />
+                                        // onChange={(e) => setupdateAnio(e.target.value)} 
+                                        onChange={(e) => {
+                                            const newValue = parseInt(e.target.value);
+                                            if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
+                                                setupdateAnio(newValue);
+                                            }
+                                        }}
+                                    />
                                 </Form.Group>
                                 <ButtonCustomRedGreen
                                     color="green"
@@ -236,11 +254,9 @@ function CrudALumnos() {
                                     setupdateDni("")
                                     setupdateAnio("")
                                 }} />
-
                             </Form>
                         )
                     }
-
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
                         <Col className="d-flex justify-content-center">
                             <h2>Detalle De Alumnos</h2>
@@ -251,7 +267,6 @@ function CrudALumnos() {
                             {/*-------TABLA INICIO----------------------------*/}
                             <thead>
                                 <tr>
-                                    {/* <th>ID</th> */}
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>N° DNI</th>
@@ -263,7 +278,6 @@ function CrudALumnos() {
                             <tbody>
                                 {allAlumnos.map((alumno) => (
                                     <tr key={alumno._id}>
-                                        {/* <td data-titulo="Legajo">{alumno._id}</td> */}
                                         <td data-titulo="Nombre">{alumno.nameAlumno}</td>
                                         <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
                                         <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
@@ -278,10 +292,13 @@ function CrudALumnos() {
                                                 setupdateApellido(alumno.lastnameAlumno)
                                                 setupdateAnio(alumno.anio)
                                             }} />
-                                            <ButtonIconCustom to="/menu/detalle-cursado" variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
-                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas?" onClick={handleShowModalBtnAlum} />
+                                            <Link to={`/menu/detalle-cursado/${alumno.libreta._id}`}>
+                                                <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Ver Notas" />
+                                            </Link>
+                                            <Link to={`/menu/cuotas/${alumno.idAnio._id}`}>
+                                                <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Ver Cuotas" />
+                                            </Link>
                                         </td>
-
                                     </tr>
                                 ))}
                             </tbody>
@@ -304,7 +321,6 @@ function CrudALumnos() {
                     <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
                 </Modal.Footer>
             </Modal>
-
             {/* -----------Modal de éxito ---------*/}
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
@@ -318,12 +334,6 @@ function CrudALumnos() {
                 </Modal.Footer>
             </Modal>
         </>
-
-
-
-
-
-
     )
 }
 
