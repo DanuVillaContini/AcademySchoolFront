@@ -11,7 +11,7 @@ function CrudCuotas() {
     const { id } = useParams();
 
     const [allCuotas, setAllCuotas] = useState([])
-    const [changeCuota, setChangeCuota] = useState([])
+    // const [changeCuota, setChangeCuota] = useState([])
 
     const [showModal, setShowModal] = useState(false);
     const [toggleState, setToggleState] = useState(false);
@@ -46,7 +46,7 @@ function CrudCuotas() {
     };
     const updateEstadoCuota = async () => {
         try {
-            var requestOptions = {
+            let requestOptions = {
                 method: 'PUT',
                 redirect: 'follow'
             };
@@ -127,7 +127,7 @@ function CrudCuotas() {
                                             <Form.Check
                                                 type="switch"
                                                 id="custom-switch"
-                                                label={toggleState ? "Activo" : "Inactivo"}
+                                                label={toggleState ? "Pagado" : "No Pagado"}
                                                 checked={toggleState}
                                                 onChange={() => setToggleState(!toggleState)}
                                             />
