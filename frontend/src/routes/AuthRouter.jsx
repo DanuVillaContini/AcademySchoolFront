@@ -4,6 +4,7 @@ import InstitutionForm from "../screen/InstitutionForm";
 import AlumnosScreen from "../screen/Menu/AlumnosScreen";
 import CursadoScreen from "../screen/Menu/CursadoScreen";
 import PersonalScreen from "../screen/Menu/PersonalScreen";
+import CuotasScreen from "../screen/Menu/CuotasScreen"
 
 function AuthRouter({ jwt = undefined, destroyJwt = () => undefined }) {
     return (
@@ -20,7 +21,8 @@ function AuthRouter({ jwt = undefined, destroyJwt = () => undefined }) {
                                 {/* Ya tiene acceso a la aplicacion de manera libre */}
                                 <Route path="/" element={<PersonalScreen destroyJwt={destroyJwt} />} />
                                 <Route path="/alumnos" element={<AlumnosScreen destroyJwt={destroyJwt} />} />
-                                <Route path="/detalle-cursado" element={<CursadoScreen destroyJwt={destroyJwt} />} />
+                                <Route path="/detalle-cursado/:id" element={<CursadoScreen destroyJwt={destroyJwt} />} />
+                                <Route path="/cuotas/:id" element={<CuotasScreen destroyJwt={destroyJwt} />} />
                                 <Route path="/institucion" element={<InstitutionForm  />} />
                             </>
                         )
