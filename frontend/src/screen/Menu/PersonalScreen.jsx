@@ -2,10 +2,10 @@ import CrudPersonal from "../../components/CrudPersonal"
 import GridLoyout from "../../components/GridLoyout"
 
 
-function PersonalScreen() {
+function PersonalScreen({ destroyJwt }) {
     return (
         <>
-            <GridLoyout props_content={<CrudPersonal />} />
+            <GridLoyout destroyJwt={destroyJwt} props_content={<CrudPersonal />} />
         </>
     )
 }

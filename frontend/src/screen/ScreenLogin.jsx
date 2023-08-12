@@ -4,6 +4,8 @@ import logo from '../assets/logo_recortado.png';
 import { API_URI } from '../common/constants';
 import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
+import PropTypes from "prop-types";
+import jwtDecode from "jwt-decode";
 
 
 function ScreenLogin({ changeJwt }) {

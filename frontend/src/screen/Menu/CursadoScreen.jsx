@@ -2,13 +2,10 @@ import CrudDetail from "../../components/CrudDetail"
 import GridLoyout from "../../components/GridLoyout"
 
 
-function CursadoScreen() {
-
-
-
+function CursadoScreen({ destroyJwt }) {
     return (
         <>
-            <GridLoyout props_content={<CrudDetail/>} />
+            <GridLoyout destroyJwt={destroyJwt} props_content={<CrudDetail/>} />
         </>
     )
 }
