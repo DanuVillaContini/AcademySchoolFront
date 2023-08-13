@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import styles from "../styles/ButtonStyles.module.css";
+import styles from "../styles/buttonStyles.module.css";
 
 function ButtonIconCustom({ to, variant, icon, tooltip, onClick }) {
     const buttonContent = (
