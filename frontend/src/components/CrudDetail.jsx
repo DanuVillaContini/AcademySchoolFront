@@ -11,15 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function CrudDetail() {
 
-    const getColorClassForNota = (nota) => {
-        if (nota >= 1 && nota <= 5) {
-            return "bg-danger";
-        } else if (nota >= 6 && nota <= 10) {
-            return "bg-success";
-        } else {
-            return "";
-        }
-    };
+
     const { id } = useParams();
 
     const [notas, setNotas] = useState([])
@@ -120,7 +112,7 @@ function CrudDetail() {
                                         {Object.entries(notas).map(([materiaNombre, nota]) => (
                                             <tr key={materiaNombre}>
                                                 <td>{materiaNombre}</td>
-                                                <td className={getColorClassForNota(nota)}>{nota}</td>
+                                                <td >{nota}</td>
                                                 <td>
                                                     <ButtonIconCustom
                                                         variant="outline-success"

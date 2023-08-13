@@ -122,192 +122,187 @@ function CrudALumnos() {
     }, [])
     return (
         <>
-            <>
-                <Container>
-                    <Row>
-                        <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "+ Nuevo Estudiante"} />
-                        <Form className={` ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+            <Container>
+                <Row>
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
+                    <Form className={` ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Nombre"
+                                value={NombreAlumno}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    setNombreAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Apellido"
+                                value={ApellidoAlumno}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    setApellidoAlumno(onlyLettersAndSpaces);
+                                }}
+                                maxLength={25}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
+                            <Form.Control type="text"
+                                placeholder="N° DNI"
+                                value={DNIAlumno}
+                                onChange={(e) => {
+                                    const input = e.target.value
+                                    const onlyNumbers = input.replace(/[^0-9]/g, "");
+                                    setDNIAlumno(onlyNumbers);
+                                }}
+                                maxLength={8}
+                                minLength={7} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
+                            <Form.Control type="number"
+                                placeholder="Año"
+                                value={AnioAlumno}
+                                onChange={(e) => {
+                                    const newValue = parseInt(e.target.value);
+                                    if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
+                                        setAnioAlumno(newValue);
+                                    }
+                                }}
+                            />
+                        </Form.Group>
+                        <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
+                    </Form>
+                </Row>
+                {
+                    updateId.length > 0 && showUpdateForm && (
+                        <Form>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Nombre"
-                                    value={NombreAlumno}
+                                    required
+                                    maxLength={25}
+                                    value={updateNombre}
                                     onChange={(e) => {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
-                                        setNombreAlumno(onlyLettersAndSpaces);
+                                        setupdateNombre(onlyLettersAndSpaces);
                                     }}
-                                    maxLength={25}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Apellido"
-                                    value={ApellidoAlumno}
+                                    required
+                                    maxLength={25}
+                                    value={updateApellido}
                                     onChange={(e) => {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
-                                        setApellidoAlumno(onlyLettersAndSpaces);
+                                        setupdateApellido(onlyLettersAndSpaces);
                                     }}
-                                    maxLength={25}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="N° DNI"
-                                    value={DNIAlumno}
+                                    required
+                                    maxLength={8}
+                                    minLength={7}
+                                    value={updateDni}
                                     onChange={(e) => {
                                         const input = e.target.value
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
-                                        setDNIAlumno(onlyNumbers);
+                                        setupdateDni(onlyNumbers);
                                     }}
-                                    maxLength={8}
-                                    minLength={7} />
+                                />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
                                 <Form.Control type="number"
                                     placeholder="Año"
-                                    value={AnioAlumno}
+                                    required
+                                    maxLength={1}
+                                    value={updateAnio}
                                     onChange={(e) => {
                                         const newValue = parseInt(e.target.value);
                                         if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
-                                            setAnioAlumno(newValue);
+                                            setupdateAnio(newValue);
                                         }
                                     }}
                                 />
                             </Form.Group>
-                            <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
-                        </Form>
-                    </Row>
-                    {
-                        updateId.length > 0 && showUpdateForm && (
-                            <Form>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
-                                    <Form.Control type="text"
-                                        placeholder="Nombre"
-                                        required
-                                        maxLength={25}
-                                        value={updateNombre}
-                                        onChange={(e) => {
-                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
-                                            setupdateNombre(onlyLettersAndSpaces);
-                                        }}
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
-                                    <Form.Control type="text"
-                                        placeholder="Apellido"
-                                        required
-                                        maxLength={25}
-                                        value={updateApellido}
-                                        onChange={(e) => {
-                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
-                                            setupdateApellido(onlyLettersAndSpaces);
-                                        }}
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
-                                    <Form.Control type="text"
-                                        placeholder="N° DNI"
-                                        required
-                                        maxLength={8}
-                                        minLength={7}
-                                        value={updateDni}
-                                        onChange={(e) => {
-                                            const input = e.target.value
-                                            const onlyNumbers = input.replace(/[^0-9]/g, "");
-                                            setupdateDni(onlyNumbers);
-                                        }}
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
-                                    <Form.Control type="number"
-                                        placeholder="Año"
-                                        required
-                                        maxLength={1}
-                                        value={updateAnio}
-                                        onChange={(e) => {
-                                            const newValue = parseInt(e.target.value);
-                                            if (!isNaN(newValue) && newValue >= 1 && newValue <= 4) {
-                                                setupdateAnio(newValue);
-                                            }
-                                        }}
-                                    />
-                                </Form.Group>
-                                <Row>
-                                    <Col>
-                                        <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
-                                            setupdateId("")
-                                            setupdateNombre("")
-                                            setupdateDni("")
-                                            setupdateAnio("")
-                                        }} />
+                            <Row>
+                                <Col>
+                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
+                                        setupdateId("")
+                                        setupdateNombre("")
+                                        setupdateDni("")
+                                        setupdateAnio("")
+                                    }} />
 
-                                    </Col>
-                                    <Col>
-                                        <ButtonCustomRedGreen
-                                            color="green"
-                                            onClick={handleUpdateAlumnos}
-                                            nameBtt="Cargar Actualizacion"
-                                            disabled={!updateNombre || !updateApellido || !updateAnio || !updateDni}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Form>
-                        )
-                    }
-                    <Row className={`align-items-center flex-column ${Styles['custom-container-Alum']}`}>
-                        <Col className="d-flex justify-content-center">
-                            <h2 className="font-monospace text-decoration-none">Detalle De Alumnos</h2>
-                        </Col>
-                    </Row>
-                    <Row><>
-                        <Table className={Styles["custom-table-Alum"]} striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th className="font-monospace">Nombre</th>
-                                    <th className="font-monospace">Apellido</th>
-                                    <th className="font-monospace">N° DNI</th>
-                                    <th className="font-monospace">Año actual</th>
-                                    <th className="font-monospace">Opciones</th>
+                                </Col>
+                                <Col>
+                                    <ButtonCustomRedGreen
+                                        color="green"
+                                        onClick={handleUpdateAlumnos}
+                                        nameBtt="Cargar Actualizacion"
+                                        disabled={!updateNombre || !updateApellido || !updateAnio || !updateDni}
+                                    />
+                                </Col>
+                            </Row>
+                        </Form>
+                    )
+                }
+                <Row>
+                    <Col className={`d-flex justify-content-center ${Styles['custom-container-Alum']}`}>
+                        <h2 className="font-monospace text-decoration-none">Detalle De Alumnos</h2>
+                    </Col>
+                    <Table className={Styles["custom-table-Alum"]} striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th className="font-monospace">Nombre</th>
+                                <th className="font-monospace">Apellido</th>
+                                <th className="font-monospace">N° DNI</th>
+                                <th className="font-monospace">Año actual</th>
+                                <th className="font-monospace">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {allAlumnos.map((alumno) => (
+                                <tr key={alumno._id}>
+                                    <td data-titulo="Nombre">{alumno.nameAlumno}</td>
+                                    <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
+                                    <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
+                                    <td data-titulo="Año">{alumno.anio}</td>
+                                    <td data-titulo="Opciones">
+                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                            setupdateId(alumno._id)
+                                            setupdateNombre(alumno.nameAlumno)
+                                            setupdateDni(alumno.dniAlumno)
+                                            setupdateApellido(alumno.lastnameAlumno)
+                                            setupdateAnio(alumno.anio)
+                                        }} />
+                                        <Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
+                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Libreta Escolar" />
+                                        </Link>
+                                        <Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
+                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
+                                        </Link>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {allAlumnos.map((alumno) => (
-                                    <tr key={alumno._id}>
-                                        <td data-titulo="Nombre">{alumno.nameAlumno}</td>
-                                        <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
-                                        <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
-                                        <td data-titulo="Año">{alumno.anio}</td>
-                                        <td data-titulo="Opciones">
-                                            <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
-                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
-                                                setupdateId(alumno._id)
-                                                setupdateNombre(alumno.nameAlumno)
-                                                setupdateDni(alumno.dniAlumno)
-                                                setupdateApellido(alumno.lastnameAlumno)
-                                                setupdateAnio(alumno.anio)
-                                            }} />
-                                            <Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
-                                                <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Libreta Escolar" />
-                                            </Link>
-                                            <Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
-                                                <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </>
-                    </Row>
-                </Container>
-            </>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Row>
+            </Container>
 
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>

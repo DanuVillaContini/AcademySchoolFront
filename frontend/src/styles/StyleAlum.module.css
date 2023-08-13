@@ -31,6 +31,9 @@
 
 .custom-table-Alum tbody td {
     background-color: #f0ebd7;
+    margin: 0;
+    padding: 8px;
+    width: auto !important;
 }
 
 

@@ -4,7 +4,7 @@ import styles from "../styles/ButtonStyles.module.css";
 
 function ButtonIconCustom({ to, variant, icon, tooltip, onClick }) {
     const buttonContent = (
-        <div className={styles["custom-tooltip"]}>
+        <div className={` ${styles["custom-tooltip"]}`}>
             <Button variant={variant} onClick={onClick}>
                 <i className={icon}></i>
             </Button>

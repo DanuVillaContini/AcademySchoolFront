@@ -24,7 +24,6 @@
     height: 100%;
     margin-top: 15px;
     background-color: #3c0000;
-    /* background: linear-gradient(344deg, rgba(40, 40, 55, 1) 0%, #00404f 50%) !important; */
 
 }
 
@@ -53,22 +52,18 @@
 .content-grid {
     grid-area: content-grid;
     margin: 5px !important;
-    /* padding-bottom: 25px !important; */
 }
 
 
 
 /*RESPONSIVE*/
-/* Pantallas menores a 1120px */
+
 @media (max-width: 1300px) {
     .grid-container {
         grid-template-rows: auto 1fr 12%;
     }
 
-    /* .container-center {
-        grid-template-columns: 1fr auto;
-
-    } */
+    
     .content-grid{
         width: 90%;
         margin-left: 20px !important;

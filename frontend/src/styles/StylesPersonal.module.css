@@ -11,6 +11,7 @@
 .custom-table-Perso {
     border: 1px solid #3c0000;
     border-radius: 0 0 10px 10px;
+    
 }
 
 
@@ -21,14 +22,20 @@
 
 .custom-table-Perso tbody {
     border: 2px solid #b5b5b5;
+    
 }
 
 .custom-table-Perso tbody tr {
     background-color: #45484a;
+    
 }
 
 .custom-table-Perso tbody td {
     background-color: #f0ebd7;
+    margin: 0;
+    padding: 8px;
+    width: auto !important;
+    
 }
 
 
@@ -39,6 +46,7 @@
 .custom-table-Perso thead th {
     background-color: #45484a;
     color: white;
+    
 }
 
 .categories__create-form{
