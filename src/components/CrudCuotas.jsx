@@ -32,7 +32,7 @@ function CrudCuotas() {
                 setAllCuotas(filteredCuotas);
                 setAlDiaCuota(result.alDia)
             } else {
-               
+            
             }
         } catch (error) {
             console.error(error);

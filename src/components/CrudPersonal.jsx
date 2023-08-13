@@ -38,103 +38,126 @@ function CrudPersonal() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
     const [showModalAscender, setShowModalAscender] = useState(false)
-    
+
     const getPersonal = async () => {
-        let requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
+        try {
+            let requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/personal/find", requestOptions)
+            if (response.status >= 400) return alert("No se pudieron obtener los empleados")
+            const result = await response.json()
+            setAllPersonal(result.data)
+        } catch {
+            alert("no se pudo obtene el personal")
         }
-        const response = await fetch(API_URI + "/personal/find", requestOptions)
-        if (response.status >= 400) return alert("No se pudieron obtener los empleados")
-        const result = await response.json()
-        setAllPersonal(result.data)
+
     }
     const createPersonal = async () => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            nameUser: namePersonal,
-            lastnameUser: lastnamePersonal,
-            telefono: telefonoPersonal,
-            correo: correoPersonal,
-            dniUser: dniPersonal
-        });
-        let requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw
-        };
-        const response = await fetch(API_URI + "/personal/create", requestOptions)
-        const result = await response.json()
-        
-        setNamePersonal("");
-        setLastnamePersonal("");
-        setTelefonoPersonal("");
-        setCorreoPersonal("");
-        setDniPersonal("");
-        setShowSuccessModal(true);
-        setShowCreateForm(false);
-        getPersonal()
+        try {
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                nameUser: namePersonal,
+                lastnameUser: lastnamePersonal,
+                telefono: telefonoPersonal,
+                correo: correoPersonal,
+                dniUser: dniPersonal
+            });
+            let requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw
+            };
+            const response = await fetch(API_URI + "/personal/create", requestOptions)
+            if (!response.ok) throw new Error("no se pudo crear el personal")
+
+            setNamePersonal("");
+            setLastnamePersonal("");
+            setTelefonoPersonal("");
+            setCorreoPersonal("");
+            setDniPersonal("");
+            setShowSuccessModal(true);
+            setShowCreateForm(false);
+            getPersonal()
+        } catch {
+            alert("no se pudo crear el personal")
+        }
+
+
     }
     const deletePersonal = async (_id) => {
-        let requestOptions = {
-            method: 'DELETE',
-            redirect: 'follow'
-        };
-        const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
-        const result = await response.json()
-       
-        setDeleteId("");
-        setShowSuccessModal(true);
-        setShowDeleteModal(false);
-        await getPersonal();
+        try {
+            let requestOptions = {
+                method: 'DELETE',
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
+            if (!response.ok) throw new Error("no se pudo eliminar el personal")
+
+            setDeleteId("");
+            setShowSuccessModal(true);
+            setShowDeleteModal(false);
+            await getPersonal();
+        } catch {
+            alert("no se pudo eliminar el personal")
+        }
+
     }
     const updatePersonal = async () => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            nameUser: updateName,
-            lastnameUser: updateLastname,
-            telefono: updateTelefono,
-            correo: updateCorreo,
-            dniUser: updateDni
-        });
-        let requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-        const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
-        const result = await response.json();
-        
-        setShowSuccessModal(true);
-        setShowUpdateForm(false);
-        await getPersonal()
+        try {
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                nameUser: updateName,
+                lastnameUser: updateLastname,
+                telefono: updateTelefono,
+                correo: updateCorreo,
+                dniUser: updateDni
+            });
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
+            if (!response.ok) throw new Error("no se pudo actualizar el personal")
+            setShowSuccessModal(true);
+            setShowUpdateForm(false);
+            await getPersonal()
+        } catch {
+            alert("no se pudo actualizar el personal")
+        }
     }
     const ascenderPersonal = async (_id) => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            pass: password
-        });
-        let requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-        const response = await fetch(API_URI + "/auth/update-rol/" + _id, requestOptions)
-        const result = await response.text();
-        
-        if (response.status === 200) {
-            setShowModalAscender(false);
-            setShowSuccessModal(true);
-            setPassword("");
-            await getPersonal();
-        } else {
-            console.error("Error en la operación de ascenso:", result);
+        try {
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                pass: password
+            });
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/auth/update-rol/" + _id, requestOptions)
+            if (!response.ok) throw new Error("no se pudo ascender el personal")
+            if (response.status === 200) {
+                setShowModalAscender(false);
+                setShowSuccessModal(true);
+                setPassword("");
+                await getPersonal();
+            } else {
+                console.error("Error en la operación de ascenso:", result);
+            }
+        } catch {
+            alert("no se pudo ascender el personal")
         }
+
     }
     //--- HANDLERS ---
     const handleSubmit = async () => {

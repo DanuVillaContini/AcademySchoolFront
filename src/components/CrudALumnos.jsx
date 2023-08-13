@@ -30,19 +30,21 @@ function CrudALumnos() {
     const [showUpdateForm, setShowUpdateForm] = useState(true);
 
     const getAlumnos = async () => {
-        let requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        }
+        try {
+            let requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/alumno/find", requestOptions)
+            if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
 
-        const response = await fetch(API_URI + "/alumno/find", requestOptions)
-        if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
-        const result = await response.json()
-        setAllAlumnos(result.data)
-        
+            setAllAlumnos(result.data)
+        } catch {
+            alert("no se pudo obtener el alumno")
+        }
     }
     const createAlumnos = async () => {
-        try{
+        try {
             let myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             let raw = JSON.stringify({
@@ -57,7 +59,7 @@ function CrudALumnos() {
                 body: raw,
             };
             const response = await fetch(API_URI + "/alumno/create", requestOptions)
-            if (!response.ok)throw new Error("no se pudo crear el alumno")           
+            if (!response.ok) throw new Error("no se pudo crear el alumno")
             setNombreAlumno("")
             setApellidoAlumno("")
             setDNIAlumno("")
@@ -65,45 +67,51 @@ function CrudALumnos() {
             setShowSuccessModal(true);
             setShowCreateForm(false)
             getAlumnos()
-        }catch{
+        } catch {
             alert("no se pudo crear el alumno")
         }
     }
     const DeleteStudent = async (_id) => {
-        let requestOptions = {
-            method: 'DELETE',
-            redirect: 'follow'
-        };
-        const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
-        const result = await response.json()
-        
-        setDeleteId("");
-        setShowDeleteModal(false);
-        await getAlumnos();
+        try {
+            let requestOptions = {
+                method: 'DELETE',
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
+            if (!response.ok) throw new Error("no se pudo eliminar el alumno")
+            setDeleteId("");
+            setShowDeleteModal(false);
+            await getAlumnos();
+        } catch {
+            alert("no se pudo crear el alumno")
+        }
+
     }
     const UpdateAlumnos = async () => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            nameAlumno: updateNombre,
-            lastnameAlumno: updateApellido,
-            dniAlumno: updateDni,
-            anio: updateAnio
-        });
-        let requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-        const result = await response.json();
-        
-        setShowSuccessModal(true);
-        setShowUpdateForm(false);
-        getAlumnos();
-
+        try {
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                nameAlumno: updateNombre,
+                lastnameAlumno: updateApellido,
+                dniAlumno: updateDni,
+                anio: updateAnio
+            });
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
+            if (!response.ok)throw new Error("no se pudo actualizar el alumno")           
+            setShowSuccessModal(true);
+            setShowUpdateForm(false);
+            getAlumnos()
+        } catch {
+            alert("no se pudo actualizar el alumno")
+        }
+        ;
     }
 
     const handleSubmit = async () => {
