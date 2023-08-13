@@ -60,7 +60,12 @@ const InstitutionForm = () => {
               name="name"
               maxLength={30}
               value={UpdateName}
-              onChange={(e) => setUpdateName(e.target.value)}
+              // onChange={(e) => setUpdateName(e.target.value)}
+              onChange={(e) => {
+                const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); // Solo permite letras, números, espacios y acentos
+                setUpdateName(onlyLettersAndSpaces);
+                
+            }}
               required
             />
 
@@ -71,7 +76,12 @@ const InstitutionForm = () => {
               name="contactPhone"
               maxLength={30}
               value={UpdateTel}
-              onChange={(e) => setUpdateTel(e.target.value)}
+              // onChange={(e) => setUpdateTel(e.target.value)}
+              onChange={(e) => {
+                const input = e.target.value
+                const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                setUpdateTel(onlyNumbers);
+            }}
               required
             />
 
@@ -93,7 +103,11 @@ const InstitutionForm = () => {
               name="address"
               maxLength={50}
               value={UpdateDireccion}
-              onChange={(e) => setUpdateDireccion(e.target.value)}
+              // onChange={(e) => setUpdateDireccion(e.target.value)}
+              onChange={(e) => {
+                const validInput = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); // Solo permite letras, números, espacios y acentos
+                setUpdateDireccion(validInput);
+            }}
               required
             />
             <ButtonCustom nameBtt="Guardar Institución"
