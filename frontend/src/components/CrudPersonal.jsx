@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Button } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
+
 
 
 function CrudPersonal() {
@@ -23,6 +24,15 @@ function CrudPersonal() {
     const [updateDni, setUpdateDni] = useState("")
     const [password, setPassword] = useState("")
     const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
+
+    const [showpassword, setShowpassword] = useState(false);
+    const switchshowpassword = (e) => {
+        e.preventDefault();
+        setShowpassword(!showpassword);
+    };
+
+
+
     //Modales
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -150,9 +160,9 @@ function CrudPersonal() {
     return (
         <>
             <>
-                <Container>
+                <Container className="container-fluid">
                     {/* ---------- FORM CREATE NEW PERSONAL ---------- */}
-                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt="New Personal" />
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt="Nuevo Personal" />
                     <Form className={`mb-1 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
@@ -160,7 +170,12 @@ function CrudPersonal() {
                                 placeholder="Ingrese una categorial"
                                 maxLength={25}
                                 value={namePersonal}
-                                onChange={(e) => setNamePersonal(e.target.value)} />
+                                // onChange={(e) => setNamePersonal(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setNamePersonal(onlyLettersAndSpaces);
+                                }}
+                            />
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Apellido</Form.Label>
@@ -168,7 +183,13 @@ function CrudPersonal() {
                                 placeholder="Ingrese la descripcion"
                                 maxLength={25}
                                 value={lastnamePersonal}
-                                onChange={(e) => setLastnamePersonal(e.target.value)} />
+                                // onChange={(e) => setLastnamePersonal(e.target.value)}
+                                onChange={(e) => {
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                    setLastnamePersonal(onlyLettersAndSpaces);
+                                }}
+
+                            />
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Telefono</Form.Label>
@@ -176,7 +197,14 @@ function CrudPersonal() {
                                 placeholder="Ingrese n° de Telefono"
                                 maxLength={11}
                                 value={telefonoPersonal}
-                                onChange={(e) => setTelefonoPersonal(e.target.value)} />
+                                // onChange={(e) => setTelefonoPersonal(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value
+                                    const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                    setTelefonoPersonal(onlyNumbers);
+                                }}
+
+                            />
                         </Form.Group>
                         <Form.Group className="" controlId="formBasicEmail">
                             <Form.Label>Correo Electronico</Form.Label>
@@ -193,7 +221,14 @@ function CrudPersonal() {
                                 maxLength={8}
                                 minLength={7}
                                 value={dniPersonal}
-                                onChange={(e) => setDniPersonal(e.target.value)} />
+                                // onChange={(e) => setDniPersonal(e.target.value)}
+                                onChange={(e) => {
+                                    const input = e.target.value
+                                    const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                    setDniPersonal(onlyNumbers);
+                                }}
+
+                            />
                         </Form.Group>
 
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !dniPersonal} />
@@ -209,7 +244,13 @@ function CrudPersonal() {
                                         maxLength={25}
                                         required
                                         value={updateName}
-                                        onChange={(e) => setUpdateName(e.target.value)} />
+                                        // onChange={(e) => setUpdateName(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setUpdateName(onlyLettersAndSpaces);
+                                        }}
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="" controlId="formBasicEmail">
                                     <Form.Label>Apellido</Form.Label>
@@ -218,7 +259,14 @@ function CrudPersonal() {
                                         maxLength={25}
                                         required
                                         value={updateLastname}
-                                        onChange={(e) => setUpdateLastname(e.target.value)} />
+                                        // onChange={(e) => setUpdateLastname(e.target.value)}
+                                        onChange={(e) => {
+                                            const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, ""); // Elimina caracteres que no sean letras o espacios
+                                            setUpdateLastname(onlyLettersAndSpaces);
+                                        }}
+
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="" controlId="formBasicEmail">
                                     <Form.Label>Telefono</Form.Label>
@@ -227,7 +275,14 @@ function CrudPersonal() {
                                         maxLength={15}
                                         required
                                         value={updateTelefono}
-                                        onChange={(e) => setUpdateTelefono(e.target.value)} />
+                                        // onChange={(e) => setUpdateTelefono(e.target.value)}
+                                        onChange={(e) => {
+                                            const input = e.target.value
+                                            const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                            setUpdateTelefono(onlyNumbers);
+                                        }}
+
+                                    />
                                 </Form.Group>
                                 <Form.Group className="" controlId="formBasicEmail">
                                     <Form.Label>Correo Electronico</Form.Label>
@@ -246,7 +301,13 @@ function CrudPersonal() {
                                         minLength={7}
                                         required
                                         value={updateDni}
-                                        onChange={(e) => setUpdateDni(e.target.value)} />
+                                        // onChange={(e) => setUpdateDni(e.target.value)}
+                                        onChange={(e) => {
+                                            const input = e.target.value
+                                            const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                                            setUpdateDni(onlyNumbers);
+                                        }}
+                                    />
                                 </Form.Group>
                                 <ButtonCustomRedGreen
                                     color="green"
@@ -266,18 +327,38 @@ function CrudPersonal() {
                         )
                     }
                     {/* Modal para actualizar Rol */}
-                    <Modal show={showModalAscender} onHide={() => setShowModalAscender(false)}>
+                    <Modal show={showModalAscender} onHide={() => {
+                        setShowModalAscender(false);
+                        setPassword("");
+                        setShowpassword(false);
+                    }}>
+
+
                         <Modal.Header closeButton>
                             <Modal.Title>Ascender empleado a rol Admin</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="" controlId="formBasicEmail">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password"
-                                        placeholder="Ingrese una constraseña para el nuevo admin"
+                                    <Form.Label>Constraseña</Form.Label>
+                                    <Form.Control
+                                        type={showpassword ? 'text' : "password"}
+                                        placeholder="Ingrese una constraseña"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)} />
+                                        maxLength={20}
+                                        minLength={9}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <InputGroup.Text>
+                                        <input
+                                            type="checkbox"
+                                            checked={showpassword}
+                                            onChange={switchshowpassword}
+                                        />
+                                        Mostrar
+                                    </InputGroup.Text>
+
+
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -291,6 +372,8 @@ function CrudPersonal() {
                                 color="green"
                                 onClick={handleUpdateAscenderPersonal}
                                 nameBtt="Dar Rol Admin"
+                                maxLength={15}
+                                minLength={8}
                                 disabled={!password}
                             />
                         </Modal.Footer>
@@ -298,14 +381,14 @@ function CrudPersonal() {
                     {/* ---------- TABLA SHOW PERSONAL ---------- */}
                     <Row className={`align-items-center flex-column ${Styles['custom-container-Perso']}`}>
                         <Col className="d-flex justify-content-center">
-                            <h2>Personal Institucion</h2>
+                            <h2 className="font-monospace text-decoration-none">Personal Institucion</h2>
                         </Col>
                     </Row>
                     <Row><>
                         <Table className={Styles["custom-table-Perso"]} striped bordered hover>
                             {/*-------TABLA INICIO----------------------------*/}
-                            <thead>
-                                <tr>
+                            <thead >
+                                <tr className="font-monospace text-decoration-none">
                                     {/* <th>ID</th> */}
                                     <th>DNI</th>
                                     <th>Nombre</th>

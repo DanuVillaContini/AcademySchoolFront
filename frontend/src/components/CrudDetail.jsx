@@ -21,13 +21,6 @@ function CrudDetail() {
         }
     };
 
-
-
-
-
-
-
-
     const { id } = useParams();
 
     const [notas, setNotas] = useState([])
@@ -113,7 +106,7 @@ function CrudDetail() {
         <>
             <Container>
                 <Row className={`align-items-center flex-column ${styles['custom-container']}`}>
-                    <Col className="d-flex justify-content-center">
+                    <Col className="">
                         <h2>Detalle Notas Finales</h2>
                     </Col>
                 </Row>
