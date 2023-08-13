@@ -36,8 +36,7 @@ function CrudALumnos() {
                 redirect: 'follow'
             }
             const response = await fetch(API_URI + "/alumno/find", requestOptions)
-            if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
-
+            if (!response.ok) throw new Error("no se pudo obtener el alumno")
             setAllAlumnos(result.data)
         } catch {
             alert("no se pudo obtener el alumno")
