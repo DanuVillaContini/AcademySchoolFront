@@ -184,7 +184,7 @@ function CrudPersonal() {
         <>
             <Container className="container-fluid">
                 <Row>
-                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
                     <Form className={`mb-1 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="font-monospace" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
