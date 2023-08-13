@@ -60,9 +60,9 @@ const InstitutionForm = () => {
               name="name"
               maxLength={30}
               value={UpdateName}
-              // onChange={(e) => setUpdateName(e.target.value)}
+              
               onChange={(e) => {
-                const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); // Solo permite letras, números, espacios y acentos
+                const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); 
                 setUpdateName(onlyLettersAndSpaces);
                 
             }}
@@ -74,12 +74,12 @@ const InstitutionForm = () => {
               type="text"
               id="contactPhone"
               name="contactPhone"
-              maxLength={30}
+              maxLength={12}
               value={UpdateTel}
-              // onChange={(e) => setUpdateTel(e.target.value)}
+              
               onChange={(e) => {
                 const input = e.target.value
-                const onlyNumbers = input.replace(/[^0-9]/g, ""); // Elimina todos los caracteres no numéricos
+                const onlyNumbers = input.replace(/[^0-9]/g, ""); 
                 setUpdateTel(onlyNumbers);
             }}
               required
@@ -103,9 +103,9 @@ const InstitutionForm = () => {
               name="address"
               maxLength={50}
               value={UpdateDireccion}
-              // onChange={(e) => setUpdateDireccion(e.target.value)}
+             
               onChange={(e) => {
-                const validInput = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); // Solo permite letras, números, espacios y acentos
+                const validInput = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); 
                 setUpdateDireccion(validInput);
             }}
               required
@@ -116,7 +116,6 @@ const InstitutionForm = () => {
           </form>
         </div>
       </div>
-      {/* -----Modal de Institucion guardada con exito------ */}
       <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Institucion Guardada</Modal.Title>
