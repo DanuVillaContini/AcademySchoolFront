@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo_recortado.png';
 import { API_URI } from '../common/constants';
@@ -6,11 +6,12 @@ import ButtonCustom from '../components/ButtonCustom';
 import styles from "../styles/loginStyle.module.css";
 import PropTypes from "prop-types";
 import jwtDecode from "jwt-decode";
-import { Modal} from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 function ScreenLogin({ changeJwt }) {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Nuevo estado para mostrar la contraseña
   const [showPasswordIncorrectModal, setShowPasswordIncorrectModal] = useState(false);
   const navigate = useNavigate();
 
@@ -73,10 +74,11 @@ function ScreenLogin({ changeJwt }) {
           />
           <label htmlFor="password">Contraseña</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Cambia el tipo de input
             id="password"
             name="password"
-            maxLength="30"
+            maxLength={15}
+            minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -85,24 +87,23 @@ function ScreenLogin({ changeJwt }) {
               type="checkbox"
               id="remember"
               name="remember"
+              onChange={() => setShowPassword(!showPassword)} // Cambia el estado de mostrar/ocultar la contraseña
             />
             <label className={styles["remember-label"]} htmlFor="remember">
-              Recordar usuario
+              Mostrar contraseña
             </label>
           </div>
-          <ButtonCustom onClick={handleLogin} nameBtt="Iniciar Sesion" />
+          <ButtonCustom onClick={handleLogin} nameBtt="Iniciar Sesión" />
         </form>
-        <p className={styles["register-link"]}>¿Aún no tienes cuenta? Regístrate aquí.</p>
       </div>
 
-      {/* Modal de aviso de contraseña incorrecta */}
       <Modal show={showPasswordIncorrectModal} onHide={handlePasswordIncorrectModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Aviso</Modal.Title>
         </Modal.Header>
         <Modal.Body>Contraseña incorrecta o Usuario inexistente. Por favor, inténtelo nuevamente.</Modal.Body>
         <Modal.Footer>
-          <ButtonCustom onClick={handlePasswordIncorrectModalClose} nameBtt="Ok"/>
+          <ButtonCustom onClick={handlePasswordIncorrectModalClose} nameBtt="Ok" />
         </Modal.Footer>
       </Modal>
     </div>
@@ -112,4 +113,5 @@ function ScreenLogin({ changeJwt }) {
 ScreenLogin.propTypes = {
   changeJwt: PropTypes.func.isRequired
 }
+
 export default ScreenLogin;

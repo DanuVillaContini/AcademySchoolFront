@@ -26,11 +26,10 @@ function CrudPersonal() {
     const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
 
     const [showpassword, setShowpassword] = useState(false);
-    const switchshowpassword = (e) => {
-        e.preventDefault();
-        setShowpassword(!showpassword);
-    };
 
+    const switchshowpassword = () => {
+        setShowpassword((prevShowPassword) => !prevShowPassword);
+    };
 
 
     //Modales
@@ -39,6 +38,7 @@ function CrudPersonal() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
     const [showModalAscender, setShowModalAscender] = useState(false)
+    
     const getPersonal = async () => {
         let requestOptions = {
             method: 'GET',
@@ -340,6 +340,7 @@ function CrudPersonal() {
                                     <input
                                         type="checkbox"
                                         checked={showpassword}
+                                        name="remember"
                                         onChange={switchshowpassword}
                                     />
                                     Mostrar
@@ -414,7 +415,7 @@ function CrudPersonal() {
 
                 </Row>
             </Container>
-            
+
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace ">Confirmar eliminación</Modal.Title>
