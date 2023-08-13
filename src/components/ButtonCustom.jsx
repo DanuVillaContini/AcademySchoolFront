@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import styles from "../styles/ButtonStyles.module.css";
+import styles from "./../styles/ButtonStyles.module.css";
 import { Link } from "react-router-dom";
 
 function ButtonCustom({ to, onClick, nameBtt, disabled }) {
