@@ -33,6 +33,7 @@ function App() {
 
   return (
     <>
+    {import.meta.env.VITE_API_URI}
       <BrowserRouter>
         <Routes>
           {/* Pasar la función changeJwt al componente ScreenLogin */}
