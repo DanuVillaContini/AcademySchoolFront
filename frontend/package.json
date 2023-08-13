@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "set PORT=4001 && react-scripts start",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -11,6 +12,11 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5",
+    "date-fns": "^2.30.0",
+    "jwt-decode": "^3.1.2",
+    "localforage": "^1.10.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",

@@ -1,0 +1,82 @@
+/* button icon  */
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: 85px;
+    background-color: #c3c5ac;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.custom-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #245b6a transparent transparent transparent;
+}
+
+.custom-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* button sin icon  */
+
+.custom-btt {
+    width: 10em;
+    position: relative;
+    padding: auto;
+    margin: 1px;
+    height: 3.8em;
+    background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
+    border: 5px ridge #65727c !important;
+    outline: none;
+    color: white;
+    transition: 1s;
+    border-radius: 0.3em;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.custom-btt::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    transition: 0.5s;
+}
+
+.custom-btt:hover::before,
+.custom-btt:hover::after {
+    transform: scale(0)
+}
+
+.custom-btt:hover {
+    box-shadow: inset 0px 0px 25px #5c94a5;
+}
+
+.custom-btt:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+}

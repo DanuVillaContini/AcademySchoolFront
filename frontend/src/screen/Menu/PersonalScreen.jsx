@@ -1,9 +1,11 @@
+import CrudPersonal from "../../components/CrudPersonal"
+import GridLoyout from "../../components/GridLoyout"
 
 
-function PersonalScreen() {
+function PersonalScreen({ destroyJwt }) {
     return (
         <>
-            <h1>SCREEN PERSONAL ADMINISTRATIVO</h1>
+            <GridLoyout destroyJwt={destroyJwt} props_content={<CrudPersonal />} />
         </>
     )
 }

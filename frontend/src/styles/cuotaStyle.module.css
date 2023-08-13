@@ -1,0 +1,103 @@
+.custom-h1 {
+    border: 1px solid #3c0000;
+    padding: 8px;
+    align-items: center;
+    background-color: #4b1010;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+.custom-h5 {
+    padding: 8px;
+    align-items: center;
+    background-color: #45484a;
+    color: white;
+}
+.custom-switch-cuota {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
+    margin:5px
+}
+.custom-switch-cuota input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.btt-cuota-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+.btt-cuota-slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    left: 0.3em;
+    bottom: 0.3em;
+    border-radius: 50px;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.alDia .btt-cuota-slider{
+    background: #64b46f;
+}
+.alDia .btt-cuota-slider:before {
+    background: #acfbb6;
+    transform: translateX(1.6em);
+}
+.debeCuota .btt-cuota-slider {
+    background: #e99803;
+}
+.debeCuota .btt-cuota-slider:before {
+    background: #eec372;
+}
+
+
+.custom-table {
+    border: 1px solid #3c0000;
+    border-radius: 0 0 10px 10px;
+}
+
+.custom-container-span {
+    border: 1px solid #3c0000;
+    padding: 8px;
+    display: inline-flex;
+    align-items: center;
+    background-color: #4b2222;
+    ;
+}
+
+.custom-table thead {
+    border: 2px solid #b5b5b5;
+
+
+}
+
+.custom-table tbody {
+    border: 2px solid #b5b5b5;
+
+}
+
+.custom-table tbody tr {
+    background-color: #45484a;
+}
+
+.custom-table tbody td {
+    background-color: #f0ebd7;
+}
+
+
+.custom-table thead tr {
+    background-color: #45484a;
+    ;
+}
+
+.custom-table thead th {
+    background-color: #666a6d;
+    color: white;
+}
