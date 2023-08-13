@@ -1,5 +1,5 @@
 import { Col, Container, Form, Modal, Row, Table } from "react-bootstrap"
-import styles from "../styles/detailStyle.module.css"
+import styles from "../styles/cuotaStyle.module.css"
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,12 +9,9 @@ import ButtonIconCustom from "./ButtonIconCustom";
 
 function CrudCuotas() {
     const { id } = useParams();
-
     const [allCuotas, setAllCuotas] = useState([])
-    // const [changeCuota, setChangeCuota] = useState([])
-
+    const [alDiaCuota, setAlDiaCuota] = useState([])
     const [showModal, setShowModal] = useState(false);
-    const [toggleState, setToggleState] = useState(false);
     const [currentCuota, setCurrentCuota] = useState("");
 
     const getCuotas = async () => {
@@ -23,9 +20,8 @@ function CrudCuotas() {
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
             console.log("Notas recibidas:", result);
-
             // Filtrar propiedades no deseadas (_id y __v) antes de establecer el estado
-            const filteredNotas = Object.entries(result).reduce(
+            const filteredCuotas = Object.entries(result.cuotas).reduce(
                 (filtered, [key, value]) => {
                     if (key !== "_id" && key !== "__v") {
                         filtered[key] = value;
@@ -34,8 +30,9 @@ function CrudCuotas() {
                 },
                 {}
             );
-            if (Object.keys(filteredNotas).length > 0) {
-                setAllCuotas(filteredNotas);
+            if (Object.keys(filteredCuotas).length > 0) {
+                setAllCuotas(filteredCuotas);
+                setAlDiaCuota(result.alDia)
             } else {
                 console.log("No hay notas disponibles.");
             }
@@ -77,9 +74,27 @@ function CrudCuotas() {
     return (
         <>
             <Container>
-                <Row className={`align-items-center flex-column ${styles['custom-container']}`}>
+                <Row className={`align-items-center flex-column ${styles['custom-h1']}`}>
                     <Col className="d-flex justify-content-center">
-                        <h2>Detalle Cuotas</h2>
+                        <h2 className="font-monospace text-decoration-none">Detalle del estado cuotas:</h2>
+                    </Col>
+                </Row>
+                <Row className={`align-items-center flex-column ${styles['custom-h5']}`}>
+                    <Col className="d-flex justify-content-center m-1">
+                        <h5 className="font-monospace text-decoration-none d-flex align-items-center pt-2">Alumno {alDiaCuota ? "al dia" : "debe Cuota"}</h5>
+                        <div className="m-1 p-1">
+                            {alDiaCuota ? (
+                                <label className={`${styles['custom-switch-cuota']} ${styles['alDia']}`}>
+                                    <input  type="checkbox" disabled />
+                                    <span className={styles['btt-cuota-slider']}></span>
+                                </label>
+                            ) : (
+                                <label className={`${styles['custom-switch-cuota']} ${styles['debeCuota']}`}>
+                                    <input type="checkbox" disabled />
+                                    <span className={styles['btt-cuota-slider']}></span>
+                                </label>
+                            )}
+                        </div>
                     </Col>
                 </Row>
                 <Row>
@@ -88,16 +103,15 @@ function CrudCuotas() {
                             <Table className={styles["custom-table"]} striped bordered hover>
                                 <thead>
                                     <tr>
-                                        <th>Cuota</th>
-                                        <th>Estado</th>
-                                        <th>Actualizar</th>
+                                        <th className="font-monospace">Cuota</th>
+                                        <th className="font-monospace">Estado</th>
+                                        <th className="font-monospace">Actualizar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {Object.entries(allCuotas).map(([cuotaNombre, estado]) => (
                                         <tr key={cuotaNombre}>
                                             <td>{cuotaNombre}</td>
-                                            {/* Cambia el valor del estado a "pagado" o "no pagado" según su valor */}
                                             <td>{estado ? "Pagado" : "No pagado"}</td>
                                             <td>
                                                 <ButtonIconCustom
@@ -114,23 +128,14 @@ function CrudCuotas() {
                                     ))}
                                 </tbody>
                             </Table>
-                            {/* Modal para actualizar notas */}
                             <Modal show={showModal} onHide={() => setShowModal(false)}>
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Actualizar Estado Cuotas</Modal.Title>
+                                    <Modal.Title className="font-monospace">Estado Cuotas</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <Form>
-                                        {/* Elimina el Form.Control anterior */}
                                         <Form.Group controlId="formToggle">
-                                            <Form.Label>Estado de la Cuota</Form.Label>
-                                            <Form.Check
-                                                type="switch"
-                                                id="custom-switch"
-                                                label={toggleState ? "Pagado" : "No Pagado"}
-                                                checked={toggleState}
-                                                onChange={() => setToggleState(!toggleState)}
-                                            />
+                                            <Form.Label className="font-monospace text-center">Estas seguro que deseas actualizar el estado de la Cuota?</Form.Label>
                                         </Form.Group>
                                     </Form>
                                 </Modal.Body>
@@ -144,13 +149,12 @@ function CrudCuotas() {
                                         color="green"
                                         onClick={handleUpdateEstadoCuota}
                                         nameBtt="Actualizar"
-                                        disabled={toggleState === currentCuota}
-                                    />
+                                        Cuotas />
                                 </Modal.Footer>
                             </Modal>
                         </>
                     ) : (
-                        <p>No hay registro de cuotas disponibles.</p>
+                        <p className="font-monospace">No hay registro de cuotas disponibles.</p>
                     )}
                 </Row>
 

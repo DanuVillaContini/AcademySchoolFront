@@ -1,6 +1,6 @@
 import styles from "../styles/detailStyle.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
-import { Button, Col, Container, Form, Modal, Row, Table } from "react-bootstrap"
+import {  Col, Container, Form, Modal, Row, Table } from "react-bootstrap"
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { API_URI } from "../common/constants";
@@ -13,21 +13,13 @@ function CrudDetail() {
 
     const getColorClassForNota = (nota) => {
         if (nota >= 1 && nota <= 5) {
-            return "bg-danger"; // Clase de color rojo para notas del 1 al 5
+            return "bg-danger";
         } else if (nota >= 6 && nota <= 10) {
-            return "bg-success"; // Clase de color verde para notas del 6 al 10
+            return "bg-success";
         } else {
-            return ""; // Sin clase de color para otras notas
+            return "";
         }
     };
-
-
-
-
-
-
-
-
     const { id } = useParams();
 
     const [notas, setNotas] = useState([])
@@ -45,7 +37,6 @@ function CrudDetail() {
             const result = await response.json();
             console.log("Notas recibidas:", result);
 
-            // Filtrar propiedades no deseadas (_id y v) antes de establecer el estado
             const filteredNotas = Object.entries(result).reduce(
                 (filtered, [key, value]) => {
                     if (key !== "_id" && key !== "__v") {
@@ -70,18 +61,15 @@ function CrudDetail() {
         try {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-
             const raw = JSON.stringify({
                 nota: changeNota,
             });
-
             const requestOptions = {
                 method: "PUT",
                 headers: myHeaders,
                 body: raw,
                 redirect: "follow",
             };
-
             const response = await fetch(
                 API_URI +
                 "/materias/update/" + id + "/" +
@@ -90,7 +78,6 @@ function CrudDetail() {
             );
             const result = await response.json();
             console.log(result);
-            // Refrescar las notas después de la actualización
             getNotas();
             setShowModal(false);
         } catch (error) {
@@ -101,7 +88,7 @@ function CrudDetail() {
     const handleUpdateNota = async () => {
         await updateNotas()
         setShowSuccessModal(true);
-        
+
     }
 
     useEffect(() => {
@@ -114,7 +101,7 @@ function CrudDetail() {
             <Container>
                 <Row className={`align-items-center flex-column ${styles['custom-container']}`}>
                     <Col className="d-flex justify-content-center">
-                        <h2>Detalle Notas Finales</h2>
+                        <h2 className="font-monospace text-decoration-none">Detalle Notas Finales</h2>
                     </Col>
                 </Row>
                 <Row>
@@ -124,9 +111,9 @@ function CrudDetail() {
                                 <Table className={styles["custom-table"]} striped bordered hover>
                                     <thead>
                                         <tr>
-                                            <th>Materia</th>
-                                            <th >Nota Final</th>
-                                            <th>Actualizar</th>
+                                            <th className="font-monospace text-decoration-none">Materia</th>
+                                            <th className="font-monospace text-decoration-none" >Nota Final</th>
+                                            <th className="font-monospace text-decoration-none">Actualizar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -149,27 +136,25 @@ function CrudDetail() {
                                         ))}
                                     </tbody>
                                 </Table>
-                                {/* Modal para actualizar notas */}
+
                                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                                     <Modal.Header closeButton>
-                                        <Modal.Title>Actualizar Nota</Modal.Title>
+                                        <Modal.Title className="font-monospace">Actualizar Nota</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <Form>
                                             <Form.Group controlId="formNota">
-                                                <Form.Label>Nueva Nota</Form.Label>
+                                                <Form.Label className="font-monospace">Nueva Nota</Form.Label>
                                                 <Form.Control
                                                     type="number"
                                                     placeholder="Ingrese la nueva nota"
                                                     value={changeNota}
-                                                    // onChange={(e) => setChangeNota(e.target.value)}
                                                     onChange={(e) => {
                                                         const newValue = parseInt(e.target.value);
                                                         if (!isNaN(newValue) && newValue >= 1 && newValue <= 10) {
                                                             setChangeNota(newValue);
                                                         }
                                                     }}
-                                                    
                                                 />
                                             </Form.Group>
                                         </Form>
@@ -190,19 +175,17 @@ function CrudDetail() {
                                 </Modal>
                             </>
                         ) : (
-                            <p>No hay notas disponibles.</p>
+                            <p className="font-monospace ">No hay notas disponibles.</p>
                         )}
                     </Col>
                 </Row>
-                {/* <h2>Detalle Notas Finales</h2> */}
-
             </Container>
-              {/* -----------Modal de éxito ---------*/}
-              <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+            
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Operación exitosa</Modal.Title>
+                    <Modal.Title className="font-monospace ">Operación exitosa</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="font-monospace ">
                     La operación se ha realizado exitosamente.
                 </Modal.Body>
                 <Modal.Footer>

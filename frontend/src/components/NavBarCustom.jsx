@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
+import { Accordion, Container, Modal, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo_recortado.png";
 import styles from "../styles/navbarStyle.module.css";
@@ -10,26 +10,17 @@ function NavBarCustom({ destroyJwt }) {
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
     const navigate = useNavigate();
 
-    //para controlar que no se abra el acordeon al recargar la page
     const toggleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
     };
-
-    // const handleCloseSession = () => {
-    //     destroyJwt();
-    //     navigate("/");
-    // };
-
     const handleLogoutConfirmation = () => {
         setShowLogoutConfirmation(true);
     };
-
     const handleLogoutConfirmed = () => {
         destroyJwt();
         navigate("/");
         setShowLogoutConfirmation(false);
     };
-
     const handleLogoutCancelled = () => {
         setShowLogoutConfirmation(false);
     };
@@ -98,12 +89,12 @@ function NavBarCustom({ destroyJwt }) {
                     </Nav>
                 </Navbar.Collapse>
             </Container>
-            {/* Modal de confirmación para el logout */}
+            
             <Modal show={showLogoutConfirmation} onHide={handleLogoutCancelled}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirmación</Modal.Title>
+                    <Modal.Title className="font-monospace">Confirmación</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>¿Seguro que desea cerrar sesión?</Modal.Body>
+                <Modal.Body className="font-monospace">¿Seguro que desea cerrar sesión?</Modal.Body>
                 <Modal.Footer>
                     <ButtonCustomRedGreen color="green" onClick={handleLogoutCancelled} nameBtt="No" />
                     <ButtonCustomRedGreen color="red" onClick={handleLogoutConfirmed} nameBtt="Si" />
