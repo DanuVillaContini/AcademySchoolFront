@@ -27,7 +27,7 @@ function CrudDetail() {
             const response = await fetch(API_URI + "/materias/show/" + id);
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
-            console.log("Notas recibidas:", result);
+            
 
             const filteredNotas = Object.entries(result).reduce(
                 (filtered, [key, value]) => {
@@ -41,7 +41,7 @@ function CrudDetail() {
             if (Object.keys(filteredNotas).length > 0) {
                 setNotas(filteredNotas);
             } else {
-                console.log("No hay notas disponibles.");
+                
             }
         } catch (error) {
             console.error(error);
@@ -69,7 +69,7 @@ function CrudDetail() {
                 requestOptions
             );
             const result = await response.json();
-            console.log(result);
+            
             getNotas();
             setShowModal(false);
         } catch (error) {

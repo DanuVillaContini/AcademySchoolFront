@@ -39,7 +39,7 @@ function CrudALumnos() {
         if (response.status >= 400) return alert("No se pudieron obtener los Alumnos")
         const result = await response.json()
         setAllAlumnos(result.data)
-        console.log(result)
+        
     }
     const createAlumnos = async () => {
         let myHeaders = new Headers();
@@ -57,7 +57,7 @@ function CrudALumnos() {
         };
         const response = await fetch(API_URI + "/alumno/create", requestOptions)
         const result = await response.json()
-        console.log(result)
+        
         setNombreAlumno("")
         setApellidoAlumno("")
         setDNIAlumno("")
@@ -73,7 +73,7 @@ function CrudALumnos() {
         };
         const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
         const result = await response.json()
-        console.log(result)
+        
         setDeleteId("");
         setShowDeleteModal(false);
         await getAlumnos();
@@ -96,7 +96,7 @@ function CrudALumnos() {
 
         const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
         const result = await response.json();
-        console.log(result);
+        
         setShowSuccessModal(true);
         setShowUpdateForm(false);
         getAlumnos();
