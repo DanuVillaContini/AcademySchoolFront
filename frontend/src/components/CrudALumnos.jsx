@@ -42,29 +42,32 @@ function CrudALumnos() {
         
     }
     const createAlumnos = async () => {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        let raw = JSON.stringify({
-            nameAlumno: NombreAlumno,
-            lastnameAlumno: ApellidoAlumno,
-            dniAlumno: DNIAlumno,
-            anio: AnioAlumno
-        });
-        let requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-        };
-        const response = await fetch(API_URI + "/alumno/create", requestOptions)
-        const result = await response.json()
-        
-        setNombreAlumno("")
-        setApellidoAlumno("")
-        setDNIAlumno("")
-        setAnioAlumno("")
-        setShowSuccessModal(true);
-        setShowCreateForm(false)
-        getAlumnos()
+        try{
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            let raw = JSON.stringify({
+                nameAlumno: NombreAlumno,
+                lastnameAlumno: ApellidoAlumno,
+                dniAlumno: DNIAlumno,
+                anio: AnioAlumno
+            });
+            let requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+            };
+            const response = await fetch(API_URI + "/alumno/create", requestOptions)
+            if (!response.ok)throw new Error("no se pudo crear el alumno")           
+            setNombreAlumno("")
+            setApellidoAlumno("")
+            setDNIAlumno("")
+            setAnioAlumno("")
+            setShowSuccessModal(true);
+            setShowCreateForm(false)
+            getAlumnos()
+        }catch{
+            alert("no se pudo crear el alumno")
+        }
     }
     const DeleteStudent = async (_id) => {
         let requestOptions = {
