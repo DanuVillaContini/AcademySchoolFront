@@ -66,7 +66,7 @@ function CrudPersonal() {
         };
         const response = await fetch(API_URI + "/personal/create", requestOptions)
         const result = await response.json()
-        console.log(result)
+        
         setNamePersonal("");
         setLastnamePersonal("");
         setTelefonoPersonal("");
@@ -83,7 +83,7 @@ function CrudPersonal() {
         };
         const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
         const result = await response.json()
-        console.log(result)
+       
         setDeleteId("");
         setShowSuccessModal(true);
         setShowDeleteModal(false);
@@ -107,7 +107,7 @@ function CrudPersonal() {
         };
         const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
         const result = await response.json();
-        console.log(result);
+        
         setShowSuccessModal(true);
         setShowUpdateForm(false);
         await getPersonal()
@@ -126,7 +126,7 @@ function CrudPersonal() {
         };
         const response = await fetch(API_URI + "/auth/update-rol/" + _id, requestOptions)
         const result = await response.text();
-        console.log(result);
+        
         if (response.status === 200) {
             setShowModalAscender(false);
             setShowSuccessModal(true);

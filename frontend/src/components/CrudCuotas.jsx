@@ -19,8 +19,6 @@ function CrudCuotas() {
             const response = await fetch(API_URI + "/year/show/" + id);
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
-            console.log("Notas recibidas:", result);
-            // Filtrar propiedades no deseadas (_id y __v) antes de establecer el estado
             const filteredCuotas = Object.entries(result.cuotas).reduce(
                 (filtered, [key, value]) => {
                     if (key !== "_id" && key !== "__v") {
@@ -34,7 +32,7 @@ function CrudCuotas() {
                 setAllCuotas(filteredCuotas);
                 setAlDiaCuota(result.alDia)
             } else {
-                console.log("No hay notas disponibles.");
+               
             }
         } catch (error) {
             console.error(error);
@@ -55,7 +53,7 @@ function CrudCuotas() {
                 requestOptions
             );
             const result = await response.text();
-            console.log(result);
+            
 
             getCuotas();
             setShowModal(false);

@@ -37,7 +37,7 @@ const InstitutionForm = () => {
 
     const response = await fetch(API_URI + "/instituto/update", requestOptions)
     const result = await response.text();
-    console.log(result);
+    
     setShowSuccessModal(true);
     navigate('/mensaje')  
   }
