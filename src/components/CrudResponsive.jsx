@@ -155,8 +155,29 @@ function CrudALumnos() {
           {/* ... Contenido de la tabla aquí ... */}
         </Col>
       </Row>
-      {/* Modales */}
-      {/* ... Código de modales aquí ... */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="font-monospace">Confirmar eliminación</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="font-monospace">
+                    ¿Estás seguro de que deseas eliminar este elemento?
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowDeleteModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="font-monospace">Operación exitosa</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="font-monospace">
+                    La operación se ha realizado exitosamente.
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
+                </Modal.Footer>
+            </Modal>
     </Container>
   );
 }
