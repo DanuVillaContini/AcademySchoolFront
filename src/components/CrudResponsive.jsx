@@ -274,12 +274,48 @@ function CrudALumnos() {
           </Col>
         </Row>
       )}
-      {/* Tabla */}
       <Row>
         <Col xs={12}>
-          {/* ... Contenido de la tabla aquí ... */}
+        <Table className={Styles["custom-table-Alum"]} striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th className="font-monospace">Nombre</th>
+                                <th className="font-monospace">Apellido</th>
+                                <th className="font-monospace">N° DNI</th>
+                                <th className="font-monospace">Año actual</th>
+                                <th className="font-monospace">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {allAlumnos.map((alumno) => (
+                                <tr key={alumno._id}>
+                                    <td data-titulo="Nombre">{alumno.nameAlumno}</td>
+                                    <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
+                                    <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
+                                    <td data-titulo="Año">{alumno.anio}</td>
+                                    <td data-titulo="Opciones">
+                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                            setupdateId(alumno._id)
+                                            setupdateNombre(alumno.nameAlumno)
+                                            setupdateDni(alumno.dniAlumno)
+                                            setupdateApellido(alumno.lastnameAlumno)
+                                            setupdateAnio(alumno.anio)
+                                        }} />
+                                        <Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
+                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Libreta Escolar" />
+                                        </Link>
+                                        <Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
+                                            <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
         </Col>
       </Row>
+
       <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace">Confirmar eliminación</Modal.Title>
