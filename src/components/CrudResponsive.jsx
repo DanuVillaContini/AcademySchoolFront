@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Table, Modal } from "react-bootstrap";
-import Styles from "../styles/StyleAlum.module.css";
+import { Col, Container, Row, Table } from "react-bootstrap";
+import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
-import ButtonCustomRedGreen from "./ButtonCustomRedGreen";
+import Modal from 'react-bootstrap/Modal';
+import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
 import { Link } from "react-router-dom";
 
 function CrudALumnos() {
@@ -130,14 +131,13 @@ function CrudALumnos() {
     useEffect(() => {
         getAlumnos()
     }, [])
-
-  return (
-    <Container>
-      <Row>
-        <Col xs={12}>
-          <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
-          <Form className={` ${Styles["categories__create-form"]}`} style={{ display: showCreateForm ? "block" : "none" }}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+    return (
+        <>
+            <Container>
+                <Row>
+                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
+                    <Form className={` ${Styles["alumno-create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Nombre"
@@ -188,13 +188,11 @@ function CrudALumnos() {
                             />
                         </Form.Group>
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
-          </Form>
-        </Col>
-      </Row>
-      {updateId.length > 0 && showUpdateForm && (
-        <Row>
-          <Col xs={12}>
-          <Form>
+                    </Form>
+                </Row>
+                {
+                    updateId.length > 0 && showUpdateForm && (
+                        <Form>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                                 <Form.Control type="text"
@@ -271,12 +269,14 @@ function CrudALumnos() {
                                 </Col>
                             </Row>
                         </Form>
-          </Col>
-        </Row>
-      )}
-      <Row>
-        <Col xs={12}>
-        <Table className={Styles["custom-table-Alum"]} striped bordered hover>
+                    )
+                }
+                <Row>
+                    <Col className={`d-flex justify-content-center ${Styles['custom-container-Alum']}`}>
+                        <h2 className="font-monospace text-decoration-none">Detalle De Alumnos</h2>
+                    </Col>
+                    <div className="table-responsive">
+                    <Table className={Styles["custom-table-Alum"]} striped bordered hover>
                         <thead>
                             <tr>
                                 <th className="font-monospace">Nombre</th>
@@ -313,10 +313,11 @@ function CrudALumnos() {
                             ))}
                         </tbody>
                     </Table>
-        </Col>
-      </Row>
+                    </div>
+                </Row>
+            </Container>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace">Confirmar eliminación</Modal.Title>
                 </Modal.Header>
@@ -339,8 +340,8 @@ function CrudALumnos() {
                     <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
                 </Modal.Footer>
             </Modal>
-    </Container>
-  );
+        </>
+    )
 }
 
-export default CrudALumnos;
+export default CrudALumnos
