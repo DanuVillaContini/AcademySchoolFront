@@ -1,0 +1,25 @@
+.crud-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .crud-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .crud-table th,
+  .crud-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .crud-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .expanded-content {
+    padding: 10px;
+  }
+  
