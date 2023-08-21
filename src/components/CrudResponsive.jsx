@@ -1,64 +1,32 @@
-import React, { useState } from 'react';
-import './CrudStyles.css'; // Importa tus estilos CSS aquí
+import React from 'react';
+import '../styles/crudResponsive.module.css'; // Asegúrate de importar tus estilos CSS
 
 const Crud = () => {
-  const [data, setData] = useState([]);
-  const [expandedRow, setExpandedRow] = useState(null);
-
-  const categories = [
-    'Nombre',
-    'Apellido',
-    'DNI',
-    'Año actual',
-    'Opciones'
-  ];
-
-  const handleExpandRow = (index) => {
-    if (expandedRow === index) {
-      setExpandedRow(null);
-    } else {
-      setExpandedRow(index);
-    }
-  };
-
-  const renderExpandedRow = (item, index) => {
-    return (
-      <tr key={`expanded-${index}`}>
-        <td colSpan={categories.length}>
-          <div className="expanded-content">
-            DNI: {item.DNI}<br />
-            Año actual: {item['Año actual']}<br />
-            Opciones: Botones aquí
-          </div>
-        </td>
-      </tr>
-    );
-  };
-
-
   return (
     <div className="crud-container">
-      <table className="crud-table">
+      <h1>CRUD</h1>
+      <table>
         <thead>
           <tr>
-            {categories.map((category, index) => (
-              <th key={index}>{category}</th>
-            ))}
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Año actual</th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <React.Fragment key={index}>
-              <tr onClick={() => handleExpandRow(index)}>
-                <td>{item.Nombre}</td>
-                <td>{item.Apellido}</td>
-                {expandedRow === index ? (
-                  <td colSpan={categories.length - 2}></td>
-                ) : null}
-              </tr>
-              {expandedRow === index ? renderExpandedRow(item, index) : null}
-            </React.Fragment>
-          ))}
+          <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>12345678</td>
+            <td>3</td>
+            <td>
+              <button className="edit-button">Editar</button>
+              <button className="delete-button">Eliminar</button>
+            </td>
+          </tr>
+          {/* Agrega más filas aquí */}
         </tbody>
       </table>
     </div>

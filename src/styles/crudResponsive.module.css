@@ -1,25 +1,48 @@
 .crud-container {
-    width: 100%;
-    overflow-x: auto;
+    max-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
   }
   
-  .crud-table {
+  table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .crud-table th,
-  .crud-table td {
-    padding: 8px;
+    margin-top: 20px;
     border: 1px solid #ccc;
-    text-align: left;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .crud-table th {
+  th, td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+  
+  th {
     background-color: #f2f2f2;
   }
   
-  .expanded-content {
-    padding: 10px;
+  .edit-button, .delete-button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .edit-button:hover, .delete-button:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
   }
   
