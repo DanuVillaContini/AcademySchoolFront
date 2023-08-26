@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Button } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -151,8 +151,6 @@ function CrudPersonal() {
                 setShowSuccessModal(true);
                 setPassword("");
                 await getPersonal();
-            } else {
-                console.error("Error en la operación de ascenso:", result);
             }
         } catch {
             alert("no se pudo ascender el personal")
@@ -403,7 +401,7 @@ function CrudPersonal() {
                             </tr>
                         </thead>
                         <tbody>
-                            {allPersonal.map((empleado) => (
+                            {allPersonal.map((empleado, index) => (
                                 <tr key={empleado._id}>
                                     <td data-titulo="DNI">{empleado.dniUser}</td>
                                     <td data-titulo="Nombre">{empleado.nameUser}</td>
@@ -411,25 +409,33 @@ function CrudPersonal() {
                                     <td data-titulo="Telefono">{empleado.telefono}</td>
                                     <td data-titulo="Correo">{empleado.correo}</td>
                                     <td data-titulo="Opciones">
-                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
-                                            handleDeletePersonal(empleado._id)
-                                        }} />
-                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                            setUpdateId(empleado._id)
-                                            setUpdateDni(empleado.dniUser)
-                                            setUpdateName(empleado.nameUser)
-                                            setUpdateLastname(empleado.lastnameUser)
-                                            setUpdateTelefono(empleado.telefono)
-                                            setUpdateCorreo(empleado.correo)
-                                        }} />
-                                        <ButtonIconCustom
-                                            variant='outline-warning'
-                                            icon="bi bi-star-half"
-                                            tooltip="Ascender"
-                                            onClick={() => {
-                                                setCurrentEmpleadoId(empleado._id)
-                                                setShowModalAscender(true)
-                                            }} />
+                                        {index === 0 ? (
+                                            <>
+                                                <td className="font-monospace ">Operaciones no disponibles</td>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
+                                                    handleDeletePersonal(empleado._id)
+                                                }} />
+                                                <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                                    setUpdateId(empleado._id)
+                                                    setUpdateDni(empleado.dniUser)
+                                                    setUpdateName(empleado.nameUser)
+                                                    setUpdateLastname(empleado.lastnameUser)
+                                                    setUpdateTelefono(empleado.telefono)
+                                                    setUpdateCorreo(empleado.correo)
+                                                }} />
+                                                <ButtonIconCustom
+                                                    variant='outline-warning'
+                                                    icon="bi bi-star-half"
+                                                    tooltip="Ascender"
+                                                    onClick={() => {
+                                                        setCurrentEmpleadoId(empleado._id)
+                                                        setShowModalAscender(true)
+                                                    }} />
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

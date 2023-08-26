@@ -80,3 +80,11 @@
     box-shadow: none;
     transform: translate(3px, 3px);
 }
+/*Agregar NUEVO*/
+@media (max-width: 390px) {
+    :root {
+        width: auto;
+        height: auto;
+    }
+
+}
