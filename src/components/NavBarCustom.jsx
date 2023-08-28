@@ -24,8 +24,8 @@ function NavBarCustom({ destroyJwt }) {
     const handleLogoutCancelled = () => {
         setShowLogoutConfirmation(false);
     };
-    
-            return (
+
+    return (
         <Navbar sticky="top" className={`justify-content-center ${styles["wrapper-navbar"]}`} expand="md">
             <Container className={`m-1 ${styles["custom-wrapper-navbar"]}`}>
                 <Col sm={6} className={`d-flex align-items-center ${styles["custom-logo"]}`}>
@@ -78,19 +78,6 @@ function NavBarCustom({ destroyJwt }) {
                 </Col>
             </Container>
 
-            <Modal show={showLogoutConfirmation} onHide={handleLogoutCancelled}>
-                <Modal.Header closeButton>
-                    <Modal.Title className="font-monospace">Confirmación</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="font-monospace">¿Seguro que desea cerrar sesión?</Modal.Body>
-                <Modal.Footer>
-                    <ButtonCustomRedGreen color="green" onClick={handleLogoutCancelled} nameBtt="No" />
-                    <ButtonCustomRedGreen color="red" onClick={handleLogoutConfirmed} nameBtt="Si" />
-                </Modal.Footer>
-            </Modal>
-        </Navbar>
-    );
-            
             <Modal show={showLogoutConfirmation} onHide={handleLogoutCancelled}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace">Confirmación</Modal.Title>
