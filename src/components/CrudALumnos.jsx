@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Dropdown, Row, Table } from "react-bootstrap";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -104,7 +104,7 @@ function CrudALumnos() {
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-            if (!response.ok)throw new Error("no se pudo actualizar el alumno")           
+            if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
             setShowUpdateForm(false);
             getAlumnos()
@@ -308,6 +308,29 @@ function CrudALumnos() {
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
                                         </Link>
                                     </td>
+
+                                    <Dropdown className={Styles['dropdown-custom']}>
+                                        <Dropdown.Toggle variant="dark" id="dropdown-basic" className={Styles['btt-custom']}>
+                                            Opciones
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className={Styles['menu-drop-custom']}>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                            </Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2"><ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                                setupdateId(alumno._id)
+                                                setupdateNombre(alumno.nameAlumno)
+                                                setupdateDni(alumno.dniAlumno)
+                                                setupdateApellido(alumno.lastnameAlumno)
+                                                setupdateAnio(alumno.anio)
+                                            }} /></Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
+                                                <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Libreta Escolar" />
+                                            </Link></Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
+                                                <ButtonIconCustom variant='outline-light' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
+                                            </Link></Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </tr>
                             ))}
                         </tbody>
