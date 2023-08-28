@@ -1,6 +1,6 @@
 //import CrudAlumnos from "../../components/CrudALumnos"
 import GridLoyout from "../../components/GridLoyout"
-import CrudResponsive from "../../components/CrudResponsive"
+import CrudResponsive from "../../components/CrudALumnos"
 
 
 
