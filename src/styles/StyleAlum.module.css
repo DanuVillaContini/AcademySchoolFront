@@ -1,11 +1,10 @@
 .custom-container-Alum {
     border: 1px solid #3c0000;
-    padding: 8px;
+    width: auto;
     align-items: center;
     background-color: #4b1010;
     color: white;
     border-radius: 10px 10px 0 0;
-
 }
 
 .custom-table-Alum {
@@ -46,41 +45,138 @@
     color: white;
 }
 
+.dropdown-custom {
+    display: none;
+}
 
 @media (max-width: 52em) {
-
+    .custom-container-Alum {
+        background-color: transparent;
+        border:  transparent;
+    }
     /* 52 X 16px = 832px*/
     .custom-table-Alum {
         width: 100%;
-        font-size: .7em;
+        font-size: .9em;
     }
 
     .custom-table-Alum tr {
         display: flex;
         flex-direction: column;
         border: 1px solid #a9a27c;
-        padding: 1em;
-        margin-bottom: 1em;
+        margin-top: 5px;
     }
 
     .custom-table-Alum td[data-titulo] {
         display: flex;
     }
 
+    .custom-table-Alum td[data-titulo="Opciones"] {
+        display: none;
+    }
+
     .custom-table-Alum td[data-titulo]::before {
         content: attr(data-titulo);
-        width: 110px;
+        width: auto;
         color: #3c0000;
         font-weight: bold;
-
+        margin-right: 20px;
     }
 
     .custom-table-Alum thead {
         display: none;
     }
 
+    .dropdown-custom {
+        display: flex;
+        justify-content: center;
+        background-color: #f0ebd7 !important;
+    }
+
+    .menu-drop-custom {
+        background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
+
+    }
+
+    .menu-drop-custom> :not(.item-drop-custom:hover) {
+        transition: 200ms;
+        transform: scale(0.95, 0.95);
+    }
+
+    .item-drop-custom {
+        background-color: transparent;
+        border: none;
+        padding: 10px;
+        display: flex;
+        position: relative;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .item-drop-custom:not(:active):hover,
+    .item-drop-custom:focus {
+        background: linear-gradient(400deg, #000000 0%, #45484a 50%) !important;
+    }
+    .item-drop-custom:focus,
+    .item-drop-custom:active {
+        background-color: #1A1F24;
+        outline: none;
+    }
+    .item-drop-custom::before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: -10px;
+        width: 5px;
+        height: 80%;
+        background-color: #040505;
+        border-radius: 5px;
+        opacity: 0;
+    }
+
+    .btt-custom {
+        width: auto;
+        position: relative;
+        padding: auto;
+        margin: 1px;
+        height: auto;
+        background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
+        border: 5px ridge #65727c !important;
+        outline: none;
+        color: white;
+        transition: 1s;
+        border-radius: 0.3em;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .btt-custom ::before {
+        content: "";
+        transform-origin: center;
+        position: absolute;
+        top: 80%;
+        left: 3%;
+        width: 95%;
+        height: 40%;
+        transition: 0.5s;
+    }
+
+    .btt-custom:hover::before,
+    .btt-custom:hover::after {
+        transform: scale(0)
+    }
+
+    .btt-custom:hover {
+        box-shadow: inset 0px 0px 25px #5c94a5;
+    }
+
+    .btt-custom:active {
+        box-shadow: none;
+        transform: translate(3px, 3px);
+    }
 }
-.alumno-create-form{
+
+.categories__create-form {
     height: 0px;
     overflow: hidden;
     transition: all ease .3s;
