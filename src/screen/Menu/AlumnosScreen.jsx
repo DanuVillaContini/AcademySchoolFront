@@ -1,6 +1,6 @@
 //import CrudAlumnos from "../../components/CrudALumnos"
 import GridLoyout from "../../components/GridLoyout"
-import CrudResponsive from "../../components/CrudALumnos"
+import CrudALumnos from "../../components/CrudALumnos"
 
 
 
@@ -9,7 +9,7 @@ function AlumnosScreen({ destroyJwt }) {
 
     return (
         <>
-            <GridLoyout destroyJwt={destroyJwt} props_content ={<CrudResponsive/>} />
+            <GridLoyout destroyJwt={destroyJwt} props_content ={<CrudALumnos/>} />
         </>
 
     )
