@@ -431,6 +431,37 @@ function CrudPersonal() {
                                                 setShowModalAscender(true)
                                             }} />
                                     </td>
+
+                                    <Dropdown className={Styles['dropdown-custom']}>
+                                        <Dropdown.Toggle variant="dark" id="dropdown-basic" className={Styles['btt-custom']}>
+                                            Opciones
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className={Styles['menu-drop-custom']}>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">
+                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                            </Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2">
+                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                            setUpdateId(empleado._id)
+                                            setUpdateDni(empleado.dniUser)
+                                            setUpdateName(empleado.nameUser)
+                                            setUpdateLastname(empleado.lastnameUser)
+                                            setUpdateTelefono(empleado.telefono)
+                                            setUpdateCorreo(empleado.correo)
+                                        }} />
+                                            </Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
+                                            <ButtonIconCustom
+                                            variant='outline-warning'
+                                            icon="bi bi-star-half"
+                                            tooltip="Ascender"
+                                            onClick={() => {
+                                                setCurrentEmpleadoId(empleado._id)
+                                                setShowModalAscender(true)
+                                            }} />
+                                            </Link></Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </tr>
                             ))}
                         </tbody>
