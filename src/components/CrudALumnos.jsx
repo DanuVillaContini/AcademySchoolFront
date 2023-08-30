@@ -31,8 +31,12 @@ function CrudALumnos() {
 
     const getAlumnos = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             }
             const response = await fetch(API_URI + "/alumno/find", requestOptions)
@@ -104,14 +108,13 @@ function CrudALumnos() {
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-            if (!response.ok)throw new Error("no se pudo actualizar el alumno")           
+            if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
             setShowUpdateForm(false);
             getAlumnos()
         } catch {
             alert("no se pudo actualizar el alumno")
         }
-        ;
     }
 
     const handleSubmit = async () => {

@@ -31,9 +31,7 @@ function CrudCuotas() {
             if (Object.keys(filteredCuotas).length > 0) {
                 setAllCuotas(filteredCuotas);
                 setAlDiaCuota(result.alDia)
-            } else {
-            
-            }
+            } 
         } catch (error) {
             console.error(error);
             alert(error.message);

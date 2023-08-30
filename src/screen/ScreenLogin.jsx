@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo_recortado.png';
 import { API_URI } from '../common/constants';
@@ -42,6 +42,8 @@ function ScreenLogin({ changeJwt }) {
 
         changeJwt(decodedToken);
         localStorage.setItem("token", JSON.stringify(decodedToken));
+        const {access_token} = JSON.parse(result)
+        localStorage.setItem("access_token", JSON.stringify(access_token));
         navigate('/auth');
       } else {
         setShowPasswordIncorrectModal(true);
