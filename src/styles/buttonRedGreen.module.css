@@ -51,3 +51,9 @@
     box-shadow: none;
     transform: translate(3px, 3px);
 }
+@media(max-width: 390px ){
+    :root{
+        --custom-btt-width: auto;
+        --custom-btt-height: auto;
+    }
+}
