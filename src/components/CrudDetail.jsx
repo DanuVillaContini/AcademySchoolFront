@@ -1,6 +1,6 @@
 import styles from "../styles/detailStyle.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
-import {  Col, Container, Form, Modal, Row, Table } from "react-bootstrap"
+import { Col, Container, Form, Modal, Row, Table } from "react-bootstrap"
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { API_URI } from "../common/constants";
@@ -21,13 +21,22 @@ function CrudDetail() {
     const [currentMateria, setCurrentMateria] = useState("");
 
     const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [updateSuccess, setUpdateSuccess] = useState(false)
 
     const getNotas = async () => {
         try {
-            const response = await fetch(API_URI + "/materias/show/" + id);
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+
+            let requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            } 
+            const response = await fetch(API_URI + "/materias/show/" + id, requestOptions);
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
-            
 
             const filteredNotas = Object.entries(result).reduce(
                 (filtered, [key, value]) => {
@@ -40,9 +49,7 @@ function CrudDetail() {
             );
             if (Object.keys(filteredNotas).length > 0) {
                 setNotas(filteredNotas);
-            } else {
-                
-            }
+            } 
         } catch (error) {
             console.error(error);
             alert(error.message);
@@ -51,8 +58,10 @@ function CrudDetail() {
 
     const updateNotas = async () => {
         try {
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+            myHeaders.append("Content-Type", "application/json")
             const raw = JSON.stringify({
                 nota: changeNota,
             });
@@ -63,20 +72,25 @@ function CrudDetail() {
                 redirect: "follow",
             };
             const response = await fetch(
-                API_URI +
-                "/materias/update/" + id + "/" +
-                currentMateria,
+                API_URI + "/materias/update/" + id + "/" + currentMateria,
                 requestOptions
             );
-            const result = await response.json();
-            
+            if (!response.ok) throw new Error("no se pudo actualizar el estado de cuotas del alumno")
+            if (response.ok) {
+                setUpdateSuccess(true);
+            } else {
+                setUpdateSuccess(false);
+            }
+    
             getNotas();
             setShowModal(false);
+            setShowSuccessModal(true); 
         } catch (error) {
             console.error(error);
             alert("Error al actualizar la nota.");
         }
     }
+    
     const handleUpdateNota = async () => {
         await updateNotas()
         setShowSuccessModal(true);
@@ -172,13 +186,15 @@ function CrudDetail() {
                     </Col>
                 </Row>
             </Container>
-            
+
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace ">Operación exitosa</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="font-monospace ">
-                    La operación se ha realizado exitosamente.
+                    {updateSuccess
+                        ? "La operación se ha realizado exitosamente."
+                        : "No se pudo completar la operación con éxito."}
                 </Modal.Body>
                 <Modal.Footer>
                     <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />

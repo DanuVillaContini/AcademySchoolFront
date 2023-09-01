@@ -7,7 +7,7 @@ import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CrudALumnos() {
     const [allAlumnos, setAllAlumnos] = useState([])
@@ -32,8 +32,12 @@ function CrudALumnos() {
 
     const getAlumnos = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             }
             const response = await fetch(API_URI + "/alumno/find", requestOptions)
@@ -47,7 +51,10 @@ function CrudALumnos() {
     const createAlumnos = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             myHeaders.append("Content-Type", "application/json");
+
             let raw = JSON.stringify({
                 nameAlumno: NombreAlumno,
                 lastnameAlumno: ApellidoAlumno,
@@ -75,9 +82,11 @@ function CrudALumnos() {
     const ChangeStatusStudent = async (_id) => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             myHeaders.append("Content-Type", "application/json");
 
-            let raw ="";
+            let raw = "";
 
             let requestOptions = {
                 method: 'PUT',
@@ -87,14 +96,12 @@ function CrudALumnos() {
             }
             const response = await fetch(API_URI + "/alumno/update-status/" + _id, requestOptions);
             if (!response.ok) throw new Error("no se pudo cambiar el estado del alumno")
-            if (response.status === 200){
-            setChangeStatusModal(false)
-            setShowSuccessModal(true)
-            await getAlumnos()
-        }else{
-            console.error("Error en la operación de ascenso:", result);
+            if (response.status === 200) {
+                setChangeStatusModal(false)
+                setShowSuccessModal(true)
+                await getAlumnos()
+            }
         }
-    }
         catch {
             alert("no se pudo cambiar el estado del alumno")
         }
@@ -102,7 +109,10 @@ function CrudALumnos() {
     const UpdateAlumnos = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             myHeaders.append("Content-Type", "application/json");
+
             let raw = JSON.stringify({
                 nameAlumno: updateNombre,
                 lastnameAlumno: updateApellido,
@@ -123,7 +133,6 @@ function CrudALumnos() {
         } catch {
             alert("no se pudo actualizar el alumno")
         }
-        ;
     }
 
     const handleSubmit = async () => {
@@ -305,9 +314,9 @@ function CrudALumnos() {
                                     <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
                                     <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
                                     <td data-titulo="Año">{alumno.anio}</td>
-                                    <td data-titulo="Estado">{alumno.isActive? 'ACTIVO':'INACTIVO'}</td>
+                                    <td data-titulo="Estado">{alumno.isActive ? 'ACTIVO' : 'INACTIVO'}</td>
                                     <td data-titulo="Opciones">
-                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleChangeStudent(alumno._id) }} />
+                                        <ButtonIconCustom variant='outline-primary' icon="bi bi-activity" tooltip="Cambiar Estado" onClick={() => { handleChangeStudent(alumno._id) }} />
                                         <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
                                             setupdateId(alumno._id)
                                             setupdateNombre(alumno.nameAlumno)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Button } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -24,6 +24,7 @@ function CrudPersonal() {
     const [updateDni, setUpdateDni] = useState("")
     const [password, setPassword] = useState("")
     const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     const [showpassword, setShowpassword] = useState(false);
 
@@ -38,11 +39,19 @@ function CrudPersonal() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
     const [showModalAscender, setShowModalAscender] = useState(false)
+    const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false);
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+
 
     const getPersonal = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             }
             const response = await fetch(API_URI + "/personal/find", requestOptions)
@@ -57,7 +66,10 @@ function CrudPersonal() {
     const createPersonal = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             myHeaders.append("Content-Type", "application/json");
+
             let raw = JSON.stringify({
                 nameUser: namePersonal,
                 lastnameUser: lastnamePersonal,
@@ -89,8 +101,12 @@ function CrudPersonal() {
     }
     const deletePersonal = async (_id) => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'DELETE',
+                headers: myHeaders,
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
@@ -107,7 +123,10 @@ function CrudPersonal() {
     const updatePersonal = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             myHeaders.append("Content-Type", "application/json");
+            
             let raw = JSON.stringify({
                 nameUser: updateName,
                 lastnameUser: updateLastname,
@@ -150,14 +169,56 @@ function CrudPersonal() {
                 setShowSuccessModal(true);
                 setPassword("");
                 await getPersonal();
-            } else {
-                console.error("Error en la operación de ascenso:", result);
             }
         } catch {
             alert("no se pudo ascender el personal")
         }
-
     }
+    const revokeRolAdmin = async (_id) => {
+        try {
+            let raw = "";
+
+            let requestOptions = {
+                method: 'PUT',
+                body: raw,
+                redirect: 'follow'
+            };
+
+            const response = await fetch(API_URI + "/auth/revoke-rol/" + _id, requestOptions);
+            if (!response.ok) throw new Error("no se pudo revocar el rol del personal");
+
+            await getPersonal();
+            setShowConfirmRevokeModal(true)
+            setCurrentEmpleadoId(_id);
+            setShowConfirmRevokeModal(true);
+        } catch {
+            alert("error al intentar revocar rol del personal");
+        }
+    }
+    const changePass = async (newPassword) => {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                nuevaPass: newPassword
+            });
+
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/auth/change-password/" + currentEmpleadoId, requestOptions)
+            if (!response.ok) throw new Error("no se pudo cambiar la contraseña del personal");
+
+            await getPersonal();
+        } catch {
+            alert("error al intentar cambiar la contraseña del personal");
+        }
+    }
+
     //--- HANDLERS ---
     const handleSubmit = async () => {
         await createPersonal()
@@ -176,6 +237,19 @@ function CrudPersonal() {
     const handleUpdateAscenderPersonal = async () => {
         await ascenderPersonal(currentEmpleadoId)
     }
+    const handleConfirmRevoke = async () => {
+        await revokeRolAdmin(currentEmpleadoId);
+        setShowConfirmRevokeModal(false);
+        await getPersonal();
+    };
+    const handleOpenPasswordModal = (_id) => {
+        setCurrentEmpleadoId(_id);
+        setShowPasswordModal(true);
+    };
+
+
+
+
     useEffect(() => {
         getPersonal()
     }, [])
@@ -402,7 +476,7 @@ function CrudPersonal() {
                             </tr>
                         </thead>
                         <tbody>
-                            {allPersonal.map((empleado) => (
+                            {allPersonal.map((empleado, index) => (
                                 <tr key={empleado._id}>
                                     <td data-titulo="DNI">{empleado.dniUser}</td>
                                     <td data-titulo="Nombre">{empleado.nameUser}</td>
@@ -410,25 +484,51 @@ function CrudPersonal() {
                                     <td data-titulo="Telefono">{empleado.telefono}</td>
                                     <td data-titulo="Correo">{empleado.correo}</td>
                                     <td data-titulo="Opciones">
-                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
-                                            handleDeletePersonal(empleado._id)
-                                        }} />
-                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                            setUpdateId(empleado._id)
-                                            setUpdateDni(empleado.dniUser)
-                                            setUpdateName(empleado.nameUser)
-                                            setUpdateLastname(empleado.lastnameUser)
-                                            setUpdateTelefono(empleado.telefono)
-                                            setUpdateCorreo(empleado.correo)
-                                        }} />
-                                        <ButtonIconCustom
-                                            variant='outline-warning'
-                                            icon="bi bi-star-half"
-                                            tooltip="Ascender"
-                                            onClick={() => {
-                                                setCurrentEmpleadoId(empleado._id)
-                                                setShowModalAscender(true)
-                                            }} />
+                                        {index === 0 ? (
+                                            <>
+                                                <td className="font-monospace ">Operaciones no disponibles</td>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
+                                                    handleDeletePersonal(empleado._id)
+                                                }} />
+                                                <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                                    setUpdateId(empleado._id)
+                                                    setUpdateDni(empleado.dniUser)
+                                                    setUpdateName(empleado.nameUser)
+                                                    setUpdateLastname(empleado.lastnameUser)
+                                                    setUpdateTelefono(empleado.telefono)
+                                                    setUpdateCorreo(empleado.correo)
+                                                }} />
+                                                {empleado.isAdmin ? (
+                                                    <>
+                                                        <ButtonIconCustom
+                                                            variant='outline-warning'
+                                                            icon="bi bi-key"
+                                                            tooltip="Cambiar Contraseña"
+                                                            onClick={() => handleOpenPasswordModal(empleado._id)} // Envolver en una función
+                                                        />
+
+                                                        <ButtonIconCustom
+                                                            variant='outline-secondary'
+                                                            icon="bi bi-person-dash"
+                                                            tooltip="Revocar Rol de Admin"
+                                                            onClick={() => {
+                                                                setCurrentEmpleadoId(empleado._id);
+                                                                setShowConfirmRevokeModal(true);
+                                                            }}
+                                                        />
+
+                                                    </>
+                                                ) : (
+                                                    <ButtonIconCustom variant='outline-warning' icon="bi bi-star-half" tooltip="Ascender" onClick={() => {
+                                                        setCurrentEmpleadoId(empleado._id)
+                                                        setShowModalAscender(true)
+                                                    }} />
+                                                )}
+                                            </>
+                                        )}
                                     </td>
                                 </tr>
                             ))}
@@ -450,6 +550,7 @@ function CrudPersonal() {
                     <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
                 </Modal.Footer>
             </Modal>
+
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title className="font-monospace ">Operación exitosa</Modal.Title>
@@ -461,6 +562,56 @@ function CrudPersonal() {
                     <ButtonCustomRedGreen color="red" onClick={() => setShowSuccessModal(false)} nameBtt="Cerrar" />
                 </Modal.Footer>
             </Modal>
+
+            <Modal show={showConfirmRevokeModal} onHide={() => setShowConfirmRevokeModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="font-monospace">Confirmar revocación de rol</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="font-monospace">
+                    ¿Estás seguro de que deseas revocar el rol de este empleado?
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowConfirmRevokeModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmRevoke} nameBtt="Revocar" />
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="font-monospace">Cambiar Contraseña</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Control
+                        type={showpassword ? 'text' : "password"}
+                        placeholder="Nueva contraseña"
+                        value={newPassword}
+                        maxLength={20}
+                        minLength={9}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                    <InputGroup.Text>
+                        <input
+                            type="checkbox"
+                            checked={showpassword}
+                            name="remember"
+                            onChange={switchshowpassword}
+                        />
+                        Mostrar
+                    </InputGroup.Text>
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowPasswordModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen
+                        color="red"
+                        onClick={() => {
+                            changePass(newPassword);
+                            setShowPasswordModal(false);
+                        }}
+                        nameBtt="Cambiar"
+                    />
+
+                </Modal.Footer>
+            </Modal>
+
 
         </>
     )

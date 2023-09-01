@@ -9,12 +9,15 @@
     --custom-btt-font-size: 15px;
     --custom-btt-font-weight: bold;
 }
+
 .custom-btt-add {
     --custom-btt-gradient-end: #298b4f;
 }
+
 .custom-btt-close {
     --custom-btt-gradient-end: #8e3931;
 }
+
 .custom-btt {
     width: var(--custom-btt-width);
     position: relative;
@@ -30,6 +33,7 @@
     font-size: var(--custom-btt-font-size);
     font-weight: var(--custom-btt-font-weight);
 }
+
 .custom-btt::before {
     content: "";
     transform-origin: center;
@@ -40,20 +44,25 @@
     height: 40%;
     transition: 0.5s;
 }
+
 .custom-btt:hover::before,
 .custom-btt:hover::after {
     transform: scale(0);
 }
+
 .custom-btt:hover {
     box-shadow: inset 0px 0px 25px var(--custom-btt-gradient-end);
 }
+
 .custom-btt:active {
     box-shadow: none;
     transform: translate(3px, 3px);
 }
-@media(max-width: 390px ){
-    :root{
+/*Agregar NUEVO*/
+@media (max-width: 390px) {
+    :root {
         --custom-btt-width: auto;
         --custom-btt-height: auto;
     }
+
 }

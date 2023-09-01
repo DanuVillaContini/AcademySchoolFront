@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo_recortado.png';
 import { API_URI } from '../common/constants';
@@ -35,13 +35,13 @@ function ScreenLogin({ changeJwt }) {
 
     try {
       const response = await fetch(API_URI + "/auth/login", requestOptions);
-      const result = await response.text();
-
+      const result = await response.json();
       if (response.status === 200) {
-        const decodedToken = jwtDecode(result);
-
+        const decodedToken = jwtDecode(result.access_token);
+        console.log(decodedToken)
         changeJwt(decodedToken);
         localStorage.setItem("token", JSON.stringify(decodedToken));
+        localStorage.setItem("access_token", result.access_token);
         navigate('/auth');
       } else {
         setShowPasswordIncorrectModal(true);

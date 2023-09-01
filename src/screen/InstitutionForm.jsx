@@ -36,7 +36,8 @@ const InstitutionForm = () => {
     };
 
     const response = await fetch(API_URI + "/instituto/update", requestOptions)
-    const result = await response.text();
+    if (!response.ok) throw new Error("N se pudo actualizar los datos de la Institucion")
+
     
     setShowSuccessModal(true);
     navigate('/mensaje')  
