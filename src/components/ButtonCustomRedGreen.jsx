@@ -27,10 +27,3 @@ function ButtonCustomRedGreen({ color, disabled, to, onClick, nameBtt }) {
 }
 
 export default ButtonCustomRedGreen;
-
-
-{/* 
-<ButtonCustomRedGreen color="red" onClick={handleClick} nameBtt="Red Button" />
-
-<ButtonCustomRedGreen color="green" to="/some-route" nameBtt="Green Link" /> 
-*/}

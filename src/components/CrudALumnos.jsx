@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Dropdown, Row, Table } from "react-bootstrap";
 import Styles from "../styles/StyleAlum.module.css"
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -15,8 +15,9 @@ function CrudALumnos() {
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
     const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
+    // const [IsActive, SetIsActive] = useState("")
 
-    const [deleteId, setDeleteId] = useState("");
+    const [IdAlumno, setIdAlumno] = useState("");
 
     const [updateId, setupdateId] = useState("")
     const [updateNombre, setupdateNombre] = useState("")
@@ -25,14 +26,18 @@ function CrudALumnos() {
     const [updateAnio, setupdateAnio] = useState("")
 
     const [showCreateForm, setShowCreateForm] = useState(false)
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showChangeSatusModal, setChangeStatusModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
 
     const getAlumnos = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
+                headers: myHeaders,
                 redirect: 'follow'
             }
             const response = await fetch(API_URI + "/alumno/find", requestOptions)
@@ -46,7 +51,10 @@ function CrudALumnos() {
     const createAlumnos = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             myHeaders.append("Content-Type", "application/json");
+
             let raw = JSON.stringify({
                 nameAlumno: NombreAlumno,
                 lastnameAlumno: ApellidoAlumno,
@@ -71,26 +79,40 @@ function CrudALumnos() {
             alert("no se pudo crear el alumno")
         }
     }
-    const DeleteStudent = async (_id) => {
+    const ChangeStatusStudent = async (_id) => {
         try {
-            let requestOptions = {
-                method: 'DELETE',
-                redirect: 'follow'
-            };
-            const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
-            if (!response.ok) throw new Error("no se pudo eliminar el alumno")
-            setDeleteId("");
-            setShowDeleteModal(false);
-            await getAlumnos();
-        } catch {
-            alert("no se pudo crear el alumno")
-        }
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
+            myHeaders.append("Content-Type", "application/json");
 
+            let raw = "";
+
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/alumno/update-status/" + _id, requestOptions);
+            if (!response.ok) throw new Error("no se pudo cambiar el estado del alumno")
+            if (response.status === 200) {
+                setChangeStatusModal(false)
+                setShowSuccessModal(true)
+                await getAlumnos()
+            }
+        }
+        catch {
+            alert("no se pudo cambiar el estado del alumno")
+        }
     }
     const UpdateAlumnos = async () => {
         try {
             let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             myHeaders.append("Content-Type", "application/json");
+
             let raw = JSON.stringify({
                 nameAlumno: updateNombre,
                 lastnameAlumno: updateApellido,
@@ -104,26 +126,26 @@ function CrudALumnos() {
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-            if (!response.ok)throw new Error("no se pudo actualizar el alumno")           
+            if (!response.ok) throw new Error("no se pudo actualizar el alumno")
+            if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
             setShowUpdateForm(false);
             getAlumnos()
         } catch {
             alert("no se pudo actualizar el alumno")
         }
-        ;
     }
 
     const handleSubmit = async () => {
         await createAlumnos()
         setShowCreateForm(false)
     }
-    const handleDeleteStudent = async (_id) => {
-        setDeleteId(_id)
-        setShowDeleteModal(true)
+    const handleChangeStudent = async (_id) => {
+        setIdAlumno(_id)
+        setChangeStatusModal(true)
     }
     const handleConfirmDelete = async () => {
-        await DeleteStudent(deleteId);
+        await ChangeStatusStudent(IdAlumno);
     }
     const handleUpdateAlumnos = async (_id) => {
         await UpdateAlumnos(_id)
@@ -136,7 +158,7 @@ function CrudALumnos() {
             <Container>
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
-                    <Form className={` ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                    <Form className={` ${Styles["alumnos__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                             <Form.Control type="text"
@@ -257,7 +279,6 @@ function CrudALumnos() {
                                         setupdateDni("")
                                         setupdateAnio("")
                                     }} />
-
                                 </Col>
                                 <Col>
                                     <ButtonCustomRedGreen
@@ -273,7 +294,7 @@ function CrudALumnos() {
                 }
                 <Row>
                     <Col className={`d-flex justify-content-center ${Styles['custom-container-Alum']}`}>
-                        <h2 className="font-monospace text-decoration-none">Detalle De Alumnos</h2>
+                        <h2 className={`font-monospace text-decoration-none ${Styles['fs-h2']}`}>Detalle De Alumnos</h2>
                     </Col>
                     <Table className={Styles["custom-table-Alum"]} striped bordered hover>
                         <thead>
@@ -282,6 +303,7 @@ function CrudALumnos() {
                                 <th className="font-monospace">Apellido</th>
                                 <th className="font-monospace">N° DNI</th>
                                 <th className="font-monospace">Año actual</th>
+                                <th className="font-monospace">Estado actual</th>
                                 <th className="font-monospace">Opciones</th>
                             </tr>
                         </thead>
@@ -292,8 +314,9 @@ function CrudALumnos() {
                                     <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
                                     <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
                                     <td data-titulo="Año">{alumno.anio}</td>
+                                    <td data-titulo="Estado">{alumno.isActive ? 'ACTIVO' : 'INACTIVO'}</td>
                                     <td data-titulo="Opciones">
-                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                        <ButtonIconCustom variant='outline-primary' icon="bi bi-activity" tooltip="Cambiar Estado" onClick={() => { handleChangeStudent(alumno._id) }} />
                                         <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
                                             setupdateId(alumno._id)
                                             setupdateNombre(alumno.nameAlumno)
@@ -308,6 +331,31 @@ function CrudALumnos() {
                                             <ButtonIconCustom variant='outline-dark' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
                                         </Link>
                                     </td>
+
+                                    <Dropdown className={Styles['dropdown-custom']}>
+                                        <Dropdown.Toggle variant="dark" id="dropdown-basic" className={Styles['btt-custom']}>
+                                            Opciones
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className={Styles['menu-drop-custom']}>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">
+                                                <ButtonIconCustom variant='outline-primary' icon="bi bi-activity" tooltip="Cambiar Estado" onClick={() => { handleChangeStudent(alumno._id) }} />
+
+                                            </Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2"><ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                                setupdateId(alumno._id)
+                                                setupdateNombre(alumno.nameAlumno)
+                                                setupdateDni(alumno.dniAlumno)
+                                                setupdateApellido(alumno.lastnameAlumno)
+                                                setupdateAnio(alumno.anio)
+                                            }} /></Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
+                                                <ButtonIconCustom variant='outline-warning' icon="bi bi-journal-bookmark-fill" tooltip="Libreta Escolar" />
+                                            </Link></Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/cuotas/${alumno.idAnio._id}`}>
+                                                <ButtonIconCustom variant='outline-light' icon="bi bi-wallet" tooltip="Estado de Cuotas" />
+                                            </Link></Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </tr>
                             ))}
                         </tbody>
@@ -315,16 +363,16 @@ function CrudALumnos() {
                 </Row>
             </Container>
 
-            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal show={showChangeSatusModal} onHide={() => setChangeStatusModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="font-monospace">Confirmar eliminación</Modal.Title>
+                    <Modal.Title className="font-monospace">Confirmar el cambio de estado del alumno</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="font-monospace">
-                    ¿Estás seguro de que deseas eliminar este elemento?
+                    ¿Estás seguro de que deseas cambiar el estado del alumno de Activo a Inactivo?
                 </Modal.Body>
                 <Modal.Footer>
-                    <ButtonCustomRedGreen color="green" onClick={() => setShowDeleteModal(false)} nameBtt="Cancelar" />
-                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
+                    <ButtonCustomRedGreen color="green" onClick={() => setChangeStatusModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Cambiar" />
                 </Modal.Footer>
             </Modal>
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>

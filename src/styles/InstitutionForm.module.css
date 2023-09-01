@@ -10,7 +10,6 @@
     filter: opacity(0.8);
     z-index: -1;
   }
-  
   .form-container {
     max-width: 400px;
     margin: 0 auto;
@@ -19,27 +18,22 @@
     background-color:#f0ebd7;
     border-radius: 8px;
   }
-  
   h2 {
     text-align: center;
   }
-  
   form {
     display: flex;
     flex-direction: column;
   }
-  
   label {
     margin-bottom: 5px;
   }
-  
   input {
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
   button {
     padding: 10px;
     background-color:#00404f;
@@ -48,8 +42,6 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
   button:hover {
     background-color: #002027;
   }
-  

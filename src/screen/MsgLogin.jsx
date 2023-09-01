@@ -10,7 +10,6 @@ function MsgLogin() {
                 <h1 className="font-monospace text-center text-light">Datos de institución actualizados.</h1>
                 <h4 className="font-monospace text-center text-light">Debes volver a loguearte</h4>
                 <img src={svg} alt="screen volver a loguearse" />
-
                 <Link to={'/'}>
                     <ButtonCustom nameBtt="Loguin" />
                 </Link>

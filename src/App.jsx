@@ -27,10 +27,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<ScreenLogin changeJwt={changeJwt} />}
-          />
+          <Route path="/" element={<ScreenLogin changeJwt={changeJwt} />}/>
           <Route path="/auth/*" element={<AuthRouter jwt={jwt} destroyJwt={destroyJwt} />} />
           <Route path="/mensaje" element={<MsgLogin />} />
         </Routes>

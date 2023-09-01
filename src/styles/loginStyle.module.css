@@ -3,7 +3,6 @@
   height: 100vh;
   overflow: hidden;
 }
-
 .background-image {
   position: absolute;
   top: 0;
@@ -16,7 +15,6 @@
   filter: opacity(0.8);
   z-index: -1;
 }
-
 .login-content {
   position: absolute;
   top: 50%;
@@ -28,29 +26,24 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-
 .logo {
   width: 200px;
   height: 200px;
   margin: 0 auto 10px;
   display: block;
 }
-
 h2 {
   margin-bottom: 20px;
 }
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 label {
   text-align: left;
   width: 100%;
 }
-
 input {
   width: 100%;
   padding: 8px 12px;
@@ -58,18 +51,15 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 .remember-me {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-
 .remember-label {
   white-space: nowrap;
   margin-left: 5px;
 }
-
 button {
   padding: 10px 20px;
   background-color: #00404f;
@@ -78,7 +68,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .register-link {
   margin-top: 10px;
   color: #007bff;

@@ -7,9 +7,7 @@
     border-radius: 0 25px 25px 0;
     box-shadow: 8px 0 0 0 #2f3132;
     background-color: #4b1010;
-    /* background: linear-gradient(344deg, #000000 0%, #00404f 50%) !important; */
     box-shadow: 4px 6px 14px #00000036;
-
 }
 .sidebar-conteiner:hover {
     width: 16em;
@@ -22,7 +20,6 @@
     height: 80%;
     width: 60%;
 }
-
 .links-custom{
     height: 6em;
     width: 8em;
@@ -41,8 +38,6 @@
     transform: translateX(20px);
     box-shadow: inset 8px 3px 25px #65727c;
 }
-
-
 @media (max-width: 1300px){
     .sidebar-conteiner{
         width: 11em;
@@ -55,7 +50,6 @@
         width: 7em;
     }
 }
-
 @media (max-width: 1024px){
     .sidebar-conteiner{
         width: 10em;

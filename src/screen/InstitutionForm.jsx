@@ -15,8 +15,6 @@ const InstitutionForm = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const navigate = useNavigate() 
 
-
-
   const updateInstitucion = async () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -36,7 +34,8 @@ const InstitutionForm = () => {
     };
 
     const response = await fetch(API_URI + "/instituto/update", requestOptions)
-    const result = await response.text();
+    if (!response.ok) throw new Error("N se pudo actualizar los datos de la Institucion")
+
     
     setShowSuccessModal(true);
     navigate('/mensaje')  
@@ -103,7 +102,6 @@ const InstitutionForm = () => {
               name="address"
               maxLength={50}
               value={UpdateDireccion}
-             
               onChange={(e) => {
                 const validInput = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); 
                 setUpdateDireccion(validInput);

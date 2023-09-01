@@ -11,14 +11,12 @@ function AuthRouter({ jwt = undefined, destroyJwt = () => undefined }) {
         <>
             <Routes>
                 {
-                    // si no inicia sesion muestro mensaje
                     !jwt
                         ? <Route path="/*" element={<h1>No inicio sesion aun, nos vemos en disney</h1>} />
-                        : jwt?.datosActualizados === false // si no actualizo los datos de institcion forzamos el ingreso a esa pantalla
+                        : jwt?.datosActualizados === false 
                         ? <Route path="/*" element={<InstitutionForm />} />
                         : (
                             <>
-                                {/* Ya tiene acceso a la aplicacion de manera libre */}
                                 <Route path="/" element={<PersonalScreen destroyJwt={destroyJwt} />} />
                                 <Route path="/alumnos" element={<AlumnosScreen destroyJwt={destroyJwt} />} />
                                 <Route path="/detalle-cursado/:id" element={<CursadoScreen destroyJwt={destroyJwt} />} />

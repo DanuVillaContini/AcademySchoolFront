@@ -1,6 +1,6 @@
 .custom-h1 {
     border: 1px solid #3c0000;
-    padding: 8px;
+    width: auto;
     align-items: center;
     background-color: #4b1010;
     color: white;
@@ -56,48 +56,71 @@
 .debeCuota .btt-cuota-slider:before {
     background: #eec372;
 }
-
-
 .custom-table {
     border: 1px solid #3c0000;
     border-radius: 0 0 10px 10px;
 }
-
 .custom-container-span {
     border: 1px solid #3c0000;
     padding: 8px;
     display: inline-flex;
     align-items: center;
     background-color: #4b2222;
-    ;
 }
-
 .custom-table thead {
     border: 2px solid #b5b5b5;
-
-
 }
-
 .custom-table tbody {
     border: 2px solid #b5b5b5;
-
 }
-
 .custom-table tbody tr {
     background-color: #45484a;
 }
-
 .custom-table tbody td {
     background-color: #f0ebd7;
+    margin: 0;
+    padding: 8px;
+    width: auto !important;
 }
-
-
 .custom-table thead tr {
     background-color: #45484a;
-    ;
 }
-
 .custom-table thead th {
     background-color: #666a6d;
     color: white;
+}
+@media (max-width: 52em) {
+    .custom-h1 {
+        background-color: transparent;
+        border:  transparent;
+    }
+    .fs-h2{
+        font-size: 1.2em;
+    }
+    .fs-h5{
+        font-size: 1em;
+    }
+    .custom-table {
+        width: 100%;
+        font-size: 1em;
+    }
+    .custom-table tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #a9a27c;
+        margin-top: 5px;
+    }
+    .custom-table td[data-titulo] {
+        display: flex;
+    }
+    .custom-table td[data-titulo]::before {
+        content: attr(data-titulo);
+        width: auto;
+        color: #3c0000;
+        font-weight: bold;
+        margin-right: 20px;
+    }
+    .custom-table thead {
+        display: none;
+    }
 }

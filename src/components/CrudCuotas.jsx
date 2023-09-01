@@ -16,7 +16,16 @@ function CrudCuotas() {
 
     const getCuotas = async () => {
         try {
-            const response = await fetch(API_URI + "/year/show/" + id);
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+
+            let requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/year/show/" + id, requestOptions);
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
             const filteredCuotas = Object.entries(result.cuotas).reduce(
@@ -31,8 +40,6 @@ function CrudCuotas() {
             if (Object.keys(filteredCuotas).length > 0) {
                 setAllCuotas(filteredCuotas);
                 setAlDiaCuota(result.alDia)
-            } else {
-            
             }
         } catch (error) {
             console.error(error);
@@ -41,20 +48,19 @@ function CrudCuotas() {
     };
     const updateEstadoCuota = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+
             let requestOptions = {
                 method: 'PUT',
+                headers: myHeaders,
                 redirect: 'follow'
             };
 
-            const response = await fetch(
-                API_URI +
-                "/year/update/" + id + "/" +
-                currentCuota,
-                requestOptions
+            const response = await fetch(API_URI + "/year/update/" + id + "/" + currentCuota, requestOptions
             );
-            const result = await response.text();
-            
-
+            if (!response.ok) throw new Error("no se pudo actualizar el estado de cuotas del alumno")
             getCuotas();
             setShowModal(false);
         } catch (error) {
@@ -74,16 +80,16 @@ function CrudCuotas() {
             <Container>
                 <Row className={`align-items-center flex-column ${styles['custom-h1']}`}>
                     <Col className="d-flex justify-content-center">
-                        <h2 className="font-monospace text-decoration-none">Detalle del estado cuotas:</h2>
+                        <h2 className={`font-monospace text-decoration-none ${styles['fs-h2']}`}>Detalle del estado cuotas:</h2>
                     </Col>
                 </Row>
                 <Row className={`align-items-center flex-column ${styles['custom-h5']}`}>
                     <Col className="d-flex justify-content-center m-1">
-                        <h5 className="font-monospace text-decoration-none d-flex align-items-center pt-2">Alumno {alDiaCuota ? "al dia" : "debe Cuota"}</h5>
+                        <h5 className={`font-monospace text-decoration-none d-flex align-items-center pt-2 ${styles['fs-h5']}`}>Alumno {alDiaCuota ? "al dia" : "debe Cuota"}</h5>
                         <div className="m-1 p-1">
                             {alDiaCuota ? (
                                 <label className={`${styles['custom-switch-cuota']} ${styles['alDia']}`}>
-                                    <input  type="checkbox" disabled />
+                                    <input type="checkbox" disabled />
                                     <span className={styles['btt-cuota-slider']}></span>
                                 </label>
                             ) : (
@@ -109,9 +115,9 @@ function CrudCuotas() {
                                 <tbody>
                                     {Object.entries(allCuotas).map(([cuotaNombre, estado]) => (
                                         <tr key={cuotaNombre}>
-                                            <td>{cuotaNombre}</td>
-                                            <td>{estado ? "Pagado" : "No pagado"}</td>
-                                            <td>
+                                            <td data-titulo="Cuota">{cuotaNombre}</td>
+                                            <td data-titulo="Estado">{estado ? "Pagado" : "No pagado"}</td>
+                                            <td data-titulo="Opciones">
                                                 <ButtonIconCustom
                                                     variant="outline-success"
                                                     icon="bi bi-pencil-square"
