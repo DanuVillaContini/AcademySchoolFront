@@ -16,7 +16,16 @@ function CrudCuotas() {
 
     const getCuotas = async () => {
         try {
-            const response = await fetch(API_URI + "/year/show/" + id);
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+
+            let requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/year/show/" + id, requestOptions);
             if (!response.ok) throw new Error("No se pudieron obtener las notas");
             const result = await response.json();
             const filteredCuotas = Object.entries(result.cuotas).reduce(
@@ -39,20 +48,19 @@ function CrudCuotas() {
     };
     const updateEstadoCuota = async () => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token);
+
             let requestOptions = {
                 method: 'PUT',
+                headers: myHeaders,
                 redirect: 'follow'
             };
 
-            const response = await fetch(
-                API_URI +
-                "/year/update/" + id + "/" +
-                currentCuota,
-                requestOptions
+            const response = await fetch(API_URI + "/year/update/" + id + "/" + currentCuota, requestOptions
             );
-            const result = await response.text();
-            
-
+            if (!response.ok) throw new Error("no se pudo actualizar el estado de cuotas del alumno")
             getCuotas();
             setShowModal(false);
         } catch (error) {
