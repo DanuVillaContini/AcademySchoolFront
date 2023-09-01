@@ -95,7 +95,6 @@ function CrudPersonal() {
             };
             const response = await fetch(API_URI + "/personal/delete/" + _id, requestOptions)
             if (!response.ok) throw new Error("no se pudo eliminar el personal")
-
             setDeleteId("");
             setShowSuccessModal(true);
             setShowDeleteModal(false);

@@ -7,7 +7,7 @@ import { API_URI } from '../common/constants';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 function CrudALumnos() {
     const [allAlumnos, setAllAlumnos] = useState([])
@@ -15,8 +15,9 @@ function CrudALumnos() {
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
     const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
+    // const [IsActive, SetIsActive] = useState("")
 
-    const [deleteId, setDeleteId] = useState("");
+    const [IdAlumno, setIdAlumno] = useState("");
 
     const [updateId, setupdateId] = useState("")
     const [updateNombre, setupdateNombre] = useState("")
@@ -25,7 +26,7 @@ function CrudALumnos() {
     const [updateAnio, setupdateAnio] = useState("")
 
     const [showCreateForm, setShowCreateForm] = useState(false)
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showChangeSatusModal, setChangeStatusModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(true);
 
@@ -71,21 +72,32 @@ function CrudALumnos() {
             alert("no se pudo crear el alumno")
         }
     }
-    const DeleteStudent = async (_id) => {
+    const ChangeStatusStudent = async (_id) => {
         try {
-            let requestOptions = {
-                method: 'DELETE',
-                redirect: 'follow'
-            };
-            const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
-            if (!response.ok) throw new Error("no se pudo eliminar el alumno")
-            setDeleteId("");
-            setShowDeleteModal(false);
-            await getAlumnos();
-        } catch {
-            alert("no se pudo crear el alumno")
-        }
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
+            let raw ="";
+
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            }
+            const response = await fetch(API_URI + "/alumno/update-status/" + _id, requestOptions);
+            if (!response.ok) throw new Error("no se pudo cambiar el estado del alumno")
+            if (response.status === 200){
+            setChangeStatusModal(false)
+            setShowSuccessModal(true)
+            await getAlumnos()
+        }else{
+            console.error("Error en la operación de ascenso:", result);
+        }
+    }
+        catch {
+            alert("no se pudo cambiar el estado del alumno")
+        }
     }
     const UpdateAlumnos = async () => {
         try {
@@ -104,7 +116,7 @@ function CrudALumnos() {
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/alumno/update/" + updateId, requestOptions);
-            if (!response.ok)throw new Error("no se pudo actualizar el alumno")           
+            if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
             setShowUpdateForm(false);
             getAlumnos()
@@ -118,12 +130,12 @@ function CrudALumnos() {
         await createAlumnos()
         setShowCreateForm(false)
     }
-    const handleDeleteStudent = async (_id) => {
-        setDeleteId(_id)
-        setShowDeleteModal(true)
+    const handleChangeStudent = async (_id) => {
+        setIdAlumno(_id)
+        setChangeStatusModal(true)
     }
     const handleConfirmDelete = async () => {
-        await DeleteStudent(deleteId);
+        await ChangeStatusStudent(IdAlumno);
     }
     const handleUpdateAlumnos = async (_id) => {
         await UpdateAlumnos(_id)
@@ -282,6 +294,7 @@ function CrudALumnos() {
                                 <th className="font-monospace">Apellido</th>
                                 <th className="font-monospace">N° DNI</th>
                                 <th className="font-monospace">Año actual</th>
+                                <th className="font-monospace">Estado actual</th>
                                 <th className="font-monospace">Opciones</th>
                             </tr>
                         </thead>
@@ -292,8 +305,9 @@ function CrudALumnos() {
                                     <td data-titulo="Apellido">{alumno.lastnameAlumno}</td>
                                     <td data-titulo="N° DNI">{alumno.dniAlumno}</td>
                                     <td data-titulo="Año">{alumno.anio}</td>
+                                    <td data-titulo="Estado">{alumno.isActive? 'ACTIVO':'INACTIVO'}</td>
                                     <td data-titulo="Opciones">
-                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleChangeStudent(alumno._id) }} />
                                         <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
                                             setupdateId(alumno._id)
                                             setupdateNombre(alumno.nameAlumno)
@@ -315,16 +329,16 @@ function CrudALumnos() {
                 </Row>
             </Container>
 
-            <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+            <Modal show={showChangeSatusModal} onHide={() => setChangeStatusModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="font-monospace">Confirmar eliminación</Modal.Title>
+                    <Modal.Title className="font-monospace">Confirmar el cambio de estado del alumno</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="font-monospace">
-                    ¿Estás seguro de que deseas eliminar este elemento?
+                    ¿Estás seguro de que deseas cambiar el estado del alumno de Activo a Inactivo?
                 </Modal.Body>
                 <Modal.Footer>
-                    <ButtonCustomRedGreen color="green" onClick={() => setShowDeleteModal(false)} nameBtt="Cancelar" />
-                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Eliminar" />
+                    <ButtonCustomRedGreen color="green" onClick={() => setChangeStatusModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen color="red" onClick={handleConfirmDelete} nameBtt="Cambiar" />
                 </Modal.Footer>
             </Modal>
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
