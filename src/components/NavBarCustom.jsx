@@ -6,7 +6,7 @@ import styles from "../styles/navbarStyle.module.css";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen";
 
 function NavBarCustom({ destroyJwt }) {
-    const [isAccordionOpen, setIsAccordionOpen] = useState(false); //para controlar que no se abra el acordeon al recargar la page
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false); 
     const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
     const navigate = useNavigate();
 

@@ -15,8 +15,6 @@ const InstitutionForm = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const navigate = useNavigate() 
 
-
-
   const updateInstitucion = async () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -104,7 +102,6 @@ const InstitutionForm = () => {
               name="address"
               maxLength={50}
               value={UpdateDireccion}
-             
               onChange={(e) => {
                 const validInput = e.target.value.replace(/[^A-Za-z0-9\sáéíóúÁÉÍÓÚñÑ]/g, ""); 
                 setUpdateDireccion(validInput);

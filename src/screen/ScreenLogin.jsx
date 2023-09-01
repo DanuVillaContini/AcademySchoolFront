@@ -11,7 +11,7 @@ import { Modal } from 'react-bootstrap';
 function ScreenLogin({ changeJwt }) {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Nuevo estado para mostrar la contraseña
+  const [showPassword, setShowPassword] = useState(false);
   const [showPasswordIncorrectModal, setShowPasswordIncorrectModal] = useState(false);
   const navigate = useNavigate();
 
@@ -38,7 +38,6 @@ function ScreenLogin({ changeJwt }) {
       const result = await response.json();
       if (response.status === 200) {
         const decodedToken = jwtDecode(result.access_token);
-        console.log(decodedToken)
         changeJwt(decodedToken);
         localStorage.setItem("token", JSON.stringify(decodedToken));
         localStorage.setItem("access_token", result.access_token);
@@ -74,8 +73,7 @@ function ScreenLogin({ changeJwt }) {
           />
           <label htmlFor="password">Contraseña</label>
           <input
-            type={showPassword ? "text" : "password"} // Cambia el tipo de input
-            id="password"
+            type={showPassword ? "text" : "password"} 
             name="password"
             maxLength={15}
             minLength={8}
@@ -87,7 +85,7 @@ function ScreenLogin({ changeJwt }) {
               type="checkbox"
               id="remember"
               name="remember"
-              onChange={() => setShowPassword(!showPassword)} // Cambia el estado de mostrar/ocultar la contraseña
+              onChange={() => setShowPassword(!showPassword)}
             />
             <label className={styles["remember-label"]} htmlFor="remember">
               Mostrar contraseña

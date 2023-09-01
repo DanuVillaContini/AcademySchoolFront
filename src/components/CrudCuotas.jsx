@@ -17,7 +17,7 @@ function CrudCuotas() {
     const getCuotas = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
 
             let requestOptions = {
@@ -40,7 +40,7 @@ function CrudCuotas() {
             if (Object.keys(filteredCuotas).length > 0) {
                 setAllCuotas(filteredCuotas);
                 setAlDiaCuota(result.alDia)
-            } 
+            }
         } catch (error) {
             console.error(error);
             alert(error.message);
@@ -49,7 +49,7 @@ function CrudCuotas() {
     const updateEstadoCuota = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
 
             let requestOptions = {
@@ -80,16 +80,16 @@ function CrudCuotas() {
             <Container>
                 <Row className={`align-items-center flex-column ${styles['custom-h1']}`}>
                     <Col className="d-flex justify-content-center">
-                        <h2 className="font-monospace text-decoration-none">Detalle del estado cuotas:</h2>
+                        <h2 className={`font-monospace text-decoration-none ${styles['fs-h2']}`}>Detalle del estado cuotas:</h2>
                     </Col>
                 </Row>
                 <Row className={`align-items-center flex-column ${styles['custom-h5']}`}>
                     <Col className="d-flex justify-content-center m-1">
-                        <h5 className="font-monospace text-decoration-none d-flex align-items-center pt-2">Alumno {alDiaCuota ? "al dia" : "debe Cuota"}</h5>
+                        <h5 className={`font-monospace text-decoration-none d-flex align-items-center pt-2 ${styles['fs-h5']}`}>Alumno {alDiaCuota ? "al dia" : "debe Cuota"}</h5>
                         <div className="m-1 p-1">
                             {alDiaCuota ? (
                                 <label className={`${styles['custom-switch-cuota']} ${styles['alDia']}`}>
-                                    <input  type="checkbox" disabled />
+                                    <input type="checkbox" disabled />
                                     <span className={styles['btt-cuota-slider']}></span>
                                 </label>
                             ) : (
@@ -115,9 +115,9 @@ function CrudCuotas() {
                                 <tbody>
                                     {Object.entries(allCuotas).map(([cuotaNombre, estado]) => (
                                         <tr key={cuotaNombre}>
-                                            <td>{cuotaNombre}</td>
-                                            <td>{estado ? "Pagado" : "No pagado"}</td>
-                                            <td>
+                                            <td data-titulo="Cuota">{cuotaNombre}</td>
+                                            <td data-titulo="Estado">{estado ? "Pagado" : "No pagado"}</td>
+                                            <td data-titulo="Opciones">
                                                 <ButtonIconCustom
                                                     variant="outline-success"
                                                     icon="bi bi-pencil-square"

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-
-
 
 function CrudPersonal() {
     const [allPersonal, setAllPersonal] = useState([])
@@ -25,15 +23,11 @@ function CrudPersonal() {
     const [password, setPassword] = useState("")
     const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
     const [newPassword, setNewPassword] = useState("");
-
     const [showpassword, setShowpassword] = useState(false);
-
     const switchshowpassword = () => {
         setShowpassword((prevShowPassword) => !prevShowPassword);
     };
 
-
-    //Modales
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -41,8 +35,6 @@ function CrudPersonal() {
     const [showModalAscender, setShowModalAscender] = useState(false)
     const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
-
-
 
     const getPersonal = async () => {
         try {
@@ -96,8 +88,6 @@ function CrudPersonal() {
         } catch {
             alert("no se pudo crear el personal")
         }
-
-
     }
     const deletePersonal = async (_id) => {
         try {
@@ -126,7 +116,7 @@ function CrudPersonal() {
             const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
             myHeaders.append("Content-Type", "application/json");
-            
+
             let raw = JSON.stringify({
                 nameUser: updateName,
                 lastnameUser: updateLastname,
@@ -218,8 +208,6 @@ function CrudPersonal() {
             alert("error al intentar cambiar la contraseña del personal");
         }
     }
-
-    //--- HANDLERS ---
     const handleSubmit = async () => {
         await createPersonal()
         setShowCreateForm(false);
@@ -246,10 +234,6 @@ function CrudPersonal() {
         setCurrentEmpleadoId(_id);
         setShowPasswordModal(true);
     };
-
-
-
-
     useEffect(() => {
         getPersonal()
     }, [])
@@ -258,7 +242,7 @@ function CrudPersonal() {
             <Container className="container-fluid">
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
-                    <Form className={`mb-1 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                    <Form className={`mb-1 ${Styles["personal__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="font-monospace" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
@@ -411,7 +395,6 @@ function CrudPersonal() {
                         </Form>
                     )
                 }
-
                 <Modal show={showModalAscender} onHide={() => {
                     setShowModalAscender(false);
                     setPassword("");
@@ -462,7 +445,7 @@ function CrudPersonal() {
                 </Modal>
                 <Row>
                     <Col className={`d-flex justify-content-center ${Styles['custom-container-Perso']}`}>
-                        <h2 className="font-monospace text-decoration-none">Personal Institucion</h2>
+                        <h2 className={`font-monospace text-decoration-none ${Styles['fs-h2']}`}>Personal Institucion</h2>
                     </Col>
                     <Table className={Styles["custom-table-Perso"]} striped bordered hover>
                         <thead >
@@ -507,9 +490,8 @@ function CrudPersonal() {
                                                             variant='outline-warning'
                                                             icon="bi bi-key"
                                                             tooltip="Cambiar Contraseña"
-                                                            onClick={() => handleOpenPasswordModal(empleado._id)} // Envolver en una función
+                                                            onClick={() => handleOpenPasswordModal(empleado._id)} 
                                                         />
-
                                                         <ButtonIconCustom
                                                             variant='outline-secondary'
                                                             icon="bi bi-person-dash"
@@ -519,7 +501,6 @@ function CrudPersonal() {
                                                                 setShowConfirmRevokeModal(true);
                                                             }}
                                                         />
-
                                                     </>
                                                 ) : (
                                                     <ButtonIconCustom variant='outline-warning' icon="bi bi-star-half" tooltip="Ascender" onClick={() => {
@@ -530,11 +511,66 @@ function CrudPersonal() {
                                             </>
                                         )}
                                     </td>
+                                    <Dropdown className={Styles['dropdown-custom']}>
+                                        <Dropdown.Toggle variant="dark" id="dropdown-basic" className={Styles['btt-custom']}>
+                                            Opciones
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className={Styles['menu-drop-custom']}>
+                                            {index === 0 ? (
+                                                <>
+                                                    <td className="font-monospace ">Operaciones no disponibles</td>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">
+                                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
+                                                            handleDeletePersonal(empleado._id)
+                                                        }} />
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2">
+                                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                                            setUpdateId(empleado._id)
+                                                            setUpdateDni(empleado.dniUser)
+                                                            setUpdateName(empleado.nameUser)
+                                                            setUpdateLastname(empleado.lastnameUser)
+                                                            setUpdateTelefono(empleado.telefono)
+                                                            setUpdateCorreo(empleado.correo)
+                                                        }} />
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3">
+                                                        {empleado.isAdmin ? (
+                                                            <>
+                                                                <ButtonIconCustom
+                                                                    variant='outline-warning'
+                                                                    icon="bi bi-key"
+                                                                    tooltip="Cambiar Contraseña"
+                                                                    onClick={() => handleOpenPasswordModal(empleado._id)}
+                                                                />
+                                                                <ButtonIconCustom
+                                                                    variant='outline-secondary'
+                                                                    icon="bi bi-person-dash"
+                                                                    tooltip="Revocar Rol de Admin"
+                                                                    onClick={() => {
+                                                                        setCurrentEmpleadoId(empleado._id);
+                                                                        setShowConfirmRevokeModal(true);
+                                                                    }}
+                                                                />
+                                                            </>
+                                                        ) : (
+                                                            <ButtonIconCustom variant='outline-warning' icon="bi bi-star-half" tooltip="Ascender" onClick={() => {
+                                                                setCurrentEmpleadoId(empleado._id)
+                                                                setShowModalAscender(true)
+                                                            }} />
+                                                        )}
+                                                    </Dropdown.Item>
+                                                </>
+                                            )}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
-
                 </Row>
             </Container>
 

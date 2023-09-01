@@ -2,9 +2,7 @@
     background-color: #3c0000;
     width: 100%;
     border-bottom-right-radius: 10px;
-
 }
-
 .custom-wrapper-navbar {
     padding: 1px !important;
     margin: 0 !important;
@@ -13,43 +11,33 @@
     background-color: none;
     border-bottom-right-radius: 10px;
 }
-
 .custom-navbar {
     width: 100%;
 }
-
 .custom-logo {
     transition: 400ms;
     height: 100%;
-
 }
-
 .custom-logo:hover {
     transform: translate(-0.10em, -0.10em);
     color: #173138;
     text-shadow: 15px -15px 30px #13282d,
         -15px 15px 30px #1b3a43;
 }
-
 .custom-accordion {
     width: 250px;
     background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
     justify-content: center;
     border-radius: 5px
 }
-
-
 .custom-accordion:hover> :not(.custom-nav-link:hover) {
     transition: 200ms;
     transform: scale(0.95, 0.95);
-
 }
-
 .custom-header-accordion :hover {
     background-color: transparent !important;
     color: white !important;
 }
-
 .custom-nav-link {
     background-color: transparent;
     border: none;
@@ -60,19 +48,15 @@
     cursor: pointer;
     border-radius: 4px;
 }
-
 .custom-nav-link:not(:active):hover,
 .custom-nav-link:focus {
     background: linear-gradient(400deg, #000000 0%, #45484a 50%) !important;
-
 }
-
 .custom-nav-link:focus,
 .custom-nav-link:active {
     background-color: #1A1F24;
     outline: none;
 }
-
 .custom-nav-link::before {
     content: "";
     position: absolute;
@@ -84,27 +68,22 @@
     border-radius: 5px;
     opacity: 0;
 }
-
 .custom-nav-link:focus::before,
 .custom-nav-link:active::before {
     opacity: 1;
 }
-
 @media (max-width: 390px) {
     .wrapper-navbar {
         height: 110px;
         margin: 2px;
     }
-
     .custom-logo {
         margin-top: 1px;
     }
-
     .custom-logo img {
         width: 75px;
         height: 65px
     }
-
     .custom-accordion {
         width: 180px;
     }

@@ -21,6 +21,3 @@ function ButtonIconCustom({ to, variant, icon, tooltip, onClick }) {
 
 export default ButtonIconCustom;
 
-
-// ------- Para colocarlos:-----
-// <ButtonIconCustom variant='outline-danger' icon=""  tooltip="" /> 
