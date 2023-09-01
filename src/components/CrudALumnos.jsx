@@ -15,7 +15,6 @@ function CrudALumnos() {
     const [ApellidoAlumno, setApellidoAlumno] = useState("")
     const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
-    // const [IsActive, SetIsActive] = useState("")
 
     const [IdAlumno, setIdAlumno] = useState("");
 
