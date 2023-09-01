@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Button } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
+import { Link } from "react-router-dom";
 
 
 
@@ -151,8 +152,6 @@ function CrudPersonal() {
                 setShowSuccessModal(true);
                 setPassword("");
                 await getPersonal();
-            } else {
-                console.error("Error en la operación de ascenso:", result);
             }
         } catch {
             alert("no se pudo ascender el personal")
@@ -185,11 +184,11 @@ function CrudPersonal() {
             <Container className="container-fluid">
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
-                    <Form className={`mb-1 ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                    <Form className={`mb-1 ${Styles["personal__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="font-monospace" controlId="formBasicEmail">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
-                                placeholder="Ingrese una categorial"
+                                placeholder="Ingrese nombre del Personal"
                                 maxLength={25}
                                 value={namePersonal}
                                 onChange={(e) => {
@@ -438,28 +437,31 @@ function CrudPersonal() {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className={Styles['menu-drop-custom']}>
                                             <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">
-                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
+                                                    handleDeletePersonal(empleado._id)
+                                                }} />
                                             </Dropdown.Item>
                                             <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2">
-                                            <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                            setUpdateId(empleado._id)
-                                            setUpdateDni(empleado.dniUser)
-                                            setUpdateName(empleado.nameUser)
-                                            setUpdateLastname(empleado.lastnameUser)
-                                            setUpdateTelefono(empleado.telefono)
-                                            setUpdateCorreo(empleado.correo)
-                                        }} />
+                                                <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
+                                                    setUpdateId(empleado._id)
+                                                    setUpdateDni(empleado.dniUser)
+                                                    setUpdateName(empleado.nameUser)
+                                                    setUpdateLastname(empleado.lastnameUser)
+                                                    setUpdateTelefono(empleado.telefono)
+                                                    setUpdateCorreo(empleado.correo)
+                                                }} />
                                             </Dropdown.Item>
-                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/detalle-cursado/${alumno.libreta._id}`}>
-                                            <ButtonIconCustom
-                                            variant='outline-warning'
-                                            icon="bi bi-star-half"
-                                            tooltip="Ascender"
-                                            onClick={() => {
-                                                setCurrentEmpleadoId(empleado._id)
-                                                setShowModalAscender(true)
-                                            }} />
-                                            </Link></Dropdown.Item>
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3"><Link to={`/auth/detalle-cursado/${empleado.libreta._id}`}>
+                                                <ButtonIconCustom
+                                                    variant='outline-warning'
+                                                    icon="bi bi-star-half"
+                                                    tooltip="Ascender"
+                                                    onClick={() => {
+                                                        setCurrentEmpleadoId(empleado._id)
+                                                        setShowModalAscender(true)
+                                                    }} />
+                                            </Link>
+                                            </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </tr>

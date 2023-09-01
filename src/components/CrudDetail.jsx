@@ -10,8 +10,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 function CrudDetail() {
-
-
     const { id } = useParams();
 
     const [notas, setNotas] = useState([])
@@ -40,9 +38,7 @@ function CrudDetail() {
             );
             if (Object.keys(filteredNotas).length > 0) {
                 setNotas(filteredNotas);
-            } else {
-                
-            }
+            } 
         } catch (error) {
             console.error(error);
             alert(error.message);

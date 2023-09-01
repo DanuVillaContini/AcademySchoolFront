@@ -6,114 +6,79 @@
     color: white;
     border-radius: 10px 10px 0 0;
 }
-
 .custom-table-Perso {
     border: 1px solid #3c0000;
     border-radius: 0 0 10px 10px;
-    
 }
-
-.dropdown-custom {
-    display: none;
-}
-
 .custom-table-Perso thead {
     border: 2px solid #b5b5b5;
-
 }
-
 .custom-table-Perso tbody {
     border: 2px solid #b5b5b5;
-    
 }
-
 .custom-table-Perso tbody tr {
     background-color: #45484a;
     
 }
-
 .custom-table-Perso tbody td {
     background-color: #f0ebd7;
     margin: 0;
     padding: 8px;
     width: auto !important;
-    
 }
-
-
 .custom-table-Perso thead tr {
     background-color: #45484a;
 }
-
 .custom-table-Perso thead th {
     background-color: #45484a;
     color: white;
-    
 }
-
-.categories__create-form{
-    height: 0px;
-    overflow: hidden;
-    transition: all ease .3s;
+.dropdown-custom {
+    display: none;
 }
-
-
 @media (max-width: 52em) {
     .custom-container-Perso {
         background-color: transparent;
         border:  transparent;
     }
-
-    /* 52 X 16px = 832px*/
     .custom-table-Perso {
         width: 100%;
         font-size: .9em;
     }
-
     .custom-table-Perso tr {
         display: flex;
         flex-direction: column;
         border: 1px solid #a9a27c;
         margin-top: 5px;
     }
-
     .custom-table-Perso td[data-titulo] {
         display: flex;
     }
-
-    .custom-table-Alum td[data-titulo="Opciones"] {
+    .custom-table-Perso td[data-titulo="Opciones"] {
         display: none;
     }
-
     .custom-table-Perso td[data-titulo]::before {
         content: attr(data-titulo);
         width: auto;
         color: #3c0000;
         font-weight: bold;
         margin-right: 20px;
-
     }
-
     .custom-table-Perso thead {
         display: none;
     }
-
     .dropdown-custom {
         display: flex;
         justify-content: center;
         background-color: #f0ebd7 !important;
     }
-
     .menu-drop-custom {
         background: linear-gradient(344deg, #000000 0%, #45484a 50%) !important;
-
     }
-
     .menu-drop-custom> :not(.item-drop-custom:hover) {
         transition: 200ms;
         transform: scale(0.95, 0.95);
     }
-
     .item-drop-custom {
         background-color: transparent;
         border: none;
@@ -123,7 +88,6 @@
         cursor: pointer;
         border-radius: 4px;
     }
-
     .item-drop-custom:not(:active):hover,
     .item-drop-custom:focus {
         background: linear-gradient(400deg, #000000 0%, #45484a 50%) !important;
@@ -144,7 +108,6 @@
         border-radius: 5px;
         opacity: 0;
     }
-
     .btt-custom {
         width: auto;
         position: relative;
@@ -160,7 +123,6 @@
         font-size: 15px;
         font-weight: bold;
     }
-
     .btt-custom ::before {
         content: "";
         transform-origin: center;
@@ -171,26 +133,23 @@
         height: 40%;
         transition: 0.5s;
     }
-
     .btt-custom:hover::before,
     .btt-custom:hover::after {
         transform: scale(0)
     }
-
     .btt-custom:hover {
         box-shadow: inset 0px 0px 25px #5c94a5;
     }
-
     .btt-custom:active {
         box-shadow: none;
         transform: translate(3px, 3px);
     }
 }
-
-.categories__create-form {
+.personal__create-form{
     height: 0px;
     overflow: hidden;
     transition: all ease .3s;
 }
+
 
 

@@ -111,7 +111,7 @@ function CrudALumnos() {
         } catch {
             alert("no se pudo actualizar el alumno")
         }
-        ;
+        
     }
 
     const handleSubmit = async () => {
@@ -136,7 +136,7 @@ function CrudALumnos() {
             <Container>
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
-                    <Form className={` ${Styles["categories__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
+                    <Form className={` ${Styles["alumnos__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                             <Form.Control type="text"
@@ -314,7 +314,8 @@ function CrudALumnos() {
                                             Opciones
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className={Styles['menu-drop-custom']}>
-                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">                                        <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
+                                            <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-1">
+                                                <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => { handleDeleteStudent(alumno._id) }} />
                                             </Dropdown.Item>
                                             <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2"><ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
                                                 setupdateId(alumno._id)
