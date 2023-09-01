@@ -47,7 +47,7 @@ function CrudPersonal() {
     const getPersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token")
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
@@ -66,7 +66,7 @@ function CrudPersonal() {
     const createPersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token")
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let raw = JSON.stringify({
                 nameUser: namePersonal,
@@ -100,7 +100,7 @@ function CrudPersonal() {
     const deletePersonal = async (_id) => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token")
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'DELETE',
@@ -122,7 +122,7 @@ function CrudPersonal() {
     const updatePersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token")
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let raw = JSON.stringify({
                 nameUser: updateName,

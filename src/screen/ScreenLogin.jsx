@@ -35,15 +35,13 @@ function ScreenLogin({ changeJwt }) {
 
     try {
       const response = await fetch(API_URI + "/auth/login", requestOptions);
-      const result = await response.text();
-
+      const result = await response.json();
       if (response.status === 200) {
-        const decodedToken = jwtDecode(result);
-
+        const decodedToken = jwtDecode(result.access_token);
+        console.log(decodedToken)
         changeJwt(decodedToken);
         localStorage.setItem("token", JSON.stringify(decodedToken));
-        const {access_token} = JSON.parse(result)
-        localStorage.setItem("access_token", JSON.stringify(access_token));
+        localStorage.setItem("access_token", result.access_token);
         navigate('/auth');
       } else {
         setShowPasswordIncorrectModal(true);

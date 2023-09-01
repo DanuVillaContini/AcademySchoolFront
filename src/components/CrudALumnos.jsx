@@ -32,7 +32,7 @@ function CrudALumnos() {
     const getAlumnos = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token")
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
@@ -50,7 +50,9 @@ function CrudALumnos() {
     const createAlumnos = async () => {
         try {
             let myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token)
+
             let raw = JSON.stringify({
                 nameAlumno: NombreAlumno,
                 lastnameAlumno: ApellidoAlumno,
@@ -77,8 +79,12 @@ function CrudALumnos() {
     }
     const DeleteStudent = async (_id) => {
         try {
+            let myHeaders = new Headers();
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             let requestOptions = {
                 method: 'DELETE',
+                headers: myHeaders,
                 redirect: 'follow'
             };
             const response = await fetch(API_URI + "/alumno/delete/" + _id, requestOptions)
@@ -94,7 +100,8 @@ function CrudALumnos() {
     const UpdateAlumnos = async () => {
         try {
             let myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            myHeaders.append("Authorization", "Bearer " + access_token)
             let raw = JSON.stringify({
                 nameAlumno: updateNombre,
                 lastnameAlumno: updateApellido,
