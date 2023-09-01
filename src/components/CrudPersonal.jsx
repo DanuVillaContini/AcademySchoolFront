@@ -47,7 +47,7 @@ function CrudPersonal() {
     const getPersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'GET',
@@ -66,7 +66,7 @@ function CrudPersonal() {
     const createPersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let raw = JSON.stringify({
                 nameUser: namePersonal,
@@ -100,7 +100,7 @@ function CrudPersonal() {
     const deletePersonal = async (_id) => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let requestOptions = {
                 method: 'DELETE',
@@ -122,7 +122,7 @@ function CrudPersonal() {
     const updatePersonal = async () => {
         try {
             let myHeaders = new Headers();
-            const access_token = localStorage.getItem("access_token").replaceAll('"',"")
+            const access_token = localStorage.getItem("access_token").replaceAll('"', "")
             myHeaders.append("Authorization", "Bearer " + access_token);
             let raw = JSON.stringify({
                 nameUser: updateName,
@@ -198,7 +198,7 @@ function CrudPersonal() {
             myHeaders.append("Content-Type", "application/json");
 
             var raw = JSON.stringify({
-                nuevaPass: newPassword // Use the newPassword parameter
+                nuevaPass: newPassword
             });
 
             var requestOptions = {
@@ -577,12 +577,23 @@ function CrudPersonal() {
                     <Modal.Title className="font-monospace">Cambiar Contraseña</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <input
-                        type="password"
+                    <Form.Control
+                        type={showpassword ? 'text' : "password"}
                         placeholder="Nueva contraseña"
                         value={newPassword}
+                        maxLength={20}
+                        minLength={9}
                         onChange={(e) => setNewPassword(e.target.value)}
                     />
+                    <InputGroup.Text>
+                        <input
+                            type="checkbox"
+                            checked={showpassword}
+                            name="remember"
+                            onChange={switchshowpassword}
+                        />
+                        Mostrar
+                    </InputGroup.Text>
                 </Modal.Body>
                 <Modal.Footer>
                     <ButtonCustomRedGreen color="green" onClick={() => setShowPasswordModal(false)} nameBtt="Cancelar" />
