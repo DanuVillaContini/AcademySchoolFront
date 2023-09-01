@@ -24,6 +24,7 @@ function CrudPersonal() {
     const [updateDni, setUpdateDni] = useState("")
     const [password, setPassword] = useState("")
     const [currentEmpleadoId, setCurrentEmpleadoId] = useState("");
+    const [newPassword, setNewPassword] = useState("");
 
     const [showpassword, setShowpassword] = useState(false);
 
@@ -39,6 +40,8 @@ function CrudPersonal() {
     const [showUpdateForm, setShowUpdateForm] = useState(true);
     const [showModalAscender, setShowModalAscender] = useState(false)
     const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false);
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+
 
 
     const getPersonal = async () => {
@@ -186,7 +189,30 @@ function CrudPersonal() {
             setCurrentEmpleadoId(_id);
             setShowConfirmRevokeModal(true);
         } catch {
-            alert("no se pudo revocar rol del personal");
+            alert("error al intentar revocar rol del personal");
+        }
+    }
+    const changePass = async (newPassword) => {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                nuevaPass: newPassword // Use the newPassword parameter
+            });
+
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            const response = await fetch(API_URI + "/auth/change-password/" + currentEmpleadoId, requestOptions)
+            if (!response.ok) throw new Error("no se pudo cambiar la contraseña del personal");
+
+            await getPersonal();
+        } catch {
+            alert("error al intentar cambiar la contraseña del personal");
         }
     }
 
@@ -210,9 +236,15 @@ function CrudPersonal() {
     }
     const handleConfirmRevoke = async () => {
         await revokeRolAdmin(currentEmpleadoId);
-        setShowConfirmRevokeModal(false); // Close the confirmation modal
-        await getPersonal(); // Refresh the employee list
+        setShowConfirmRevokeModal(false);
+        await getPersonal();
     };
+    const handleOpenPasswordModal = (_id) => {
+        setCurrentEmpleadoId(_id);
+        setShowPasswordModal(true);
+    };
+
+
 
 
     useEffect(() => {
@@ -468,15 +500,20 @@ function CrudPersonal() {
                                                 }} />
                                                 {empleado.isAdmin ? (
                                                     <>
-                                                        <ButtonIconCustom variant='outline-warning' icon="bi bi-key" tooltip="Cambiar Contraseña" onClick={() => {
-                                                        }} />
+                                                        <ButtonIconCustom
+                                                            variant='outline-warning'
+                                                            icon="bi bi-key"
+                                                            tooltip="Cambiar Contraseña"
+                                                            onClick={() => handleOpenPasswordModal(empleado._id)} // Envolver en una función
+                                                        />
+
                                                         <ButtonIconCustom
                                                             variant='outline-secondary'
                                                             icon="bi bi-person-dash"
                                                             tooltip="Revocar Rol de Admin"
                                                             onClick={() => {
                                                                 setCurrentEmpleadoId(empleado._id);
-                                                                setShowConfirmRevokeModal(true); // Show the confirmation modal
+                                                                setShowConfirmRevokeModal(true);
                                                             }}
                                                         />
 
@@ -535,7 +572,31 @@ function CrudPersonal() {
                     <ButtonCustomRedGreen color="red" onClick={handleConfirmRevoke} nameBtt="Revocar" />
                 </Modal.Footer>
             </Modal>
+            <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title className="font-monospace">Cambiar Contraseña</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <input
+                        type="password"
+                        placeholder="Nueva contraseña"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <ButtonCustomRedGreen color="green" onClick={() => setShowPasswordModal(false)} nameBtt="Cancelar" />
+                    <ButtonCustomRedGreen
+                        color="red"
+                        onClick={() => {
+                            changePass(newPassword);
+                            setShowPasswordModal(false);
+                        }}
+                        nameBtt="Cambiar"
+                    />
 
+                </Modal.Footer>
+            </Modal>
 
 
         </>
