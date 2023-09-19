@@ -243,7 +243,7 @@ function CrudPersonal() {
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
                     <Form className={`mb-1 ${Styles["personal__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
-                        <Form.Group className="font-monospace" controlId="formBasicEmail">
+                        <Form.Group className="font-monospace" controlId="formBasicNameP">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese una categorial"
@@ -255,7 +255,7 @@ function CrudPersonal() {
                                 }}
                             />
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicEmail">
+                        <Form.Group className="font-monospace" controlId="formBasicLastNameP">
                             <Form.Label>Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese la descripcion"
@@ -267,7 +267,7 @@ function CrudPersonal() {
                                 }}
                             />
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicEmail">
+                        <Form.Group className="font-monospace" controlId="formBasicCellphoneP">
                             <Form.Label>Telefono</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese n° de Telefono"
@@ -280,7 +280,7 @@ function CrudPersonal() {
                                 }}
                             />
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicEmail">
+                        <Form.Group className="font-monospace" controlId="formBasicEmailP">
                             <Form.Label>Correo Electronico</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese correo electronico"
@@ -288,7 +288,7 @@ function CrudPersonal() {
                                 value={correoPersonal}
                                 onChange={(e) => setCorreoPersonal(e.target.value)} />
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicEmail">
+                        <Form.Group className="font-monospace" controlId="formBasicDniP">
                             <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese N° de Legajo"
@@ -308,7 +308,7 @@ function CrudPersonal() {
                 {
                     updateId.length > 0 && showUpdateForm && (
                         <Form className='mb-5'>
-                            <Form.Group className="font-monospace" controlId="formBasicEmail">
+                            <Form.Group className="font-monospace" controlId="formChangeNameP">
                                 <Form.Label>Nombre</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Ingrese una categorial"
@@ -321,7 +321,7 @@ function CrudPersonal() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="font-monospace" controlId="formBasicEmail">
+                            <Form.Group className="font-monospace" controlId="formChangeLastNameP">
                                 <Form.Label>Apellido</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Ingrese la descripcion"
@@ -334,7 +334,7 @@ function CrudPersonal() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="font-monospace" controlId="formBasicEmail">
+                            <Form.Group className="font-monospace" controlId="formChangeCellphoneP">
                                 <Form.Label>Telefono</Form.Label>
                                 <Form.Control type="tel"
                                     placeholder="Ingrese n° de Telefono"
@@ -348,7 +348,7 @@ function CrudPersonal() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="font-monospace " controlId="formBasicEmail">
+                            <Form.Group className="font-monospace " controlId="formChangeEmailP">
                                 <Form.Label>Correo Electronico</Form.Label>
                                 <Form.Control type="email"
                                     placeholder="Ingrese correo electronico"
@@ -357,7 +357,7 @@ function CrudPersonal() {
                                     value={updateCorreo}
                                     onChange={(e) => setUpdateCorreo(e.target.value)} />
                             </Form.Group>
-                            <Form.Group className="font-monospace" controlId="formBasicEmail">
+                            <Form.Group className="font-monospace" controlId="formChangeDniP">
                                 <Form.Label>N° DNI</Form.Label>
                                 <Form.Control type="email"
                                     placeholder="Ingrese correo electronico"
@@ -405,7 +405,7 @@ function CrudPersonal() {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Group className="font-monospace" controlId="formBasicEmail">
+                            <Form.Group className="font-monospace" controlId="formBasicPassword">
                                 <Form.Label className="font-monospace ">Constraseña</Form.Label>
                                 <Form.Control
                                     type={showpassword ? 'text' : "password"}

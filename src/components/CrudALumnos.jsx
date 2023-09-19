@@ -158,7 +158,7 @@ function CrudALumnos() {
                 <Row>
                     <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
                     <Form className={` ${Styles["alumnos__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicNameAlum">
                             <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Nombre"
@@ -170,7 +170,7 @@ function CrudALumnos() {
                                 maxLength={25}
                             />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicLasNameAlum">
                             <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Apellido"
@@ -182,7 +182,7 @@ function CrudALumnos() {
                                 maxLength={25}
                             />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicDniAlum">
                             <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
                             <Form.Control type="text"
                                 placeholder="N° DNI"
@@ -195,7 +195,7 @@ function CrudALumnos() {
                                 maxLength={8}
                                 minLength={7} />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicYearAlum">
                             <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
                             <Form.Control type="number"
                                 placeholder="Año"
@@ -214,7 +214,7 @@ function CrudALumnos() {
                 {
                     updateId.length > 0 && showUpdateForm && (
                         <Form>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Nombre"
@@ -227,7 +227,7 @@ function CrudALumnos() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeLastNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Apellido"
@@ -240,7 +240,7 @@ function CrudALumnos() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeDniAlum">
                                 <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="N° DNI"
@@ -255,7 +255,7 @@ function CrudALumnos() {
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeYearAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
                                 <Form.Control type="number"
                                     placeholder="Año"
