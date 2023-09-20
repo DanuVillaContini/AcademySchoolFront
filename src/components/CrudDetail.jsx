@@ -84,7 +84,6 @@ function CrudDetail() {
             setShowSuccessModal(true);
         } catch (error) {
             console.error(error);
-            alert("Error al actualizar la nota.");
         }
     }
     const handleUpdateNota = async () => {
