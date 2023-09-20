@@ -170,7 +170,7 @@ function CrudALumnos() {
                                 maxLength={25}
                             />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicLasNameAlum">
+                        <Form.Group className="mb-3">
                             <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Apellido"
