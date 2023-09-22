@@ -377,14 +377,7 @@ function CrudPersonal() {
                             </Form.Group>
                             <Row>
                                 <Col>
-                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
-                                        setUpdateId("")
-                                        setUpdateName("")
-                                        setUpdateLastname("")
-                                        setUpdateTelefono("")
-                                        setUpdateCorreo("")
-                                        setUpdateDni("")
-                                    }} />
+                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => setShowUpdateModal(false)} />
                                 </Col>
                                 <Col>
                                     <ButtonCustomRedGreen
