@@ -307,7 +307,7 @@ function CrudPersonal() {
                 </Row>
                 <Modal show={showUpdateModal} onHide={() => setShowUpdateModal(false)}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Actualizar Información</Modal.Title>
+                        <Modal.Title className="font-monospace ">Actualizar Información</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form className='mb-5'>
