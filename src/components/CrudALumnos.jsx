@@ -174,28 +174,10 @@ function CrudALumnos() {
         await ChangeStatusStudent(IdAlumno);
     }
     const handleUpdateAlumnos = async (_id) => {
-        const newErrores=[]
-        if(!updateNombre){
-            newErrores.updateNombre='El nombre es obligatorio'
-        }else if(updateNombre.length < 3){
-            newErrores.updateNombre="El nombre debe contener al menos 3 caracteres"
-
-        }
-        if(!updateApellido){
-            newErrores.updateApellido="El apellido es obligatorio"
-        }else if(updateApellido.length < 2){
-            newErrores.updateApellido="El apellido debe contener al menos 2 caracteres"
-        }
-        if(!updateDni){
-            newErrores.updateDni="El Dni es obligatorio"
-        }else if(updateDni.length<7){
-            newErrores.updateDni="El Dni debe contener al menos 7 caracteres"
-        }
-        setErrores(newErrores)
-
-        if(Object.keys(newErrores).length===0){
+        
+        
         await UpdateAlumnos(_id)
-    }}
+    }
     useEffect(() => {
         getAlumnos()
     }, [])
@@ -306,14 +288,8 @@ function CrudALumnos() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setupdateNombre(onlyLettersAndSpaces);
                                     }}
-                                    style={{
-                                        borderColor: Errores.updateNombre ? 'red' : ''
-                                      }}
-                                />   {
-                                    Errores.updateNombre &&(
-                                        <span className="Errores text-white">{Errores.updateNombre}</span>
-                                    )
-                                }
+                                    
+                                />   
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formChangeLastNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
@@ -326,14 +302,9 @@ function CrudALumnos() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setupdateApellido(onlyLettersAndSpaces);
                                     }}
-                                    style={{
-                                        borderColor: Errores.updateApellido ? 'red' : ''
-                                      }}
-                                />   {
-                                    Errores.updateApellido &&(
-                                        <span className="Errores text-white">{Errores.updateApellido}</span>
-                                    )
-                                }
+                                   
+                                />   
+                                    
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formChangeDniAlum">
                                 <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
@@ -348,15 +319,9 @@ function CrudALumnos() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setupdateDni(onlyNumbers);
                                     }}
-                                    style={{
-                                        borderColor: Errores.updateDni ? 'red' : ''
-                                      }}
+                                    
                                 /> 
-                                  {
-                                Errores.updateDni &&(
-                                    <span className="Errores text-white">{Errores.updateDni}</span>
-                                )
-                            }
+                                 
 
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formChangeYearAlum">
