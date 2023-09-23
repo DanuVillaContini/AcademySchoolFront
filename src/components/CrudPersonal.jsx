@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown} from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -31,7 +31,7 @@ function CrudPersonal() {
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(true);
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [showModalAscender, setShowModalAscender] = useState(false)
     const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -133,7 +133,7 @@ function CrudPersonal() {
             const response = await fetch(API_URI + "/personal/update/" + updateId, requestOptions);
             if (!response.ok) throw new Error("no se pudo actualizar el personal")
             setShowSuccessModal(true);
-            setShowUpdateForm(false);
+            setShowUpdateModal(false)
             await getPersonal()
         } catch {
             alert("no se pudo actualizar el personal")
@@ -305,8 +305,11 @@ function CrudPersonal() {
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !dniPersonal} />
                     </Form>
                 </Row>
-                {
-                    updateId.length > 0 && showUpdateForm && (
+                <Modal show={showUpdateModal} onHide={() => setShowUpdateModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title className="font-monospace ">Actualizar Información</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
                         <Form className='mb-5'>
                             <Form.Group className="font-monospace" controlId="formChangeNameP">
                                 <Form.Label>Nombre</Form.Label>
@@ -374,14 +377,7 @@ function CrudPersonal() {
                             </Form.Group>
                             <Row>
                                 <Col>
-                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
-                                        setUpdateId("")
-                                        setUpdateName("")
-                                        setUpdateLastname("")
-                                        setUpdateTelefono("")
-                                        setUpdateCorreo("")
-                                        setUpdateDni("")
-                                    }} />
+                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => setShowUpdateModal(false)} />
                                 </Col>
                                 <Col>
                                     <ButtonCustomRedGreen
@@ -393,8 +389,8 @@ function CrudPersonal() {
                                 </Col>
                             </Row>
                         </Form>
-                    )
-                }
+                    </Modal.Body>
+                </Modal>
                 <Modal show={showModalAscender} onHide={() => {
                     setShowModalAscender(false);
                     setPassword("");
@@ -476,21 +472,27 @@ function CrudPersonal() {
                                                 <ButtonIconCustom variant='outline-danger' icon="bi bi-trash3-fill" tooltip="Eliminar" onClick={() => {
                                                     handleDeletePersonal(empleado._id)
                                                 }} />
-                                                <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                                    setUpdateId(empleado._id)
-                                                    setUpdateDni(empleado.dniUser)
-                                                    setUpdateName(empleado.nameUser)
-                                                    setUpdateLastname(empleado.lastnameUser)
-                                                    setUpdateTelefono(empleado.telefono)
-                                                    setUpdateCorreo(empleado.correo)
-                                                }} />
+                                                <ButtonIconCustom
+                                                    variant='outline-success'
+                                                    icon="bi bi-pencil-square"
+                                                    tooltip="Actualizar"
+                                                    onClick={() => {
+                                                        setShowUpdateModal(true);
+                                                        setUpdateId(empleado._id)
+                                                        setUpdateDni(empleado.dniUser)
+                                                        setUpdateName(empleado.nameUser)
+                                                        setUpdateLastname(empleado.lastnameUser)
+                                                        setUpdateTelefono(empleado.telefono)
+                                                        setUpdateCorreo(empleado.correo)
+                                                    }}
+                                                />
                                                 {empleado.isAdmin ? (
                                                     <>
                                                         <ButtonIconCustom
                                                             variant='outline-warning'
                                                             icon="bi bi-key"
                                                             tooltip="Cambiar Contraseña"
-                                                            onClick={() => handleOpenPasswordModal(empleado._id)} 
+                                                            onClick={() => handleOpenPasswordModal(empleado._id)}
                                                         />
                                                         <ButtonIconCustom
                                                             variant='outline-secondary'
@@ -528,14 +530,20 @@ function CrudPersonal() {
                                                         }} />
                                                     </Dropdown.Item>
                                                     <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2">
-                                                        <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar" onClick={() => {
-                                                            setUpdateId(empleado._id)
-                                                            setUpdateDni(empleado.dniUser)
-                                                            setUpdateName(empleado.nameUser)
-                                                            setUpdateLastname(empleado.lastnameUser)
-                                                            setUpdateTelefono(empleado.telefono)
-                                                            setUpdateCorreo(empleado.correo)
-                                                        }} />
+                                                        <ButtonIconCustom
+                                                            variant='outline-success'
+                                                            icon="bi bi-pencil-square"
+                                                            tooltip="Actualizar"
+                                                            onClick={() => {
+                                                                setShowUpdateModal(true);
+                                                                setUpdateId(empleado._id)
+                                                                setUpdateDni(empleado.dniUser)
+                                                                setUpdateName(empleado.nameUser)
+                                                                setUpdateLastname(empleado.lastnameUser)
+                                                                setUpdateTelefono(empleado.telefono)
+                                                                setUpdateCorreo(empleado.correo)
+                                                            }}
+                                                        />
                                                     </Dropdown.Item>
                                                     <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-3">
                                                         {empleado.isAdmin ? (

@@ -27,7 +27,8 @@ function CrudALumnos() {
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showChangeSatusModal, setChangeStatusModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(true);
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
+
 
     const getAlumnos = async () => {
         try {
@@ -128,7 +129,7 @@ function CrudALumnos() {
             if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
-            setShowUpdateForm(false);
+            setShowUpdateModal(false)
             getAlumnos()
         } catch {
             alert("no se pudo actualizar el alumno")
@@ -211,9 +212,12 @@ function CrudALumnos() {
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
                     </Form>
                 </Row>
-                {
-                    updateId.length > 0 && showUpdateForm && (
-                        <Form>
+                <Modal show={showUpdateModal} onHide={() => setShowUpdateModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title className="font-monospace ">Actualizar Información</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form className='mb-5'>
                             <Form.Group className="mb-3" controlId="formChangeNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                                 <Form.Control type="text"
@@ -272,12 +276,7 @@ function CrudALumnos() {
                             </Form.Group>
                             <Row>
                                 <Col>
-                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
-                                        setupdateId("")
-                                        setupdateNombre("")
-                                        setupdateDni("")
-                                        setupdateAnio("")
-                                    }} />
+                                    <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => setShowUpdateModal(false)} />
                                 </Col>
                                 <Col>
                                     <ButtonCustomRedGreen
@@ -289,8 +288,8 @@ function CrudALumnos() {
                                 </Col>
                             </Row>
                         </Form>
-                    )
-                }
+                    </Modal.Body>
+                </Modal>
                 <Row>
                     <Col className={`d-flex justify-content-center ${Styles['custom-container-Alum']}`}>
                         <h2 className={`font-monospace text-decoration-none ${Styles['fs-h2']}`}>Detalle De Alumnos</h2>
@@ -317,6 +316,7 @@ function CrudALumnos() {
                                     <td data-titulo="Opciones">
                                         <ButtonIconCustom variant='outline-primary' icon="bi bi-activity" tooltip="Cambiar Estado" onClick={() => { handleChangeStudent(alumno._id) }} />
                                         <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                            setShowUpdateModal(true);
                                             setupdateId(alumno._id)
                                             setupdateNombre(alumno.nameAlumno)
                                             setupdateDni(alumno.dniAlumno)
@@ -341,6 +341,7 @@ function CrudALumnos() {
 
                                             </Dropdown.Item>
                                             <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2"><ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                                setShowUpdateModal(true);
                                                 setupdateId(alumno._id)
                                                 setupdateNombre(alumno.nameAlumno)
                                                 setupdateDni(alumno.dniAlumno)
