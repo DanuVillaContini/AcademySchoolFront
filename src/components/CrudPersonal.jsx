@@ -257,8 +257,34 @@ function CrudPersonal() {
         await deletePersonal(deleteId);
     }
     const handleUpdatePersonal = async (_id) => {
+        const newErrores={}
+
+        if(!updateName){
+            newErrores.updateName='El nombre es obligatorio'
+        }else if(updateName.length < 3){
+            newErrores.updateName="El nombre debe contener al menos 3 caracteres"
+        }
+        if(!updateLastname){
+            newErrores.updateLastname="El apellido es obligatorio"
+        }else if(updateLastname.length < 2){
+            newErrores.updateLastname="El apellido debe contener al menos 2 caracteres"
+        }
+        if(!updateTelefono){
+            newErrores.updateTelefono="El telefono es obligatorio"
+        }else if(updateTelefono.length<7){
+            newErrores.updateTelefono="El telefono debe contenr al menos 7 caracteres "
+        }
+        if(!updateCorreo){
+            newErrores.updateCorreo="El correo es un campo obligatorio"
+        }else if(!updateCorreo.includes("@")||!updateCorreo.includes(".com")){
+            newErrores.updateCorreo="El correo es incorrecto"
+        }if(!updateDni){
+            newErrores.updateDni="El Dni es obligatorio"
+        }
+        setErrores(newErrores)
+        if(Object.keys(newErrores).length===0){
         await updatePersonal(_id)
-    }
+    }}
     const handleUpdateAscenderPersonal = async () => {
         await ascenderPersonal(currentEmpleadoId)
     }
@@ -408,7 +434,15 @@ function CrudPersonal() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateName(onlyLettersAndSpaces);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateName ? 'red' : ''
+                                    }}
                                 />
+                                 {
+                                Errores.updateName && (
+                                    <span className="Errores">{Errores.updateName}</span>
+                                )
+                            }
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeLastNameP">
                                 <Form.Label>Apellido</Form.Label>
@@ -421,7 +455,15 @@ function CrudPersonal() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateLastname(onlyLettersAndSpaces);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateLastname ? 'red' : ''
+                                    }}
                                 />
+                                 {
+                                Errores.updateLastname && (
+                                    <span className="Errores">{Errores.updateLastname}</span>
+                                )
+                            }
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeCellphoneP">
                                 <Form.Label>Telefono</Form.Label>
@@ -435,7 +477,15 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateTelefono(onlyNumbers);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateTelefono ? 'red' : ''
+                                    }}
                                 />
+                                 {
+                                Errores.updateTelefono && (
+                                    <span className="Errores">{Errores.updateTelefono}</span>
+                                )
+                            }
                             </Form.Group>
                             <Form.Group className="font-monospace " controlId="formChangeEmailP">
                                 <Form.Label>Correo Electronico</Form.Label>
@@ -448,11 +498,16 @@ function CrudPersonal() {
                                     style={{
                                         borderColor: Errores.updateCorreo ? 'red' : ''
                                     }}
-                                />
+                              />
+                               {
+                                Errores.updateCorreo && (
+                                    <span className="Errores">{Errores.updateCorreo}</span>
+                                )
+                            }
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeDniP">
                                 <Form.Label>N° DNI</Form.Label>
-                                <Form.Control type="email"
+                                <Form.Control type="text"
                                     placeholder="Ingrese el N° de DNI"
                                     maxLength={8}
                                     minLength={7}
@@ -463,7 +518,15 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateDni(onlyNumbers);
                                     }}
-                                />
+                                    style={{
+                                        borderColor: Errores.updateDni ? 'red' : ''
+                                    }}
+                             />
+                              {
+                                Errores.updateDni && (
+                                    <span className="Errores">{Errores.updateDni}</span>
+                                )
+                            }
 
                             </Form.Group>
                             <Row>
