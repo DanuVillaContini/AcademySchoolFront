@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown, FormCheck, FormGroup } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -954,7 +954,7 @@ function CrudPersonal() {
           </Modal.Header>
           <Modal.Body>
             <FormGroup controlId="password">
-              <Form.Label>Nueva Contraseña</Form.Label> {/* nuevo */}
+              <Form.Label>Nueva Contraseña</Form.Label>
               <Form.Control
                 type={showpassword ? "text" : "password"}
                 placeholder="Nueva contraseña"
