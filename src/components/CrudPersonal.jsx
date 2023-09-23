@@ -438,7 +438,7 @@ function CrudPersonal() {
                                         borderColor: Errores.updateName ? 'red' : ''
                                     }}
                                 />
-                                 {
+                                {
                                 Errores.updateName && (
                                     <span className="Errores">{Errores.updateName}</span>
                                 )
@@ -459,7 +459,7 @@ function CrudPersonal() {
                                         borderColor: Errores.updateLastname ? 'red' : ''
                                     }}
                                 />
-                                 {
+                                {
                                 Errores.updateLastname && (
                                     <span className="Errores">{Errores.updateLastname}</span>
                                 )
@@ -481,7 +481,7 @@ function CrudPersonal() {
                                         borderColor: Errores.updateTelefono ? 'red' : ''
                                     }}
                                 />
-                                 {
+                                {
                                 Errores.updateTelefono && (
                                     <span className="Errores">{Errores.updateTelefono}</span>
                                 )
@@ -498,8 +498,8 @@ function CrudPersonal() {
                                     style={{
                                         borderColor: Errores.updateCorreo ? 'red' : ''
                                     }}
-                              />
-                               {
+                            />
+                            {
                                 Errores.updateCorreo && (
                                     <span className="Errores">{Errores.updateCorreo}</span>
                                 )
@@ -521,8 +521,8 @@ function CrudPersonal() {
                                     style={{
                                         borderColor: Errores.updateDni ? 'red' : ''
                                     }}
-                             />
-                              {
+                            />
+                            {
                                 Errores.updateDni && (
                                     <span className="Errores">{Errores.updateDni}</span>
                                 )
