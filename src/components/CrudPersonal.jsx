@@ -206,10 +206,14 @@ function CrudPersonal() {
             };
             const response = await fetch(API_URI + "/auth/change-password/" + currentEmpleadoId, requestOptions)
             if (!response.ok) throw new Error("no se pudo cambiar la contraseña del personal");
-
-            await getPersonal();
-        } catch (error) {
-            console.error(error);
+            if (response.status === 200) {
+                setShowModalAscender(false);
+                setShowSuccessModal(true);
+                setPassword("");
+                await getPersonal();
+            }
+        } catch {
+            alert("error al intentar cambiar la contraseña del personal");
         }
     }
     const handleSubmit = async () => {
