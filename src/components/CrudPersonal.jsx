@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown} from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
@@ -38,7 +38,7 @@ function CrudPersonal() {
     const [showPasswordModal, setShowPasswordModal] = useState(false)
 
     const [Errores, setErrores] = useState({});
-    
+
 
     const getPersonal = async () => {
         try {
@@ -54,8 +54,8 @@ function CrudPersonal() {
             if (response.status >= 400) return alert("No se pudieron obtener los empleados")
             const result = await response.json()
             setAllPersonal(result.data)
-        } catch {
-            alert("no se pudo obtene el personal")
+        } catch (error) {
+            console.error(error);
         }
 
     }
@@ -89,8 +89,8 @@ function CrudPersonal() {
             setShowSuccessModal(true);
             setShowCreateForm(false);
             getPersonal()
-        } catch {
-            
+        } catch (error) {
+            console.error(error);
         }
     }
     const deletePersonal = async (_id) => {
@@ -109,8 +109,8 @@ function CrudPersonal() {
             setShowSuccessModal(true);
             setShowDeleteModal(false);
             await getPersonal();
-        } catch {
-            alert("no se pudo eliminar el personal")
+        } catch (error) {
+            console.error(error);
         }
 
     }
@@ -139,8 +139,8 @@ function CrudPersonal() {
             setShowSuccessModal(true);
             setShowUpdateModal(false)
             await getPersonal()
-        } catch {
-            
+        } catch (error) {
+            console.error(error);
         }
     }
     const ascenderPersonal = async (_id) => {
@@ -164,8 +164,8 @@ function CrudPersonal() {
                 setPassword("");
                 await getPersonal();
             }
-        } catch {
-            alert("no se pudo ascender el personal")
+        } catch (error) {
+            console.error(error);
         }
     }
     const revokeRolAdmin = async (_id) => {
@@ -185,8 +185,8 @@ function CrudPersonal() {
             setShowConfirmRevokeModal(true)
             setCurrentEmpleadoId(_id);
             setShowConfirmRevokeModal(true);
-        } catch {
-            alert("error al intentar revocar rol del personal");
+        } catch (error) {
+            console.error(error);
         }
     }
     const changePass = async (newPassword) => {
@@ -208,44 +208,42 @@ function CrudPersonal() {
             if (!response.ok) throw new Error("no se pudo cambiar la contraseña del personal");
 
             await getPersonal();
-        } catch {
-            alert("error al intentar cambiar la contraseña del personal");
+        } catch (error) {
+            console.error(error);
         }
     }
     const handleSubmit = async () => {
+        const newErrores = {}
+        if (!namePersonal) {
+            newErrores.namePersonal = 'El nombre es obligatorio'
+        } else if (namePersonal.length < 3) {
+            newErrores.namePersonal = "El nombre debe contener al menos 3 caracteres"
 
-        const newErrores={}
+        }
+        if (!lastnamePersonal) {
+            newErrores.lastnamePersonal = "El apellido es obligatorio"
+        } else if (lastnamePersonal.length < 2) {
+            newErrores.lastnamePersonal = "El apellido debe contener al menos 2 caracteres"
+        }
+        if (!telefonoPersonal) {
+            newErrores.telefonoPersonal = "El telefono es obligatorio"
+        } else if (telefonoPersonal.length < 7) {
+            newErrores.telefonoPersonal = "El telefono debe contenr al menos 7 caracteres "
+        }
+        if (!correoPersonal) {
+            newErrores.correoPersonal = "El correo es un campo obligatorio"
+        } else if (!correoPersonal.includes("@") || !correoPersonal.includes(".com")) {
+            newErrores.correoPersonal = "El correo debe poseer formato similar a example@example.com"
+        } if (!dniPersonal) {
+            newErrores.dniPersonal = "El Dni es obligatorio"
+        }
+        setErrores(newErrores)
 
-            if(!namePersonal){
-                newErrores.namePersonal='El nombre es obligatorio'
-            }else if(namePersonal.length < 3){
-                newErrores.namePersonal="El nombre debe contener al menos 3 caracteres"
+        if (Object.keys(newErrores).length === 0) {
 
-            }
-            if(!lastnamePersonal){
-                newErrores.lastnamePersonal="El apellido es obligatorio"
-            }else if(lastnamePersonal.length < 2){
-                newErrores.lastnamePersonal="El apellido debe contener al menos 2 caracteres"
-            }
-            if(!telefonoPersonal){
-                newErrores.telefonoPersonal="El telefono es obligatorio"
-            }else if(telefonoPersonal.length<7){
-                newErrores.telefonoPersonal="El telefono debe contenr al menos 7 caracteres "
-            }
-            if(!correoPersonal){
-                newErrores.correoPersonal="El correo es un campo obligatorio"
-            }else if(!correoPersonal.includes("@")||!correoPersonal.includes(".com")){
-                newErrores.correoPersonal="El correo es incorrecto"
-            }if(!dniPersonal){
-                newErrores.dniPersonal="El Dni es obligatorio"
-            }
-            setErrores(newErrores)
-
-            if(Object.keys(newErrores).length===0){
-
-        await createPersonal()
-        setShowCreateForm(false);
-    }
+            await createPersonal()
+            setShowCreateForm(false);
+        }
     }
     const handleDeletePersonal = async (_id) => {
         setDeleteId(_id)
@@ -255,9 +253,7 @@ function CrudPersonal() {
         await deletePersonal(deleteId);
     }
     const handleUpdatePersonal = async (_id) => {
-               
         await updatePersonal(_id)
-               
     }
     const handleUpdateAscenderPersonal = async () => {
         await ascenderPersonal(currentEmpleadoId)
@@ -275,7 +271,7 @@ function CrudPersonal() {
         getPersonal()
     }, [])
 
-    const Clear=()=>{
+    const Clear = () => {
         setNamePersonal("")
         setLastnamePersonal("")
         setTelefonoPersonal("")
@@ -286,7 +282,7 @@ function CrudPersonal() {
         <>
             <Container className="container-fluid">
                 <Row>
-                    <ButtonCustom onClick={() =>{setShowCreateForm(prevState => !prevState); if(!showCreateForm){Clear();}}} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
+                    <ButtonCustom onClick={() => { setShowCreateForm(prevState => !prevState); if (!showCreateForm) { Clear(); } }} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
                     <Form className={`mb-1 ${Styles["personal__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
                         <Form.Group className={`font-monospace`} controlId="formBasicNameP">
                             <Form.Label>Nombre</Form.Label>
@@ -300,10 +296,10 @@ function CrudPersonal() {
                                 }}
                                 style={{
                                     borderColor: Errores.namePersonal ? 'red' : ''
-                                  }}
+                                }}
                             />
                             {
-                                Errores.namePersonal &&(
+                                Errores.namePersonal && (
                                     <span className="Errores text-white">{Errores.namePersonal}</span>
                                 )
                             }
@@ -320,10 +316,10 @@ function CrudPersonal() {
                                 }}
                                 style={{
                                     borderColor: Errores.lastnamePersonal ? 'red' : ''
-                                  }}
+                                }}
                             />
                             {
-                                Errores.lastnamePersonal &&(
+                                Errores.lastnamePersonal && (
                                     <span className="Errores text-white">{Errores.lastnamePersonal}</span>
                                 )
                             }
@@ -341,9 +337,9 @@ function CrudPersonal() {
                                 }}
                                 style={{
                                     borderColor: Errores.telefonoPersonal ? 'red' : ''
-                                  }}
+                                }}
                             />{
-                                Errores.telefonoPersonal &&(
+                                Errores.telefonoPersonal && (
                                     <span className="Errores text-white">{Errores.telefonoPersonal}</span>
                                 )
                             }
@@ -357,15 +353,15 @@ function CrudPersonal() {
                                 onChange={(e) => setCorreoPersonal(e.target.value)}
                                 style={{
                                     borderColor: Errores.correoPersonal ? 'red' : ''
-                                  }}
-                                />
-                                
-                                {
-                                    Errores.correoPersonal &&(
-                                        <span className="Errores text-white">{Errores.correoPersonal}</span>
-                                    )
-                                }
-                                
+                                }}
+                            />
+
+                            {
+                                Errores.correoPersonal && (
+                                    <span className="Errores text-white">{Errores.correoPersonal}</span>
+                                )
+                            }
+
                         </Form.Group>
                         <Form.Group className={`font-monospace `} controlId="formBasicDniP">
                             <Form.Label>N° DNI</Form.Label>
@@ -381,9 +377,9 @@ function CrudPersonal() {
                                 }}
                                 style={{
                                     borderColor: Errores.dniPersonal ? 'red' : ''
-                                  }}
+                                }}
                             />{
-                                Errores.dniPersonal &&(
+                                Errores.dniPersonal && (
                                     <span className="Errores text-white">{Errores.dniPersonal}</span>
                                 )
                             }
@@ -408,10 +404,7 @@ function CrudPersonal() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateName(onlyLettersAndSpaces);
                                     }}
-                                   
                                 />
-                                
-                            
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeLastNameP">
                                 <Form.Label>Apellido</Form.Label>
@@ -424,9 +417,7 @@ function CrudPersonal() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateLastname(onlyLettersAndSpaces);
                                     }}
-                                   
                                 />
-                                
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeCellphoneP">
                                 <Form.Label>Telefono</Form.Label>
@@ -440,9 +431,7 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateTelefono(onlyNumbers);
                                     }}
-                                    
                                 />
-                                 
                             </Form.Group>
                             <Form.Group className="font-monospace " controlId="formChangeEmailP">
                                 <Form.Label>Correo Electronico</Form.Label>
@@ -454,9 +443,8 @@ function CrudPersonal() {
                                     onChange={(e) => setUpdateCorreo(e.target.value)}
                                     style={{
                                         borderColor: Errores.updateCorreo ? 'red' : ''
-                                      }}
-                                     />
-                                   
+                                    }}
+                                />
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeDniP">
                                 <Form.Label>N° DNI</Form.Label>
@@ -471,9 +459,8 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateDni(onlyNumbers);
                                     }}
-                                   
                                 />
-                                
+
                             </Form.Group>
                             <Row>
                                 <Col>

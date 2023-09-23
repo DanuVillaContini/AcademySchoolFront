@@ -47,8 +47,8 @@ function CrudALumnos() {
             if (response.status >= 400) return alert("No se pudieron obtener los alumnos")
             const result = await response.json()
             setAllAlumnos(result.data)
-        } catch {
-            alert("no se pudo obtener el alumno")
+        } catch (error) {
+            console.error(error);
         }
     }
     const createAlumnos = async () => {
@@ -78,8 +78,8 @@ function CrudALumnos() {
             setShowSuccessModal(true)
             setShowCreateForm(false)
             getAlumnos()
-           
-        } catch{
+        }catch (error) {
+            console.error(error);
         }
     }
     const ChangeStatusStudent = async (_id) => {
@@ -104,9 +104,8 @@ function CrudALumnos() {
                 setShowSuccessModal(true)
                 await getAlumnos()
             }
-        }
-        catch {
-            alert("no se pudo cambiar el estado del alumno")
+        }catch (error) {
+            console.error(error);
         }
     }
     const UpdateAlumnos = async () => {
@@ -134,8 +133,8 @@ function CrudALumnos() {
             setShowSuccessModal(true);
             setShowUpdateModal(false)
             getAlumnos()
-        } catch {
-            alert("no se pudo actualizar el alumno")
+        } catch (error) {
+            console.error(error);
             setformError(true)
             setErrormessage2("No se pudo Actualizar el alumno. Por favor, verifica los datos y vuelve a intentarlo.")
         }
@@ -208,9 +207,9 @@ function CrudALumnos() {
                                 maxLength={25}
                                 style={{
                                     borderColor: Errores.NombreAlumno ? 'red' : ''
-                                  }}
+                                }}
                                 />
-                                  {
+                                {
                                 Errores.NombreAlumno &&(
                                     <span className="Errores text-white">{Errores.NombreAlumno}</span>
                                 )
@@ -230,7 +229,7 @@ function CrudALumnos() {
                                 maxLength={25}
                                 style={{
                                     borderColor: Errores.ApellidoAlumno ? 'red' : ''
-                                  }}
+                                }}
                                 />    {
                                     Errores.ApellidoAlumno &&(
                                         <span className="Errores text-white">{Errores.ApellidoAlumno}</span>
@@ -251,9 +250,9 @@ function CrudALumnos() {
                                 minLength={7} 
                                 style={{
                                     borderColor: Errores.DNIAlumno ? 'red' : ''
-                                  }}
+                                }}
                                 /> 
-                                  {
+                                {
                                 Errores.DNIAlumno &&(
                                     <span className="Errores text-white">{Errores.DNIAlumno}</span>
                                 )
@@ -306,9 +305,7 @@ function CrudALumnos() {
                                         const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setupdateApellido(onlyLettersAndSpaces);
                                     }}
-                                   
                                 />   
-                                    
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formChangeDniAlum">
                                 <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
@@ -325,8 +322,6 @@ function CrudALumnos() {
                                     }}
                                     
                                 /> 
-                                 
-
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formChangeYearAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>

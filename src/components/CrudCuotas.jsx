@@ -43,7 +43,6 @@ function CrudCuotas() {
             }
         } catch (error) {
             console.error(error);
-            alert(error.message);
         }
     };
     const updateEstadoCuota = async () => {
@@ -65,7 +64,6 @@ function CrudCuotas() {
             setShowModal(false);
         } catch (error) {
             console.error(error);
-            alert("Error al actualizar la nota.");
         }
     }
     const handleUpdateEstadoCuota = async () => {

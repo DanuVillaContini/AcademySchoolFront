@@ -50,7 +50,6 @@ function CrudDetail() {
             }
         } catch (error) {
             console.error(error);
-            alert(error.message);
         }
     };
     const updateNotas = async () => {
