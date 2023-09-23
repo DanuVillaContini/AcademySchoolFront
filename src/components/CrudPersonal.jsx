@@ -654,15 +654,12 @@ function CrudPersonal() {
                     minLength={9}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <InputGroup.Text>
-                    <input
-                      type="checkbox"
-                      checked={showpassword}
-                      name="remember"
-                      onChange={switchshowpassword}
-                    />
-                    Mostrar
-                  </InputGroup.Text>
+                  <FormCheck
+                    type="checkbox"
+                    label="Mostrar"
+                    checked={showpassword}
+                    onChange={switchshowpassword}
+                  />
                 </Form.Group>
               </Form>
             </Modal.Body>
@@ -957,7 +954,7 @@ function CrudPersonal() {
           </Modal.Header>
           <Modal.Body>
             <FormGroup controlId="password">
-              <Form.Label>Password</Form.Label> {/* nuevo */}
+              <Form.Label>Nueva Contraseña</Form.Label> {/* nuevo */}
               <Form.Control
                 type={showpassword ? "text" : "password"}
                 placeholder="Nueva contraseña"
