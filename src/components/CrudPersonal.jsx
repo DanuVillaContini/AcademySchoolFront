@@ -306,8 +306,6 @@ function CrudPersonal() {
         setTelefonoPersonal("")
         setCorreoPersonal("")
         setDniPersonal("")
-
-        setErrores({})
     }
     return (
       <>
@@ -318,6 +316,7 @@ function CrudPersonal() {
                 setShowCreateForm((prevState) => !prevState);
                 if (!showCreateForm) {
                   Clear();
+                  setErrores({})
                 }
               }}
               nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"}
@@ -604,7 +603,9 @@ function CrudPersonal() {
                     <ButtonCustomRedGreen
                       color="red"
                       nameBtt="Cancelar"
-                      onClick={() => setShowUpdateModal(false)}
+                      onClick={() =>{ 
+                        setErrores({})
+                        setShowUpdateModal(false)}}
                     />
                   </Col>
                   <Col>
