@@ -5,6 +5,7 @@ import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
+import { object } from "prop-types";
 
 function CrudPersonal() {
     const [allPersonal, setAllPersonal] = useState([])
@@ -33,8 +34,11 @@ function CrudPersonal() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showUpdateModal, setShowUpdateModal] = useState(false)
     const [showModalAscender, setShowModalAscender] = useState(false)
-    const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false);
-    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [showConfirmRevokeModal, setShowConfirmRevokeModal] = useState(false)
+    const [showPasswordModal, setShowPasswordModal] = useState(false)
+
+    const [Errores, setErrores] = useState({});
+    
 
     const getPersonal = async () => {
         try {
@@ -86,7 +90,7 @@ function CrudPersonal() {
             setShowCreateForm(false);
             getPersonal()
         } catch {
-            alert("no se pudo crear el personal")
+            
         }
     }
     const deletePersonal = async (_id) => {
@@ -136,7 +140,7 @@ function CrudPersonal() {
             setShowUpdateModal(false)
             await getPersonal()
         } catch {
-            alert("no se pudo actualizar el personal")
+            
         }
     }
     const ascenderPersonal = async (_id) => {
@@ -209,8 +213,39 @@ function CrudPersonal() {
         }
     }
     const handleSubmit = async () => {
+
+        const newErrores={}
+
+            if(!namePersonal){
+                newErrores.namePersonal='El nombre es obligatorio'
+            }else if(namePersonal.length < 3){
+                newErrores.namePersonal="El nombre debe contener al menos 3 caracteres"
+
+            }
+            if(!lastnamePersonal){
+                newErrores.lastnamePersonal="El apellido es obligatorio"
+            }else if(lastnamePersonal.length < 2){
+                newErrores.lastnamePersonal="El apellido debe contener al menos 2 caracteres"
+            }
+            if(!telefonoPersonal){
+                newErrores.telefonoPersonal="El telefono es obligatorio"
+            }else if(telefonoPersonal.length<7){
+                newErrores.telefonoPersonal="El telefono debe contenr al menos 7 caracteres "
+            }
+            if(!correoPersonal){
+                newErrores.correoPersonal="El correo es un campo obligatorio"
+            }else if(!correoPersonal.includes("@")||!correoPersonal.includes(".com")){
+                newErrores.correoPersonal="El correo es incorrecto"
+            }if(!dniPersonal){
+                newErrores.dniPersonal="El Dni es obligatorio"
+            }
+            setErrores(newErrores)
+
+            if(Object.keys(newErrores).length===0){
+
         await createPersonal()
         setShowCreateForm(false);
+    }
     }
     const handleDeletePersonal = async (_id) => {
         setDeleteId(_id)
@@ -220,7 +255,9 @@ function CrudPersonal() {
         await deletePersonal(deleteId);
     }
     const handleUpdatePersonal = async (_id) => {
+               
         await updatePersonal(_id)
+               
     }
     const handleUpdateAscenderPersonal = async () => {
         await ascenderPersonal(currentEmpleadoId)
@@ -237,37 +274,61 @@ function CrudPersonal() {
     useEffect(() => {
         getPersonal()
     }, [])
+
+    const Clear=()=>{
+        setNamePersonal("")
+        setLastnamePersonal("")
+        setTelefonoPersonal("")
+        setCorreoPersonal("")
+        setDniPersonal("")
+    }
     return (
         <>
             <Container className="container-fluid">
                 <Row>
-                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
+                    <ButtonCustom onClick={() =>{setShowCreateForm(prevState => !prevState); if(!showCreateForm){Clear();}}} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Personal"} />
                     <Form className={`mb-1 ${Styles["personal__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
-                        <Form.Group className="font-monospace" controlId="formBasicNameP">
+                        <Form.Group className={`font-monospace`} controlId="formBasicNameP">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese una categorial"
                                 maxLength={25}
                                 value={namePersonal}
                                 onChange={(e) => {
-                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                     setNamePersonal(onlyLettersAndSpaces);
                                 }}
+                                style={{
+                                    borderColor: Errores.namePersonal ? 'red' : ''
+                                  }}
                             />
+                            {
+                                Errores.namePersonal &&(
+                                    <span className="Errores text-white">{Errores.namePersonal}</span>
+                                )
+                            }
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicLastNameP">
+                        <Form.Group className={`font-monospace `} controlId="formBasicLastNameP">
                             <Form.Label>Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese la descripcion"
                                 maxLength={25}
                                 value={lastnamePersonal}
                                 onChange={(e) => {
-                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                     setLastnamePersonal(onlyLettersAndSpaces);
                                 }}
+                                style={{
+                                    borderColor: Errores.lastnamePersonal ? 'red' : ''
+                                  }}
                             />
+                            {
+                                Errores.lastnamePersonal &&(
+                                    <span className="Errores text-white">{Errores.lastnamePersonal}</span>
+                                )
+                            }
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicCellphoneP">
+                        <Form.Group className={`font-monospace`} controlId="formBasicCellphoneP">
                             <Form.Label>Telefono</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Ingrese n° de Telefono"
@@ -278,17 +339,35 @@ function CrudPersonal() {
                                     const onlyNumbers = input.replace(/[^0-9]/g, "");
                                     setTelefonoPersonal(onlyNumbers);
                                 }}
-                            />
+                                style={{
+                                    borderColor: Errores.telefonoPersonal ? 'red' : ''
+                                  }}
+                            />{
+                                Errores.telefonoPersonal &&(
+                                    <span className="Errores text-white">{Errores.telefonoPersonal}</span>
+                                )
+                            }
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicEmailP">
+                        <Form.Group className={`font-monospace`} controlId="formBasicEmailP">
                             <Form.Label>Correo Electronico</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese correo electronico"
                                 maxLength={60}
                                 value={correoPersonal}
-                                onChange={(e) => setCorreoPersonal(e.target.value)} />
+                                onChange={(e) => setCorreoPersonal(e.target.value)}
+                                style={{
+                                    borderColor: Errores.correoPersonal ? 'red' : ''
+                                  }}
+                                />
+                                
+                                {
+                                    Errores.correoPersonal &&(
+                                        <span className="Errores text-white">{Errores.correoPersonal}</span>
+                                    )
+                                }
+                                
                         </Form.Group>
-                        <Form.Group className="font-monospace" controlId="formBasicDniP">
+                        <Form.Group className={`font-monospace `} controlId="formBasicDniP">
                             <Form.Label>N° DNI</Form.Label>
                             <Form.Control type="email"
                                 placeholder="Ingrese N° de Legajo"
@@ -298,9 +377,16 @@ function CrudPersonal() {
                                 onChange={(e) => {
                                     const input = e.target.value
                                     const onlyNumbers = input.replace(/[^0-9]/g, "");
-                                    setDniPersonal(onlyNumbers);
+                                    setDniPersonal(onlyNumbers)
                                 }}
-                            />
+                                style={{
+                                    borderColor: Errores.dniPersonal ? 'red' : ''
+                                  }}
+                            />{
+                                Errores.dniPersonal &&(
+                                    <span className="Errores text-white">{Errores.dniPersonal}</span>
+                                )
+                            }
                         </Form.Group>
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Empleado" onClick={handleSubmit} disabled={!namePersonal || !lastnamePersonal || !telefonoPersonal || !correoPersonal || !dniPersonal} />
                     </Form>
@@ -319,10 +405,13 @@ function CrudPersonal() {
                                     required
                                     value={updateName}
                                     onChange={(e) => {
-                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateName(onlyLettersAndSpaces);
                                     }}
+                                   
                                 />
+                                
+                            
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeLastNameP">
                                 <Form.Label>Apellido</Form.Label>
@@ -332,10 +421,12 @@ function CrudPersonal() {
                                     required
                                     value={updateLastname}
                                     onChange={(e) => {
-                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setUpdateLastname(onlyLettersAndSpaces);
                                     }}
+                                   
                                 />
+                                
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeCellphoneP">
                                 <Form.Label>Telefono</Form.Label>
@@ -349,7 +440,9 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateTelefono(onlyNumbers);
                                     }}
+                                    
                                 />
+                                 
                             </Form.Group>
                             <Form.Group className="font-monospace " controlId="formChangeEmailP">
                                 <Form.Label>Correo Electronico</Form.Label>
@@ -358,12 +451,17 @@ function CrudPersonal() {
                                     maxLength={60}
                                     required
                                     value={updateCorreo}
-                                    onChange={(e) => setUpdateCorreo(e.target.value)} />
+                                    onChange={(e) => setUpdateCorreo(e.target.value)}
+                                    style={{
+                                        borderColor: Errores.updateCorreo ? 'red' : ''
+                                      }}
+                                     />
+                                   
                             </Form.Group>
                             <Form.Group className="font-monospace" controlId="formChangeDniP">
                                 <Form.Label>N° DNI</Form.Label>
                                 <Form.Control type="email"
-                                    placeholder="Ingrese correo electronico"
+                                    placeholder="Ingrese el N° de DNI"
                                     maxLength={8}
                                     minLength={7}
                                     required
@@ -373,7 +471,9 @@ function CrudPersonal() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setUpdateDni(onlyNumbers);
                                     }}
+                                   
                                 />
+                                
                             </Form.Group>
                             <Row>
                                 <Col>
