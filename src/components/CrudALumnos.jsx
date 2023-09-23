@@ -16,6 +16,7 @@ function CrudALumnos() {
     const [DNIAlumno, setDNIAlumno] = useState("")
     const [AnioAlumno, setAnioAlumno] = useState("")
 
+
     const [IdAlumno, setIdAlumno] = useState("");
 
     const [updateId, setupdateId] = useState("")
@@ -27,7 +28,10 @@ function CrudALumnos() {
     const [showCreateForm, setShowCreateForm] = useState(false)
     const [showChangeSatusModal, setChangeStatusModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [showUpdateForm, setShowUpdateForm] = useState(true);
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
+
+
+    const [Errores, setErrores] = useState({})
 
     const getAlumnos = async () => {
         try {
@@ -43,8 +47,8 @@ function CrudALumnos() {
             if (response.status >= 400) return alert("No se pudieron obtener los alumnos")
             const result = await response.json()
             setAllAlumnos(result.data)
-        } catch {
-            alert("no se pudo obtener el alumno")
+        } catch (error) {
+            console.error(error);
         }
     }
     const createAlumnos = async () => {
@@ -71,11 +75,11 @@ function CrudALumnos() {
             setApellidoAlumno("")
             setDNIAlumno("")
             setAnioAlumno("")
-            setShowSuccessModal(true);
+            setShowSuccessModal(true)
             setShowCreateForm(false)
             getAlumnos()
-        } catch {
-            alert("no se pudo crear el alumno")
+        } catch (error) {
+            console.error(error);
         }
     }
     const ChangeStatusStudent = async (_id) => {
@@ -100,9 +104,8 @@ function CrudALumnos() {
                 setShowSuccessModal(true)
                 await getAlumnos()
             }
-        }
-        catch {
-            alert("no se pudo cambiar el estado del alumno")
+        } catch (error) {
+            console.error(error);
         }
     }
     const UpdateAlumnos = async () => {
@@ -128,16 +131,41 @@ function CrudALumnos() {
             if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             if (!response.ok) throw new Error("no se pudo actualizar el alumno")
             setShowSuccessModal(true);
-            setShowUpdateForm(false);
+            setShowUpdateModal(false)
             getAlumnos()
-        } catch {
-            alert("no se pudo actualizar el alumno")
+        } catch (error) {
+            console.error(error);
+            setformError(true)
+            setErrormessage2("No se pudo Actualizar el alumno. Por favor, verifica los datos y vuelve a intentarlo.")
         }
     }
 
     const handleSubmit = async () => {
-        await createAlumnos()
-        setShowCreateForm(false)
+        const newErrores = []
+        if (!NombreAlumno) {
+            newErrores.NombreAlumno = 'El nombre es obligatorio'
+        } else if (NombreAlumno.length < 3) {
+            newErrores.NombreAlumno = "El nombre debe contener al menos 3 caracteres"
+
+        }
+        if (!ApellidoAlumno) {
+            newErrores.ApellidoAlumno = "El apellido es obligatorio"
+        } else if (ApellidoAlumno.length < 2) {
+            newErrores.ApellidoAlumno = "El apellido debe contener al menos 2 caracteres"
+        }
+        if (!DNIAlumno) {
+            newErrores.DNIAlumno = "El Dni es obligatorio"
+        } else if (DNIAlumno.length < 7) {
+            newErrores.DNIAlumno = "El dni debe contener al menos 7 caracteres"
+
+        }
+        setErrores(newErrores)
+
+        if (Object.keys(newErrores).length === 0) {
+
+            await createAlumnos()
+            setShowCreateForm(false)
+        }
     }
     const handleChangeStudent = async (_id) => {
         setIdAlumno(_id)
@@ -147,42 +175,89 @@ function CrudALumnos() {
         await ChangeStatusStudent(IdAlumno);
     }
     const handleUpdateAlumnos = async (_id) => {
-        await UpdateAlumnos(_id)
+        const newErrores = []
+        if (!updateNombre) {
+            newErrores.updateNombre = 'El nombre es obligatorio'
+        } else if (updateNombre.length < 3) {
+            newErrores.updateNombre = "El nombre debe contener al menos 3 caracteres"
+
+        }
+        if (!updateApellido) {
+            newErrores.updateApellido = "El apellido es obligatorio"
+        } else if (updateApellido.length < 2) {
+            newErrores.updateApellido = "El apellido debe contener al menos 2 caracteres"
+        }
+        if (!updateDni) {
+            newErrores.updateDni = "El Dni es obligatorio"
+        } else if (updateDni.length < 7) {
+            newErrores.updateDni = "El Dni debe contener al menos 7 caracteres"
+        }
+        setErrores(newErrores)
+        if (Object.keys(newErrores).length === 0) {
+            await UpdateAlumnos(_id)
+        }
     }
     useEffect(() => {
         getAlumnos()
     }, [])
+
+    const Clear = () => {
+        setNombreAlumno("")
+        setApellidoAlumno("")
+        setDNIAlumno("")
+        setAnioAlumno("")
+
+
+
+    }
     return (
         <>
             <Container>
                 <Row>
-                    <ButtonCustom onClick={() => setShowCreateForm(prevState => !prevState)} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
+                    <ButtonCustom onClick={() => { setShowCreateForm(prevState => !prevState); if (!showCreateForm) { Clear(); setErrores({}) } }} nameBtt={showCreateForm ? "Cancelar" : "Nuevo Estudiante"} />
                     <Form className={` ${Styles["alumnos__create-form"]}`} style={{ height: showCreateForm ? "auto" : undefined }}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicNameAlum" >
                             <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Nombre"
                                 value={NombreAlumno}
                                 onChange={(e) => {
-                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                     setNombreAlumno(onlyLettersAndSpaces);
                                 }}
                                 maxLength={25}
+                                style={{
+                                    borderColor: Errores.NombreAlumno ? 'red' : ''
+                                }}
                             />
+                            {
+                                Errores.NombreAlumno && (
+                                    <span className="Errores text-white">{Errores.NombreAlumno}</span>
+                                )
+                            }
+
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3 " controlId="formBasicLasNameAlum">
                             <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Apellido"
                                 value={ApellidoAlumno}
                                 onChange={(e) => {
-                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                    const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                     setApellidoAlumno(onlyLettersAndSpaces);
+
                                 }}
                                 maxLength={25}
-                            />
+                                style={{
+                                    borderColor: Errores.ApellidoAlumno ? 'red' : ''
+                                }}
+                            />    {
+                                Errores.ApellidoAlumno && (
+                                    <span className="Errores text-white">{Errores.ApellidoAlumno}</span>
+                                )
+                            }
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicDniAlum">
                             <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
                             <Form.Control type="text"
                                 placeholder="N° DNI"
@@ -193,9 +268,18 @@ function CrudALumnos() {
                                     setDNIAlumno(onlyNumbers);
                                 }}
                                 maxLength={8}
-                                minLength={7} />
+                                minLength={7}
+                                style={{
+                                    borderColor: Errores.DNIAlumno ? 'red' : ''
+                                }}
+                            />
+                            {
+                                Errores.DNIAlumno && (
+                                    <span className="Errores text-white">{Errores.DNIAlumno}</span>
+                                )
+                            }
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3" controlId="formBasicYearAlum">
                             <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
                             <Form.Control type="number"
                                 placeholder="Año"
@@ -211,10 +295,13 @@ function CrudALumnos() {
                         <ButtonCustomRedGreen color="green" nameBtt="Cargar Estudiante" onClick={handleSubmit} disabled={!NombreAlumno || !ApellidoAlumno || !DNIAlumno || !AnioAlumno} />
                     </Form>
                 </Row>
-                {
-                    updateId.length > 0 && showUpdateForm && (
-                        <Form>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Modal show={showUpdateModal} onHide={() => setShowUpdateModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title className="font-monospace ">Actualizar Información</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form className='mb-5'>
+                            <Form.Group className="mb-3" controlId="formChangeNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Nombre</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Nombre"
@@ -222,12 +309,20 @@ function CrudALumnos() {
                                     maxLength={25}
                                     value={updateNombre}
                                     onChange={(e) => {
-                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setupdateNombre(onlyLettersAndSpaces);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateNombre ? 'red' : ''
+                                    }}
                                 />
+                                {
+                                    Errores.updateNombre && (
+                                        <span className="Errores">{Errores.updateNombre}</span>
+                                    )
+                                }
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeLastNameAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Apellido</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="Apellido"
@@ -235,12 +330,20 @@ function CrudALumnos() {
                                     maxLength={25}
                                     value={updateApellido}
                                     onChange={(e) => {
-                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-z\s]/g, "");
+                                        const onlyLettersAndSpaces = e.target.value.replace(/[^A-Za-zñÑ\s]/g, "");
                                         setupdateApellido(onlyLettersAndSpaces);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateApellido ? 'red' : ''
+                                    }}
                                 />
+                                {
+                                    Errores.updateApellido && (
+                                        <span className="Errores">{Errores.updateApellido}</span>
+                                    )
+                                }
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeDniAlum">
                                 <Form.Label className="font-monospace text-decoration-none">N° DNI</Form.Label>
                                 <Form.Control type="text"
                                     placeholder="N° DNI"
@@ -253,9 +356,17 @@ function CrudALumnos() {
                                         const onlyNumbers = input.replace(/[^0-9]/g, "");
                                         setupdateDni(onlyNumbers);
                                     }}
+                                    style={{
+                                        borderColor: Errores.updateDni ? 'red' : ''
+                                    }}
                                 />
+                                {
+                                    Errores.updateDni && (
+                                        <span className="Errores">{Errores.updateDni}</span>
+                                    )
+                                }
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formChangeYearAlum">
                                 <Form.Label className="font-monospace text-decoration-none">Año</Form.Label>
                                 <Form.Control type="number"
                                     placeholder="Año"
@@ -273,10 +384,8 @@ function CrudALumnos() {
                             <Row>
                                 <Col>
                                     <ButtonCustomRedGreen color="red" nameBtt="Cancelar" onClick={() => {
-                                        setupdateId("")
-                                        setupdateNombre("")
-                                        setupdateDni("")
-                                        setupdateAnio("")
+                                        setShowUpdateModal(false)
+                                        setErrores({})
                                     }} />
                                 </Col>
                                 <Col>
@@ -289,8 +398,8 @@ function CrudALumnos() {
                                 </Col>
                             </Row>
                         </Form>
-                    )
-                }
+                    </Modal.Body>
+                </Modal>
                 <Row>
                     <Col className={`d-flex justify-content-center ${Styles['custom-container-Alum']}`}>
                         <h2 className={`font-monospace text-decoration-none ${Styles['fs-h2']}`}>Detalle De Alumnos</h2>
@@ -317,6 +426,7 @@ function CrudALumnos() {
                                     <td data-titulo="Opciones">
                                         <ButtonIconCustom variant='outline-primary' icon="bi bi-activity" tooltip="Cambiar Estado" onClick={() => { handleChangeStudent(alumno._id) }} />
                                         <ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                            setShowUpdateModal(true);
                                             setupdateId(alumno._id)
                                             setupdateNombre(alumno.nameAlumno)
                                             setupdateDni(alumno.dniAlumno)
@@ -341,6 +451,7 @@ function CrudALumnos() {
 
                                             </Dropdown.Item>
                                             <Dropdown.Item className={Styles['item-drop-custom']} href="#/action-2"><ButtonIconCustom variant='outline-success' icon="bi bi-pencil-square" tooltip="Actualizar Datos" onClick={() => {
+                                                setShowUpdateModal(true);
                                                 setupdateId(alumno._id)
                                                 setupdateNombre(alumno.nameAlumno)
                                                 setupdateDni(alumno.dniAlumno)

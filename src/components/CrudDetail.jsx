@@ -50,7 +50,6 @@ function CrudDetail() {
             }
         } catch (error) {
             console.error(error);
-            alert(error.message);
         }
     };
     const updateNotas = async () => {
@@ -84,7 +83,6 @@ function CrudDetail() {
             setShowSuccessModal(true);
         } catch (error) {
             console.error(error);
-            alert("Error al actualizar la nota.");
         }
     }
     const handleUpdateNota = async () => {
@@ -181,7 +179,7 @@ function CrudDetail() {
 
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="font-monospace ">Operación exitosa</Modal.Title>
+                    <Modal.Title className="font-monospace "> Falló la operación</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="font-monospace ">
                     {updateSuccess
