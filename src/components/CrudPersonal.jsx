@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Form, Modal, Row, Table, InputGroup, Dropdown, FormCheck, FormGroup } from "react-bootstrap";
+import { Col, Container, Form, Modal, Row, Table, Dropdown, FormCheck, FormGroup } from "react-bootstrap";
 import Styles from '../styles/StylesPersonal.module.css'
 import ButtonIconCustom from "./ButtonIconCustom";
 import ButtonCustom from "./ButtonCustom";
 import { API_URI } from "../common/constants";
 import ButtonCustomRedGreen from "./ButtonCustomRedGreen"
-import { object } from "prop-types";
 
 function CrudPersonal() {
     const [allPersonal, setAllPersonal] = useState([])
