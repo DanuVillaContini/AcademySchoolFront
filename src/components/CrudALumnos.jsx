@@ -204,6 +204,8 @@ function CrudALumnos() {
         setApellidoAlumno("")
         setDNIAlumno("")
         setAnioAlumno("")
+
+        setErrores({})
         
     }
     return (

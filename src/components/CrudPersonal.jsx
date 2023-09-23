@@ -306,6 +306,8 @@ function CrudPersonal() {
         setTelefonoPersonal("")
         setCorreoPersonal("")
         setDniPersonal("")
+
+        setErrores({})
     }
     return (
       <>
@@ -331,7 +333,7 @@ function CrudPersonal() {
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Ingrese una categorial"
+                  placeholder="Ingrese Nombre"
                   maxLength={25}
                   value={namePersonal}
                   onChange={(e) => {
@@ -358,7 +360,7 @@ function CrudPersonal() {
                 <Form.Label>Apellido</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Ingrese la descripcion"
+                  placeholder="Ingrese Apellido"
                   maxLength={25}
                   value={lastnamePersonal}
                   onChange={(e) => {
@@ -483,7 +485,7 @@ function CrudPersonal() {
                   <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Ingrese una categorial"
+                    placeholder="Ingrese Nombre"
                     maxLength={25}
                     required
                     value={updateName}
@@ -509,7 +511,7 @@ function CrudPersonal() {
                   <Form.Label>Apellido</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Ingrese la descripcion"
+                    placeholder="Ingrese  Apellido"
                     maxLength={25}
                     required
                     value={updateLastname}
