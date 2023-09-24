@@ -656,7 +656,7 @@ function CrudPersonal() {
                     minLength={9}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <FormCheck
+                  <FormCheck className={`${Styles["customLabel"]}`} 
                     type="checkbox"
                     label="Mostrar"
                     checked={showpassword}
@@ -966,12 +966,14 @@ function CrudPersonal() {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
             </FormGroup>
-            <FormCheck
-              type="checkbox"
-              label="Mostrar"
-              checked={showpassword}
-              onChange={switchshowpassword}
+            
+            <FormGroup>
+            <Form.Check className={`${Styles["customLabel"]}`} 
+            label=" Mostrar"
+            checked={showpassword}
+            onChange={switchshowpassword}
             />
+            </FormGroup>
           </Modal.Body>
           <Modal.Footer>
             <ButtonCustomRedGreen
