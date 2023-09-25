@@ -205,7 +205,7 @@ function CrudPersonal() {
             if (response.status === 200) {
                 setShowModalAscender(false);
                 setShowSuccessModal(true);
-                setPassword("");
+                setNewPassword('');
                 await getPersonal();
             }
         } catch {
