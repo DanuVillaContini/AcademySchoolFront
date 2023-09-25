@@ -154,5 +154,11 @@
     transition: all ease .3s;
 }
 
+.error-input {
+    border-color: red !important;
+  }
 
-
+.customLabel{
+    width: 0%;
+    
+}
